@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/model/attendance/data_model_for_attendance.dart';
 import 'package:school_360_app/model/attendance/data_model_for_log_in_log_out_timings.dart';
@@ -11,6 +12,7 @@ import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:school_360_app/view/school_hub/tabs/attendance/AttendanceReport_Table.dart';
 import 'package:school_360_app/view/school_hub/tabs/attendance/FM_Table.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AttendanceProvider extends ChangeNotifier {
   AttendanceProvider();
@@ -153,7 +155,7 @@ class AttendanceProvider extends ChangeNotifier {
     await callApiForYearDropdownList(context);
     await callApiForCourseDropdownList(context);
     showLoading = false;
-    showAlertBox=false;
+    showAlertBox = false;
   }
 
   void ExtractCourseFromCourseDropDownApi() {
@@ -354,6 +356,8 @@ class AttendanceProvider extends ChangeNotifier {
         var decodedData = jsonDecode(data);
         dataModelForAttendance = DataModelForAttendance.fromJson(decodedData);
         if (dataModelForAttendance.status == 'success') {
+          await getCalenderData();
+
           Navigator.of(context).pushNamed(AttendanceReportTable_Page.routeName);
         } else {
           showLoading = false;
@@ -385,5 +389,155 @@ class AttendanceProvider extends ChangeNotifier {
       _showAlertBox = true;
       return;
     }
+  }
+
+  List<Appointment> calenderDataList = [];
+
+  Future<void> getCalenderData() async {
+    int loopCount = dataModelForAttendance.data!.attendanceInfo!.length;
+    List<Appointment> calenderDataListTemp = [];
+    for (int i = 0; i < loopCount; i++) {
+      calenderDataListTemp.add(
+        Appointment(
+          startTime: DateTime(int.parse(selectedYear),
+              StringMonthToIntMonth(_selectedMonth), i + 1, 0, 0, 0),
+          endTime: DateTime(int.parse(selectedYear),
+              StringMonthToIntMonth(_selectedMonth), i + 1, 12, 0, 0),
+          subject: 'Attendance Report',
+          color:
+
+              // Colors.blue
+
+              dataModelForAttendance.data!.attendanceInfo![i].status
+                          .toString() ==
+                      'Present'
+                  ? Colors.blue
+                  : dataModelForAttendance.data!.attendanceInfo![i].status
+                              .toString() ==
+                          'Absent'
+                      ? Colors.red
+                      : dataModelForAttendance.data!.attendanceInfo![i].status
+                                  .toString() ==
+                              'Leave'
+                          ? Colors.green
+                          : Colors.transparent,
+        ),
+      );
+    }
+
+    calenderDataList = calenderDataListTemp;
+  }
+
+  Widget getCalender() {
+    return Container(
+      // height: 420,
+      child: Card(
+        elevation: 4,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              SfCalendar(
+                view: CalendarView.month,
+                // onTap: (x){
+                //   print(x.date?.day.toString());
+                // },
+                // initialDisplayDate: DateTime(2021, 12),
+                dataSource: CalenderDataSource(calenderDataList),
+                initialDisplayDate: DateTime(int.parse(selectedYear),
+                    StringMonthToIntMonth(_selectedMonth)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Present'),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Absent'),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Leave'),
+                    ],
+                  ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       height: 10,
+                  //       width: 10,
+                  //       decoration: BoxDecoration(
+                  //           color: Colors.green,
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(10))),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 5,
+                  //     ),
+                  //     Text('Working Days'),
+                  //   ],
+                  // )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CalenderDataSource extends CalendarDataSource {
+  CalenderDataSource(List<Appointment> source) {
+    appointments = source;
   }
 }

@@ -127,6 +127,7 @@ class _PaymentTabState extends State<PaymentTab> {
                                                   DropdownButtonHideUnderline(
                                                 child: DropdownButton(
                                                     isExpanded: true,
+                                                    elevation: 4,
                                                     value:
                                                         provider.selectedYear,
                                                     items: provider.years
@@ -191,6 +192,7 @@ class _PaymentTabState extends State<PaymentTab> {
                                                         DropdownButtonHideUnderline(
                                                       child: DropdownButton(
                                                           isExpanded: true,
+                                                          elevation: 4,
                                                           value: provider
                                                               .selectedMonth,
                                                           items: provider.months

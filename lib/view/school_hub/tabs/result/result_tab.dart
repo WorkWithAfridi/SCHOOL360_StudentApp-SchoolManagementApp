@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/result.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/widgets/animation/coverLottieAnimation.dart';
@@ -200,7 +201,7 @@ class _ResultTabState extends State<ResultTab> {
                 // height: MediaQuery.of(context).size.height * .4,
                 width: double.infinity,
                 alignment: Alignment.center,
-                // color: Colors.pink,
+                color: Colors.transparent,
                 child: Container(
                   alignment: Alignment.center,
                   child: Row(
@@ -211,11 +212,12 @@ class _ResultTabState extends State<ResultTab> {
                       // ),
                       Container(
                         width: MediaQuery.of(context).size.width*.6,
+                        // color: Colors.red,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
-                            isExpanded: false,
+                            isExpanded: true,
                             alignment: Alignment.center,
-                            elevation: 10,
+                            elevation: 4,
                             value: resultProvider.selectedYear,
                             items: resultProvider.years
                                 .map(buildYearMenuItem)

@@ -167,7 +167,7 @@ class _NotebookTabState extends State<NotebookTab> {
                             text: 'Valid Date ',
                             style: normalHighLightTextStyle),
                         TextSpan(
-                          text: 'to see ',
+                          text: 'to view ',
                           style: normalTextStyle,
                         ),
                         TextSpan(

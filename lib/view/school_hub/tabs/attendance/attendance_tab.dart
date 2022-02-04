@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/model/attendance/data_model_for_attendance.dart';
 import 'package:school_360_app/model/attendance/data_model_for_log_in_log_out_timings.dart';
 import 'package:school_360_app/model/dropdown_list/data_model_for_course_dropdown_list.dart';
@@ -46,8 +47,10 @@ class _AttendanceTabState extends State<AttendanceTab> {
     super.initState();
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    print('running build');
     return Consumer<AttendanceProvider>(
         builder: (context, attendance, childProperty) {
       return Stack(
@@ -155,6 +158,11 @@ class _AttendanceTabState extends State<AttendanceTab> {
           //     style: headerTextStyleBlack,
           //   ),
           // ),
+          isLoading
+              ? LinearProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                )
+              : Container(),
           Stepper(
             steps: [
               Step(
@@ -194,7 +202,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     // height: MediaQuery.of(context).size.height * .4,
                     width: MediaQuery.of(context).size.width * .8,
                     alignment: Alignment.center,
-                    // color: Colors.pink,
+                    color: Colors.transparent,
                     child: Column(
                       children: [
                         Container(
@@ -204,6 +212,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
+                              elevation: 4,
                               value: provider.selectedMonth,
                               items: provider.months
                                   .map(buildMonthMenuItem)
@@ -217,11 +226,13 @@ class _AttendanceTabState extends State<AttendanceTab> {
                         Container(
                           padding: const EdgeInsets.only(right: 15),
                           alignment: Alignment.centerRight,
-                          // color: Colors.red,
+                          color: Colors.transparent,
                           width: double.infinity,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
+                              elevation: 4,
+                              dropdownColor: backgroundColor,
                               value: provider.selectedYear,
                               items: provider.years
                                   .map(buildYearMenuItem)
@@ -239,6 +250,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
+                              elevation: 4,
                               value: provider.selectedCourse,
                               items: provider.courses
                                   .map(buildMonthMenuItem)
@@ -270,41 +282,37 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   ),
                 ),
                 content: Container(
-                  color:
-                      Theme.of(context).colorScheme.background.withOpacity(.3),
-                  child: Container(
-                    padding: const EdgeInsets.only(right: 25),
-                    // height: MediaQuery.of(context).size.height * .4,
-                    width: MediaQuery.of(context).size.width * .8,
-                    alignment: Alignment.center,
-                    // color: Colors.pink,
-                    child: RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Generating report for ',
-                            style: normalTextStyle,
-                          ),
-                          TextSpan(
-                              text: provider.selectedCourse,
-                              style: normalHighLightTextStyle),
-                          TextSpan(
-                            text: ' for ',
-                            style: normalTextStyle,
-                          ),
-                          TextSpan(
-                              text:
-                                  '${provider.selectedMonth}-${provider.selectedYear}.',
-                              style: normalHighLightTextStyle),
-                        ],
-                      ),
+                  padding: const EdgeInsets.only(right: 25),
+                  // height: MediaQuery.of(context).size.height * .4,
+                  width: MediaQuery.of(context).size.width * .8,
+                  alignment: Alignment.center,
+                  // color: Colors.pink,
+                  child: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Generating report for ',
+                          style: normalTextStyle,
+                        ),
+                        TextSpan(
+                            text: provider.selectedCourse,
+                            style: normalHighLightTextStyle),
+                        TextSpan(
+                          text: ' for ',
+                          style: normalTextStyle,
+                        ),
+                        TextSpan(
+                            text:
+                                '${provider.selectedMonth}-${provider.selectedYear}.',
+                            style: normalHighLightTextStyle),
+                      ],
                     ),
                   ),
                 ),
               ),
             ],
-            onStepContinue: () {
+            onStepContinue: () async {
               if (_currentStep == 0) {
                 if (provider.selectedMonth != "Select month" &&
                     provider.selectedYear != "Select year" &&
@@ -326,6 +334,11 @@ class _AttendanceTabState extends State<AttendanceTab> {
                 }
               }
               if (_currentStep == 1) {
+                setState(() {
+                  isLoading = true;
+                });
+                print(isLoading);
+                print('pressed continue;');
                 //Generate attendance report
                 if (provider.selectedCourse ==
                     "From Machine (Login & Logout)") {
@@ -340,7 +353,11 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     }
                   }
                   provider.callApiForFMData(context);
+                  setState(() {
+                    isLoading = false;
+                  });
                 } else {
+                  // await Future.delayed(Duration(seconds: 5));
                   int len =
                       provider.courseDropdownAPI.periodData!.length.toInt();
                   for (int i = 0; i < len; i++) {
@@ -352,6 +369,9 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     }
                   }
                   provider.callApiForAttendanceData(context);
+                  setState(() {
+                    isLoading = false;
+                  });
                 }
               }
             },

@@ -91,6 +91,10 @@ class _AttendanceReportTable_PageState
                     const SizedBox(
                       height: 10,
                     ),
+                    provider.getCalender(),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Card(
                       elevation: 4,
                       child: Container(
@@ -216,39 +220,50 @@ class _AttendanceReportTable_PageState
                                   horizontal: 10, vertical: 5),
                               color: Theme.of(context).colorScheme.primary,
                               width: double.infinity,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    child: Text(
-                                      'Date',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        textStyle: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'Status',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        textStyle: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              child: Container(
+                                width: 60,
+                                child: Text('Attendance Breakdown',
+                                    style: headerTextStyleWhite),
                               ),
                             ),
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(
+                            //       horizontal: 10, vertical: 5),
+                            //   color: Theme.of(context).colorScheme.primary,
+                            //   width: double.infinity,
+                            //   child: Row(
+                            //     children: [
+                            //       Container(
+                            //         width: 60,
+                            //         child: Text(
+                            //           'Date',
+                            //           style: GoogleFonts.getFont(
+                            //             'Ubuntu',
+                            //             textStyle: const TextStyle(
+                            //                 color: Colors.white,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontSize: 17),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       const SizedBox(
+                            //         width: 5,
+                            //       ),
+                            //       Expanded(
+                            //         child: Text(
+                            //           'Status',
+                            //           style: GoogleFonts.getFont(
+                            //             'Ubuntu',
+                            //             textStyle: const TextStyle(
+                            //                 color: Colors.white,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontSize: 17),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Column(
                               children: [
                                 ListView.builder(
@@ -380,7 +395,7 @@ class _AttendanceReportTable_PageState
                                 ),
                                 SizedBox(
                                   height: 5,
-                                )
+                                ),
                               ],
                             ),
                           ],
