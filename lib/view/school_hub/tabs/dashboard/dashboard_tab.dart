@@ -43,7 +43,7 @@ class _DashboardTabState extends State<DashboardTab> {
     normalHighLightTextStyle = appData.normalHighLightTextStyle;
 
     dashboardProvider = Provider.of<DashboardProvider>(context, listen: false);
-    dashboardProvider.pageNoForPayment=0;
+    dashboardProvider.pageNoForPayment = 0;
     await dashboardProvider.getPastPaymentList(context);
     await dashboardProvider.getNotice(context);
     await dashboardProvider.getDashboardAttendance(context);
@@ -198,123 +198,143 @@ class _DashboardTabState extends State<DashboardTab> {
                             Padding(
                               padding: const EdgeInsets.only(top: 7),
                               child: Card(
-                                elevation: 5,
-                                child: Consumer<DashboardProvider>(
-                                  builder: (context, provider, childProperty) {
-                                    return Container(
-                                      // padding: EdgeInsets.symmetric(horizontal: 15),
-                                      height:
-                                          MediaQuery.of(context).size.width * .54,
-                                      decoration: BoxDecoration(
-                                        // color: Theme.of(context).colorScheme.background,
-                                        color: Colors.white.withOpacity(.5),
-                                        border: Border.all(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                                .withOpacity(.5),
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(
-                                              height: 13,
-                                            ),
-                                            RichText(
-                                              textAlign: TextAlign.start,
-                                              text: TextSpan(
-                                                style: DefaultTextStyle.of(context)
-                                                    .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: 'Total Classes: ',
-                                                    style: normalTextStyle.copyWith(
-                                                      decoration:
-                                                          TextDecoration.underline,
-                                                    ),
+                                elevation: 6,
+                                child: Consumer<DashboardProvider>(builder:
+                                    (context, provider, childProperty) {
+                                  return Container(
+                                    // padding: EdgeInsets.symmetric(horizontal: 15),
+                                    height:
+                                        MediaQuery.of(context).size.width * .54,
+                                    decoration: BoxDecoration(
+                                      // color: Theme.of(context).colorScheme.background,
+                                      color: Colors.white.withOpacity(.5),
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                              .withOpacity(.5),
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 13,
+                                          ),
+                                          RichText(
+                                            textAlign: TextAlign.start,
+                                            text: TextSpan(
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: 'Total Classes: ',
+                                                  style:
+                                                      normalTextStyle.copyWith(
+                                                    decoration: TextDecoration
+                                                        .underline,
                                                   ),
-                                                  TextSpan(
-                                                      text: provider.dataModelForDashboardAttendance.data!.totalWorkingDays.toString(),
-                                                      style:
-                                                          normalHighLightTextStyle),
-                                                ],
-                                              ),
+                                                ),
+                                                TextSpan(
+                                                    text: provider
+                                                        .dataModelForDashboardAttendance
+                                                        .data!
+                                                        .totalWorkingDays
+                                                        .toString(),
+                                                    style:
+                                                        normalHighLightTextStyle),
+                                              ],
                                             ),
-                                            RichText(
-                                              textAlign: TextAlign.start,
-                                              text: TextSpan(
-                                                style: DefaultTextStyle.of(context)
-                                                    .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'Presents: ',
-                                                      style:
-                                                          normalTextStyle.copyWith(
-                                                        decoration: TextDecoration
-                                                            .underline,
-                                                      )),
-                                                  TextSpan(
-                                                      text: provider.dataModelForDashboardAttendance.data!.totalPresentDays.toString(),
-                                                      style:
-                                                          normalHighLightTextStyle),
-                                                ],
-                                              ),
+                                          ),
+                                          RichText(
+                                            textAlign: TextAlign.start,
+                                            text: TextSpan(
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'Presents: ',
+                                                    style: normalTextStyle
+                                                        .copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    )),
+                                                TextSpan(
+                                                    text: provider
+                                                        .dataModelForDashboardAttendance
+                                                        .data!
+                                                        .totalPresentDays
+                                                        .toString(),
+                                                    style:
+                                                        normalHighLightTextStyle),
+                                              ],
                                             ),
-                                            RichText(
-                                              textAlign: TextAlign.start,
-                                              text: TextSpan(
-                                                style: DefaultTextStyle.of(context)
-                                                    .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'Absents: ',
-                                                      style:
-                                                          normalTextStyle.copyWith(
-                                                        decoration: TextDecoration
-                                                            .underline,
-                                                      )),
-                                                  TextSpan(
-                                                      text: provider.dataModelForDashboardAttendance.data!.totalAbsentDays.toString(),
-                                                      style:
-                                                          normalHighLightTextStyle),
-                                                ],
-                                              ),
+                                          ),
+                                          RichText(
+                                            textAlign: TextAlign.start,
+                                            text: TextSpan(
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'Absents: ',
+                                                    style: normalTextStyle
+                                                        .copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    )),
+                                                TextSpan(
+                                                    text: provider
+                                                        .dataModelForDashboardAttendance
+                                                        .data!
+                                                        .totalAbsentDays
+                                                        .toString(),
+                                                    style:
+                                                        normalHighLightTextStyle),
+                                              ],
                                             ),
-                                            RichText(
-                                              textAlign: TextAlign.start,
-                                              text: TextSpan(
-                                                style: DefaultTextStyle.of(context)
-                                                    .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'On Leave: ',
-                                                      style:
-                                                          normalTextStyle.copyWith(
-                                                        decoration: TextDecoration
-                                                            .underline,
-                                                      )),
-                                                  TextSpan(
-                                                      text: provider.dataModelForDashboardAttendance.data!.totalLeaveDays.toString(),
-                                                      style:
-                                                          normalHighLightTextStyle),
-                                                ],
-                                              ),
+                                          ),
+                                          RichText(
+                                            textAlign: TextAlign.start,
+                                            text: TextSpan(
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'On Leave: ',
+                                                    style: normalTextStyle
+                                                        .copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    )),
+                                                TextSpan(
+                                                    text: provider
+                                                        .dataModelForDashboardAttendance
+                                                        .data!
+                                                        .totalLeaveDays
+                                                        .toString(),
+                                                    style:
+                                                        normalHighLightTextStyle),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  }
-                                ),
+                                    ),
+                                  );
+                                }),
                               ),
                             ),
                             Positioned.fill(
@@ -562,10 +582,14 @@ class _DashboardTabState extends State<DashboardTab> {
                   builder: (context, provider, childProperty) {
                 return provider.dataModelForPastPayment.data!.length == 0
                     ? Container(
-                  padding: EdgeInsets.only(top: 5),
+                        padding: EdgeInsets.only(top: 5),
                         width: MediaQuery.of(context).size.width,
                         alignment: Alignment.center,
-                        child: Text('No Payment Data Found!', style: normalTextStyle.copyWith(color: Colors.black87.withOpacity(.7)),),
+                        child: Text(
+                          'No Payment Data Found!',
+                          style: normalTextStyle.copyWith(
+                              color: Colors.black87.withOpacity(.7)),
+                        ),
                       )
                     : Column(
                         children: [
@@ -582,22 +606,16 @@ class _DashboardTabState extends State<DashboardTab> {
                                 padding: EdgeInsets.symmetric(horizontal: 15),
                                 child: GestureDetector(
                                   onTap: () {
-                                    InvoiceProvider
-                                    invoiceProvider = Provider
-                                        .of<InvoiceProvider>(
-                                        context,
-                                        listen: false);
-                                    invoiceProvider
-                                        .collection_id =
-                                        provider
-                                            .dataModelForPastPayment
-                                            .data![index]
-                                            .id
-                                            .toString();
+                                    InvoiceProvider invoiceProvider =
+                                        Provider.of<InvoiceProvider>(context,
+                                            listen: false);
+                                    invoiceProvider.collection_id = provider
+                                        .dataModelForPastPayment.data![index].id
+                                        .toString();
                                     invoiceProvider.getInvoice(context);
                                   },
                                   child: Card(
-                                    elevation: 5,
+                                    elevation: 6,
                                     child: ListTile(
                                       trailing: CircleAvatar(
                                         backgroundColor: Theme.of(context)
@@ -658,8 +676,7 @@ class _DashboardTabState extends State<DashboardTab> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 2),
                               decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
+                                  // color: Colors.
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8))),
                               child: Row(
@@ -690,7 +707,7 @@ class _DashboardTabState extends State<DashboardTab> {
                       );
               }),
               const SizedBox(
-                height: 20,
+                height: 10,
               )
             ],
           ),

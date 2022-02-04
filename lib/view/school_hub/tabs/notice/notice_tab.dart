@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/download_file.dart';
 import 'package:school_360_app/provider/appData.dart';
@@ -49,88 +50,88 @@ class _NoticeTabState extends State<NoticeTab> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
+        Container(
           height: double.infinity,
           width: double.infinity,
           child: GridPaper(
             color: Colors.black.withOpacity(0.08),
             divisions: 4,
             interval: 500,
-            subdivisions: 8,
+            subdivisions: 5,
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                // color: Colors.purple,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('📌 Notice Board',
-                        textAlign: TextAlign.left, style: headerTextStyleBlack),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          titleIsInEnglish = !titleIsInEnglish;
-                        });
-                      },
-                      child: Container(
-                        child:
-                            Text('ENG 🔄 BAN', style: normalHighLightTextStyle),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '*Tap and hold title to expand title.',
-                    style: normalHighLightTextStyle,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (maxLine == 1) {
-                        setState(() {
-                          maxLine = 3;
-                        });
-                      } else {
-                        setState(() {
-                          maxLine = 1;
-                        });
-                      }
-                    },
-                    child: maxLine == 3
-                        ? Row(
-                            children: [
-                              Text('Shrink', style: normalTextStyle),
-                              const Icon(
-                                Icons.expand_less,
-                                color: Colors.green,
-                              ),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Text('Expand', style: normalTextStyle),
-                              Icon(
-                                Icons.expand_more,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                            ],
-                          ),
-                  ),
-                ],
-              ),
+              // SizedBox(
+              //   width: MediaQuery.of(context).size.width,
+              //   // color: Colors.purple,
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.end,
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text('📌 Notice Board',
+              //           textAlign: TextAlign.left, style: headerTextStyleBlack),
+              //       GestureDetector(
+              //         onTap: () {
+              //           setState(() {
+              //             titleIsInEnglish = !titleIsInEnglish;
+              //           });
+              //         },
+              //         child: Container(
+              //           child:
+              //               Text('ENG 🔄 BAN', style: normalHighLightTextStyle),
+              //           alignment: Alignment.centerLeft,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       '*Tap and hold title to expand title.',
+              //       style: normalHighLightTextStyle,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         if (maxLine == 1) {
+              //           setState(() {
+              //             maxLine = 3;
+              //           });
+              //         } else {
+              //           setState(() {
+              //             maxLine = 1;
+              //           });
+              //         }
+              //       },
+              //       child: maxLine == 3
+              //           ? Row(
+              //               children: [
+              //                 Text('Shrink', style: normalTextStyle),
+              //                 const Icon(
+              //                   Icons.expand_less,
+              //                   color: Colors.green,
+              //                 ),
+              //               ],
+              //             )
+              //           : Row(
+              //               children: [
+              //                 Text('Expand', style: normalTextStyle),
+              //                 Icon(
+              //                   Icons.expand_more,
+              //                   color: Theme.of(context).colorScheme.secondary,
+              //                 ),
+              //               ],
+              //             ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 5,
               ),
@@ -139,44 +140,43 @@ class _NoticeTabState extends State<NoticeTab> {
                   height: double.infinity,
                   child: Column(
                     children: [
-                      Container(
-                        height: 40,
-                        // color: Theme.of(context).colorScheme.primary,
-                        color: Colors.black.withOpacity(.8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 30,
-                              child: Center(
-                                child: Text('#', style: headerTextStyleWhite),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Title',
-                                style: headerTextStyleWhite,
-                              ),
-                            ),
-                            Container(
-                              // width: 80,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.download,
-                                  color: Colors.white,
-                                  size: 17,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      // Container(
+                      //   height: 40,
+                      //   // color: Theme.of(context).colorScheme.primary,
+                      //   color: Colors.black.withOpacity(.8),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       SizedBox(
+                      //         width: 30,
+                      //         child: Center(
+                      //           child: Text('#', style: headerTextStyleWhite),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         child: Text(
+                      //           'Title',
+                      //           style: headerTextStyleWhite,
+                      //         ),
+                      //       ),
+                      //       Container(
+                      //         // width: 80,
+                      //         padding: const EdgeInsets.symmetric(horizontal: 10),
+                      //         child: const Center(
+                      //           child: Icon(
+                      //             Icons.download,
+                      //             color: Colors.white,
+                      //             size: 17,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
                       Consumer<NoticeProvider>(
                         builder: (context, notice, childProperty) {
                           return notice.showAlertBox
@@ -253,10 +253,10 @@ class _NoticeTabState extends State<NoticeTab> {
     );
   }
 
-  SizedBox bottomNavigationBar(BuildContext context) {
-    return SizedBox(
-      height: 30,
-      // color: Colors.pink,
+  Widget bottomNavigationBar(BuildContext context) {
+    return Container(
+      height: 35,
+      color: Theme.of(context).colorScheme.background,
       child: Consumer<NoticeProvider>(
         builder: (context, notice, childProperty) {
           return Row(
@@ -266,8 +266,8 @@ class _NoticeTabState extends State<NoticeTab> {
                 builder: (context, notice, child) {
                   return Flexible(
                     flex: 1,
-                    child: IconButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         if (!notice.showAlertBox) {
                           if (notice.pageNo > 0) {
                             notice.showLoading = true;
@@ -276,16 +276,19 @@ class _NoticeTabState extends State<NoticeTab> {
                           }
                         }
                       },
-                      icon: Icon(
-                        FontAwesomeIcons.chevronLeft,
-                        color: notice.showAlertBox
-                            ? Colors.grey
-                            : notice.pageNo == 0
-                                ? Colors.grey
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .onBackground,
-                        size: 17,
+                      child: Container(
+                        color: Colors.transparent,
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: Icon(
+                          FontAwesomeIcons.chevronLeft,
+                          color: notice.showAlertBox
+                              ? Colors.grey
+                              : notice.pageNo == 0
+                                  ? Colors.grey
+                                  : Theme.of(context).colorScheme.onBackground,
+                          size: 17,
+                        ),
                       ),
                     ),
                   );
@@ -306,20 +309,25 @@ class _NoticeTabState extends State<NoticeTab> {
               ),
               Flexible(
                 flex: 1,
-                child: IconButton(
-                  onPressed: () {
+                child: GestureDetector(
+                  onTap: () {
                     if (!notice.showAlertBox) {
                       notice.showLoading = true;
                       _notice.incrementPage();
                       _notice.getNotice(context);
                     }
                   },
-                  icon: Icon(
-                    FontAwesomeIcons.chevronRight,
-                    color: notice.showAlertBox
-                        ? Colors.grey
-                        : Theme.of(context).colorScheme.onBackground,
-                    size: 17,
+                  child: Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Icon(
+                      FontAwesomeIcons.chevronRight,
+                      color: notice.showAlertBox
+                          ? Colors.grey
+                          : Theme.of(context).colorScheme.onBackground,
+                      size: 17,
+                    ),
                   ),
                 ),
               ),
@@ -334,6 +342,7 @@ class _NoticeTabState extends State<NoticeTab> {
     return Consumer<NoticeProvider>(
       builder: (context, notice, childProperty) {
         return SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -342,7 +351,48 @@ class _NoticeTabState extends State<NoticeTab> {
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
+                  return GestureDetector(
+                    onTap: () {
+                      String url =
+                          "https://school360.app/${_qrCodeData.schoolId}/homes/download/notice~${notice.dataModelForNotice.data![index].url}";
+                      Download download = Download();
+                      download.downloadAndOpenFile(
+                          url,
+                          notice.dataModelForNotice.data![index].url
+                              .toString());
+                    },
+                    child: Card(
+                      elevation: 4,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Color(
+                                  (math.Random().nextDouble() * 0xFFFFFF)
+                                      .toInt())
+                              .withOpacity(1.0),
+                          child: Text(
+                            (index + 1).toString(),
+                            style: headerTextStyleWhite,
+                          ),
+                          radius: 23,
+                        ),
+                        title: Text(
+                          notice.dataModelForNotice.data![index].title
+                              .toString(),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: normalTextStyle,
+                        ),
+                        subtitle: Text(
+                          "Uploaded on: ${notice.dataModelForNotice.data![index].date.toString()}",
+                          style: normalTextStyle.copyWith(
+                            color: Colors.black.withOpacity(.4),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+
+                  Padding(
                     padding: const EdgeInsets.only(bottom: 5, top: 5),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,

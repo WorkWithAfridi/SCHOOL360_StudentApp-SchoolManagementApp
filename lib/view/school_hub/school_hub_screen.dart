@@ -3,6 +3,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/model/student_id_validator.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
@@ -11,6 +12,7 @@ import 'package:school_360_app/view/school_hub/payment_receipts.dart';
 import 'package:school_360_app/view/school_hub/tabs/attendance/attendance_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/dashboard/dashboard_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_tab.dart';
+import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
 import 'package:school_360_app/view/school_hub/tabs/notice/notice_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/result_tab.dart';
@@ -36,6 +38,7 @@ class _SchoolHubState extends State<SchoolHub> {
   late StudentIdValidator studentIdValidator;
   ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   bool isMenuOpen = false;
+  int pageNo = 0;
 
   void getData() {
     appData = Provider.of<AppData>(context, listen: false);
@@ -88,8 +91,8 @@ class _SchoolHubState extends State<SchoolHub> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 2,
+          backgroundColor: Colors.white,
+          elevation: 0,
           title: Text(
             'SCHOOL360',
             style: GoogleFonts.getFont(
@@ -103,256 +106,311 @@ class _SchoolHubState extends State<SchoolHub> {
           ),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: Container(
-                child: GridPaper(
-                  color: Colors.pink.withOpacity(0.08),
-                  divisions: 4,
-                  interval: 500,
-                  subdivisions: 8,
-                ),
-              ),
+      backgroundColor: Colors.white.withOpacity(.8),
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: GridPaper(
+              color: Colors.black.withOpacity(0.08),
+              divisions: 4,
+              interval: 500,
+              subdivisions: 8,
             ),
-            Container(
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              // color: Theme.of(context).colorScheme.secondary,
+              color: Colors.white70,
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 50,
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    width: MediaQuery.of(context).size.width * .45,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          padding: const EdgeInsets.all(3),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary,
-                            borderRadius: BorderRadius.circular(40),
+                    child: CircleAvatar(
+                      child: Text(
+                        qrCodeData.studentName.substring(0, 1),
+                        style: headerTextStyleWhite.copyWith(fontSize: 25),
+                      ),
+                      radius: MediaQuery.of(context).size.width * .1,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      qrCodeData.studentName,
+                      style: headerTextStyleBlack.copyWith(fontSize: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Divider(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(PaymentReceiptPage.routeName);
+                      toggleMenu();
+                    },
+                    child: Container(
+                      height: 45,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.receipt,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 27,
                           ),
-                          child: CircleAvatar(
-                            child: Text(qrCodeData.studentName.substring(0, 1)),
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
+                          const SizedBox(
+                            width: 5,
                           ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                            child: Text(
-                          qrCodeData.studentName,
-                          style: normalTextStyle.copyWith(
+                          Text(
+                            'Invoices',
+                            style: normalTextStyle.copyWith(
                               fontSize: 16,
-                              color: Theme.of(context).colorScheme.primary),
-                        ))
-                      ],
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: Container(
-                      // color: Colors.red,
-                      child: customBottomNavBarColumn(context),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          height: 45,
-                          child: Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.slidersH,
-                                color: Theme.of(context).colorScheme.primary,
-                                size: 30,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Settings',
-                                style: normalTextStyle.copyWith(
-                                    fontSize: 16,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              height: 45,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.slidersH,
                                     color:
-                                        Theme.of(context).colorScheme.primary),
-                              )
-                            ],
+                                        Theme.of(context).colorScheme.primary,
+                                    size: 25,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Settings',
+                                    style: normalTextStyle.copyWith(
+                                      fontSize: 16,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          InkWell(
+                            onTap: () {
+                              isMenuOpen = false;
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  Homepage.routeName, (route) => false);
+                            },
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              height: 45,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.signOutAlt,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    size: 25,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Sign Out',
+                                    style: normalTextStyle.copyWith(
+                                      fontSize: 16,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                      InkWell(
-                        onTap: () {
-                          isMenuOpen = false;
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, Homepage.routeName, (route) => false);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          height: 45,
-                          child: Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.signOutAlt,
-                                color: Theme.of(context).colorScheme.primary,
-                                size: 30,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Sign Out',
-                                style: normalTextStyle.copyWith(
-                                    fontSize: 16,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   )
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   DefaultTabController mainPage(BuildContext context) {
+    qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(0),
-          child: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            elevation: 2,
-            title: Text(
-              'SCHOOL360',
-              style: GoogleFonts.getFont(
-                'Ubuntu',
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 6,
+          title: Text(
+            pageNo == 0
+                ? '🎒 Home'
+                : pageNo == 1
+                    ? '📓 Notebook'
+                    : pageNo == 2
+                        ? '👋 Attendance'
+                        : pageNo == 3
+                            ? '🅰️ Result'
+                            : pageNo == 4
+                                ? '💳 Payment'
+                                : 'School 360',
+            style: headerTextStyleBlack,
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              debugCounterMenuButton++;
+              toggleMenu();
+            },
+            icon: Icon(
+              FontAwesomeIcons.bars,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NoticeScreen.routeName);
+              },
+              icon: Icon(
+                FontAwesomeIcons.bell,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            )
+          ],
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              Container(
-                height: 50,
-                color: Theme.of(context).colorScheme.primary,
-                alignment: Alignment.centerLeft,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: double.infinity,
-                      width: double.infinity,
-                      child: GridPaper(
-                        color: Colors.black.withOpacity(0.1),
-                        divisions: 10,
-                        interval: 800,
-                        subdivisions: 8,
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      debugCounterMenuButton++;
-                                      toggleMenu();
-                                    },
-                                    icon: Icon(
-                                      isMenuOpen
-                                          ? FontAwesomeIcons.chevronLeft
-                                          : FontAwesomeIcons.bars,
-                                      size: 20,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                  ),
-                                  Text('SCHOOL360',
-                                      style: headerTextStyleWhite),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (debugCounterMenuButton > 2 &&
-                                    debugCounterMenuHome > 3 &&
-                                    debugCounterHubAppbar > 6) {
-                                  appData.showAppData(context);
-                                } else {
-                                  if (debugCounterMenuButton > 2 &&
-                                      debugCounterMenuHome > 3) {
-                                    debugCounterHubAppbar++;
-                                  }
-                                }
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.only(right: 20.0),
-                                child: Icon(
-                                  FontAwesomeIcons.hatCowboy,
-                                  color: Colors.transparent,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   height: 50,
+              //   color: Theme.of(context).colorScheme.primary,
+              //   alignment: Alignment.centerLeft,
+              //   child: Stack(
+              //     children: [
+              //       SizedBox(
+              //         height: double.infinity,
+              //         width: double.infinity,
+              //         child: GridPaper(
+              //           color: Colors.black.withOpacity(0.1),
+              //           divisions: 10,
+              //           interval: 800,
+              //           subdivisions: 8,
+              //         ),
+              //       ),
+              //       Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               Padding(
+              //                 padding: const EdgeInsets.only(left: 0),
+              //                 child: Row(
+              //                   mainAxisAlignment: MainAxisAlignment.start,
+              //                   children: [
+              //                     IconButton(
+              //                       onPressed: () {
+              //                         debugCounterMenuButton++;
+              //                         toggleMenu();
+              //                       },
+              //                       icon: Icon(
+              //                         isMenuOpen
+              //                             ? FontAwesomeIcons.chevronLeft
+              //                             : FontAwesomeIcons.bars,
+              //                         size: 20,
+              //                         color: Theme.of(context)
+              //                             .colorScheme
+              //                             .background,
+              //                       ),
+              //                     ),
+              //                     Text('SCHOOL360',
+              //                         style: headerTextStyleWhite),
+              //                   ],
+              //                 ),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () {
+              //                   if (debugCounterMenuButton > 2 &&
+              //                       debugCounterMenuHome > 3 &&
+              //                       debugCounterHubAppbar > 6) {
+              //                     appData.showAppData(context);
+              //                   } else {
+              //                     if (debugCounterMenuButton > 2 &&
+              //                         debugCounterMenuHome > 3) {
+              //                       debugCounterHubAppbar++;
+              //                     }
+              //                   }
+              //                 },
+              //                 child: const Padding(
+              //                   padding: EdgeInsets.only(right: 20.0),
+              //                   child: Icon(
+              //                     FontAwesomeIcons.hatCowboy,
+              //                     color: Colors.transparent,
+              //                   ),
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Consumer<AppData>(builder: (context, provider, childProperty) {
                 return Expanded(
                   child: PageView(
                     scrollDirection: Axis.horizontal,
                     controller: provider.pageController,
                     onPageChanged: (index) {
+                      setState(() {
+                        pageNo = index;
+                      });
                       provider.selectedTab = index;
                     },
                     children: const [
                       DashboardTab(),
-                      NoticeTab(),
                       NotebookTab(),
                       AttendanceTab(),
                       ResultTab(),
@@ -361,14 +419,83 @@ class _SchoolHubState extends State<SchoolHub> {
                   ),
                 );
               }),
-              Container(
-                height: 50,
-                // padding: EdgeInsets.symmetric(horizontal: 15),
-                alignment: Alignment.center,
-                child: customBottomNavBarRow(context),
-              ),
+              // Container(
+              //   height: 50,
+              //   // padding: EdgeInsets.symmetric(horizontal: 15),
+              //   alignment: Alignment.center,
+              //   child: customBottomNavBarRow(context),
+              // ),
             ],
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          elevation: 2,
+          currentIndex: pageNo,
+          onTap: (int index) {
+            if (index == 0) {
+              setState(() {
+                pageNo = 0;
+              });
+              appData.navigateToPage(0);
+            }
+            if (index == 1) {
+              setState(() {
+                pageNo = 1;
+              });
+              appData.navigateToPage(1);
+            }
+            if (index == 2) {
+              setState(() {
+                pageNo = 2;
+              });
+              appData.navigateToPage(2);
+            }
+            if (index == 3) {
+              setState(() {
+                pageNo = 3;
+              });
+              appData.navigateToPage(3);
+            }
+            if (index == 4) {
+              setState(() {
+                pageNo = 4;
+              });
+              appData.navigateToPage(4);
+            }
+          },
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
+          unselectedItemColor: Theme.of(context).colorScheme.primary,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.home),
+                label: ' ',
+                backgroundColor: Colors.white),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  FontAwesomeIcons.book,
+                ),
+                label: '',
+                backgroundColor: Colors.white),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  FontAwesomeIcons.clipboardCheck,
+                ),
+                label: '',
+                backgroundColor: Colors.white),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  FontAwesomeIcons.starHalfAlt,
+                ),
+                label: '',
+                backgroundColor: Colors.white),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.solidCreditCard),
+                label: '',
+                backgroundColor: Colors.white),
+          ],
         ),
       ),
     );
@@ -388,14 +515,18 @@ class _SchoolHubState extends State<SchoolHub> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Flexible(
                       flex: 20,
                       child: IconButton(
                         onPressed: () {
                           try {
+                            setState(() {
+                              pageNo = 0;
+                            });
                             provider.navigateToPage(0);
                           } catch (e) {}
                         },
@@ -403,7 +534,7 @@ class _SchoolHubState extends State<SchoolHub> {
                           FontAwesomeIcons.home,
                           color: appData.selectedTab == 0
                               ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primary,
                           size: appData.selectedTab == 0 ? 30 : 20,
                         ),
                       ),
@@ -427,7 +558,7 @@ class _SchoolHubState extends State<SchoolHub> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Flexible(
@@ -435,14 +566,17 @@ class _SchoolHubState extends State<SchoolHub> {
                       child: IconButton(
                         onPressed: () {
                           try {
+                            setState(() {
+                              pageNo = 1;
+                            });
                             provider.navigateToPage(1);
                           } catch (e) {}
                         },
                         icon: Icon(
-                          FontAwesomeIcons.bell,
+                          FontAwesomeIcons.book,
                           color: appData.selectedTab == 1
                               ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primary,
                           size: appData.selectedTab == 1 ? 30 : 20,
                         ),
                       ),
@@ -466,7 +600,7 @@ class _SchoolHubState extends State<SchoolHub> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Flexible(
@@ -474,14 +608,17 @@ class _SchoolHubState extends State<SchoolHub> {
                       child: IconButton(
                         onPressed: () {
                           try {
+                            setState(() {
+                              pageNo = 2;
+                            });
                             provider.navigateToPage(2);
                           } catch (e) {}
                         },
                         icon: Icon(
-                          FontAwesomeIcons.book,
+                          FontAwesomeIcons.clipboardCheck,
                           color: appData.selectedTab == 2
                               ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primary,
                           size: appData.selectedTab == 2 ? 30 : 20,
                         ),
                       ),
@@ -505,7 +642,7 @@ class _SchoolHubState extends State<SchoolHub> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Flexible(
@@ -513,14 +650,17 @@ class _SchoolHubState extends State<SchoolHub> {
                       child: IconButton(
                         onPressed: () {
                           try {
+                            setState(() {
+                              pageNo = 3;
+                            });
                             provider.navigateToPage(3);
                           } catch (e) {}
                         },
                         icon: Icon(
-                          FontAwesomeIcons.clipboardCheck,
+                          FontAwesomeIcons.starHalfAlt,
                           color: appData.selectedTab == 3
                               ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primary,
                           size: appData.selectedTab == 3 ? 30 : 20,
                         ),
                       ),
@@ -544,7 +684,7 @@ class _SchoolHubState extends State<SchoolHub> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Flexible(
@@ -552,14 +692,17 @@ class _SchoolHubState extends State<SchoolHub> {
                       child: IconButton(
                         onPressed: () {
                           try {
+                            setState(() {
+                              pageNo = 4;
+                            });
                             provider.navigateToPage(4);
                           } catch (e) {}
                         },
                         icon: Icon(
-                          FontAwesomeIcons.starHalfAlt,
+                          FontAwesomeIcons.solidCreditCard,
                           color: appData.selectedTab == 4
                               ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primary,
                           size: appData.selectedTab == 4 ? 30 : 20,
                         ),
                       ),
@@ -578,290 +721,9 @@ class _SchoolHubState extends State<SchoolHub> {
                 ),
               ),
             ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Theme.of(context).colorScheme.primary,
-                child: Column(
-                  children: [
-                    Flexible(
-                      flex: 20,
-                      child: IconButton(
-                        onPressed: () {
-                          try {
-                            provider.navigateToPage(5);
-                          } catch (e) {}
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.solidCreditCard,
-                          color: appData.selectedTab == 5
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.background,
-                          size: appData.selectedTab == 5 ? 30 : 20,
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        height: double.infinity,
-                        width: double.infinity,
-                        color: appData.selectedTab == 5
-                            ? Theme.of(context).colorScheme.secondary
-                            : Colors.transparent,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
           ],
         );
       }),
-    );
-  }
-
-  Widget customBottomNavBarColumn(BuildContext context) {
-    return SizedBox(
-      height: double.infinity,
-      width: MediaQuery.of(context).size.width,
-      child: Consumer<AppData>(
-        builder: (context, provider, childProperty) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  if (debugCounterMenuButton > 2) {
-                    debugCounterMenuHome++;
-                    provider.navigateToPage(0);
-                    toggleMenu();
-                    return;
-                  }
-                  debugCounterMenuButton = 0;
-                  provider.navigateToPage(0);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  // color: Colors.pink,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.home,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Home',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  provider.navigateToPage(1);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.bell,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Notice',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  provider.navigateToPage(2);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.book,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Notebook',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  provider.navigateToPage(3);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.clipboardCheck,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Attendance',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  provider.navigateToPage(4);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.starHalfAlt,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Result',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  provider.navigateToPage(5);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.solidCreditCard,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      Text(
-                        'Payment',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(PaymentReceiptPage.routeName);
-                  toggleMenu();
-                },
-                child: Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.receipt,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 27,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Invoices',
-                        style: normalTextStyle.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
     );
   }
 

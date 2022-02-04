@@ -1,10 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:school_360_app/functions/invoice/file_handle_api.dart';
-import 'package:school_360_app/functions/invoice/pdf_invoice_api.dart';
-import 'package:school_360_app/functions/open_webview.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/dashboard.dart';
 import 'package:school_360_app/provider/invoice.dart';
@@ -24,6 +22,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   late TextStyle normalHighLightTextStyle;
   late AppData appData;
   late DashboardProvider dashboardProvider;
+  bool isLoading = false;
   Future<void> getData() async {
     appData = Provider.of<AppData>(context, listen: false);
     headerTextStyleBlack = appData.headerTextStyleBlack;
@@ -45,22 +44,22 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            'Invoices',
-            style: GoogleFonts.getFont(
-              'Ubuntu',
-              textStyle: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).colorScheme.background,
-              ),
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 6,
+        centerTitle: true,
+        title: Text(
+          'Invoices',
+          style: headerTextStyleBlack,
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.primary,
+            size: 25,
           ),
         ),
       ),
@@ -85,6 +84,11 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
+                  isLoading
+                      ? LinearProgressIndicator(
+                          color: Theme.of(context).colorScheme.secondary,
+                        )
+                      : Container(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -121,9 +125,12 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                           itemBuilder: (context, index) {
                                             return Container(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 15, vertical: 2),
+                                                  horizontal: 10, vertical: 2),
                                               child: GestureDetector(
-                                                onTap: () {
+                                                onTap: () async {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                  });
                                                   // Navigator.of(context)
                                                   //     .pushNamed(
                                                   //         OpenWebView.routeName,
@@ -146,31 +153,75 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                                           .data![index]
                                                           .id
                                                           .toString();
-                                                  invoiceProvider.getInvoice(context);
+                                                  invoiceProvider
+                                                      .getInvoice(context);
+
+
+                                                  setState(() {
+                                                    isLoading = false;
+                                                  });
                                                 },
                                                 child: Card(
-                                                  elevation: 6,
+                                                  elevation:4,
                                                   child: ListTile(
-                                                    trailing: CircleAvatar(
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .secondary,
-                                                      child: Text(
-                                                        '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
-                                                        style: normalTextStyle
-                                                            .copyWith(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 10),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
+                                                    trailing: Icon(
+                                                      FontAwesomeIcons.download,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary,
                                                     ),
-                                                    title: Text(
-                                                      'Receipt No: ${provider.dataModelForPastPayment.data![index].receiptNo}',
-                                                      style:
-                                                          normalHighLightTextStyle,
+                                                    leading:  CircleAvatar(
+                                                      backgroundColor: Color(
+                                                          (math.Random().nextDouble() * 0xFFFFFF)
+                                                              .toInt())
+                                                          .withOpacity(1.0),
+                                                      child: Text(
+                                                        (index + 1).toString(),
+                                                        style: headerTextStyleWhite,
+                                                      ),
+                                                      radius: 23,
+                                                    ),
+                                                    title: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'Bill No: ',
+                                                              style: normalTextStyle
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .black87),
+                                                            ),
+                                                            Text(
+                                                              '${provider.dataModelForPastPayment.data![index].receiptNo}',
+                                                              style:
+                                                                  normalHighLightTextStyle,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'Total: ',
+                                                              style: normalTextStyle
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .black54),
+                                                            ),
+                                                            Text(
+                                                              '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
+                                                              style:
+                                                                  normalHighLightTextStyle,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                     subtitle: Column(
                                                       crossAxisAlignment:
@@ -210,8 +261,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
 
   Widget bottomNavigationBar(BuildContext context) {
     return Container(
-      height: 30,
-      color: Theme.of(context).colorScheme.primary,
+      height: 35,
+      color: Theme.of(context).colorScheme.background,
       child: Consumer<DashboardProvider>(
         builder: (context, provider, childProperty) {
           return Row(
@@ -221,8 +272,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 builder: (context, provider, child) {
                   return Flexible(
                     flex: 1,
-                    child: IconButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         if (!provider.showAlertBox) {
                           if (provider.pageNoForPayment > 0) {
                             provider.showLoading = true;
@@ -231,14 +282,19 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                           }
                         }
                       },
-                      icon: Icon(
-                        FontAwesomeIcons.chevronLeft,
-                        color: provider.showAlertBox
-                            ? Colors.grey
-                            : provider.pageNoForPayment == 0
-                                ? Colors.grey.withOpacity(.2)
-                                : Theme.of(context).colorScheme.background,
-                        size: 17,
+                      child: Container(
+                        color: Colors.transparent,
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: Icon(
+                          FontAwesomeIcons.chevronLeft,
+                          color: provider.showAlertBox
+                              ? Colors.grey
+                              : provider.pageNoForPayment == 0
+                                  ? Colors.grey.withOpacity(1)
+                                  : Theme.of(context).colorScheme.primary,
+                          size: 17,
+                        ),
                       ),
                     ),
                   );
@@ -254,17 +310,16 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                               ? normalTextStyle.copyWith(
                                   color: Colors.grey.withOpacity(.2))
                               : normalTextStyle.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .background));
+                                  color:
+                                      Theme.of(context).colorScheme.primary));
                     },
                   ),
                 ),
               ),
               Flexible(
                 flex: 1,
-                child: IconButton(
-                  onPressed: () {
+                child: GestureDetector(
+                  onTap: () {
                     if (!provider.showAlertBox) {
                       if (provider.dataModelForPastPayment.data!.isNotEmpty) {
                         provider.showLoading = true;
@@ -273,12 +328,17 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       }
                     }
                   },
-                  icon: Icon(
-                    FontAwesomeIcons.chevronRight,
-                    color: provider.showAlertBox
-                        ? Colors.grey.withOpacity(.2)
-                        : Theme.of(context).colorScheme.background,
-                    size: 17,
+                  child: Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Icon(
+                      FontAwesomeIcons.chevronRight,
+                      color: provider.showAlertBox
+                          ? Colors.grey.withOpacity(.2)
+                          : Theme.of(context).colorScheme.primary,
+                      size: 17,
+                    ),
                   ),
                 ),
               ),

@@ -64,23 +64,22 @@ class _PaymentTabState extends State<PaymentTab> {
                   ? showAlertBox(context)
                   : provider.showLoading
                       ? showLoading()
-                      : Center(
-                        child: SingleChildScrollView(
+                      : SingleChildScrollView(
                           physics: BouncingScrollPhysics(),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 25,),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Text(
-                                  '💳 Payment',
-                                  style: GoogleFonts.getFont('Ubuntu',
-                                      textStyle: headerTextStyleBlack),
-                                ),
-                              ),
+                              // SizedBox(height: 25,),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 20),
+                              //   child: Text(
+                              //     '💳 Payment',
+                              //     style: GoogleFonts.getFont('Ubuntu',
+                              //         textStyle: headerTextStyleBlack),
+                              //   ),
+                              // ),
                               Stepper(
                                 physics: NeverScrollableScrollPhysics(),
                                 steps: [
@@ -279,72 +278,74 @@ class _PaymentTabState extends State<PaymentTab> {
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        style:
-                                                            DefaultTextStyle.of(
-                                                                    context)
-                                                                .style,
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: 'Due: ',
-                                                              style:
-                                                                  normalTextStyle),
-                                                          TextSpan(
-                                                              text:
-                                                                  '${provider.total}',
-                                                              style:
-                                                                  normalHighLightTextStyle),
-                                                          TextSpan(
-                                                            text: 'TK.',
-                                                            style: GoogleFonts
-                                                                .getFont(
-                                                              'Ubuntu',
-                                                              textStyle: const TextStyle(
-                                                                  fontSize: 13,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                RichText(
+                                                  text: TextSpan(
+                                                    style:
+                                                        DefaultTextStyle.of(
+                                                                context)
+                                                            .style,
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: 'Due: ',
+                                                          style:
+                                                              normalTextStyle),
+                                                      TextSpan(
+                                                          text:
+                                                              '${provider.total}',
+                                                          style:
+                                                              normalHighLightTextStyle),
+                                                      TextSpan(
+                                                        text: 'TK.',
+                                                        style: GoogleFonts
+                                                            .getFont(
+                                                          'Ubuntu',
+                                                          textStyle: const TextStyle(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .pushNamed(
-                                                                PaymentDetailsPage
-                                                                    .routeName);
-                                                      },
-                                                      child: Text(
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  alignment:
+                                                  Alignment.centerRight,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pushNamed(
+                                                          PaymentDetailsPage
+                                                              .routeName);
+                                                    },
+                                                    child: Chip(
+                                                      elevation: 3,
+                                                      backgroundColor:Theme.of(context).colorScheme.secondary,
+                                                      label: Text(
                                                         'Payment breakdown',
                                                         style:
-                                                            GoogleFonts.getFont(
+                                                        GoogleFonts.getFont(
                                                           'Ubuntu',
                                                           textStyle: TextStyle(
                                                             decoration:
-                                                                TextDecoration
-                                                                    .underline,
+                                                            TextDecoration
+                                                                .none,
                                                             fontSize: 14,
                                                             fontWeight:
-                                                                FontWeight.bold,
+                                                            FontWeight.bold,
                                                             color: Theme.of(
-                                                                    context)
+                                                                context)
                                                                 .colorScheme
-                                                                .secondary,
+                                                                .background,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -455,7 +456,7 @@ class _PaymentTabState extends State<PaymentTab> {
                                     // Navigator.of(context).pop();
                                   }
                                   if (_currentStep == 1) {
-                                    provider.showLoadingForMonthDropDown=true;
+                                    provider.showLoadingForMonthDropDown = true;
                                     setState(() {
                                       _currentStep -= 1;
                                     });
@@ -479,11 +480,12 @@ class _PaymentTabState extends State<PaymentTab> {
                                 },
                                 currentStep: _currentStep,
                               ),
-                              SizedBox(height: 25,),
+                              SizedBox(
+                                height: 25,
+                              ),
                             ],
                           ),
                         ),
-                      ),
             ),
           ],
         );

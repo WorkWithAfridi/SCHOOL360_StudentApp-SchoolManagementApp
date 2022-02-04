@@ -16,6 +16,7 @@ import 'package:school_360_app/view/school_hub/tabs/attendance/AttendanceReport_
 import 'package:school_360_app/view/school_hub/tabs/attendance/FM_Table.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_list.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_page.dart';
+import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_details_page.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/resultCard_Page.dart';
 import 'package:school_360_app/view/transaction_status/transaction_error_screen.dart';
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
               AttendanceReportTable_Page(),
           PaymentDetailsPage.routeName: (context) => const PaymentDetailsPage(),
           PaymentReceiptPage.routeName: (context) => const PaymentReceiptPage(),
+          NoticeScreen.routeName: (context) => const NoticeScreen(),
         },
       ),
     );

@@ -145,16 +145,16 @@ class _AttendanceTabState extends State<AttendanceTab> {
     return Consumer<AttendanceProvider>(
         builder: (context, provider, childProperty) {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              '👋 Attendance',
-              style: headerTextStyleBlack,
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Text(
+          //     '👋 Attendance',
+          //     style: headerTextStyleBlack,
+          //   ),
+          // ),
           Stepper(
             steps: [
               Step(

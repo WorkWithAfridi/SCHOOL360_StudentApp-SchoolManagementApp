@@ -61,23 +61,32 @@ class _NotebookTabState extends State<NotebookTab> {
               subdivisions: 8,
             ),
           ),
-          Consumer<NotebookProvider>(
-            builder: (context, notebook, childProperty) {
-              return notebook.showAlertBox
-                  ? AlertBoxLayout(context)
-                  : Stack(
-                      children: [
-                        Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: notebook.showLoading
-                                ? showLoading()
-                                : Container()),
-                        notebookDatePickerPage(context)
-                      ],
-                    );
-            },
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Consumer<NotebookProvider>(
+              builder: (context, notebook, childProperty) {
+                return notebook.showAlertBox
+                    ? AlertBoxLayout(context)
+                    : Stack(
+                        children: [
+                          Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: notebook.showLoading
+                                  ? showLoading()
+                                  : Container()),
+                          Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            alignment: Alignment.center,
+                            child: notebookDatePickerPage(context),
+                          )
+                        ],
+                      );
+              },
+            ),
           ),
         ],
       ),
@@ -129,145 +138,167 @@ class _NotebookTabState extends State<NotebookTab> {
     );
   }
 
-  Container notebookDatePickerPage(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flexible(
-            flex: 1,
-            child: Container(),
-          ),
-          CoverLottieAnimation(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              '📓 Notebook',
-              style: headerTextStyleBlack,
-            ),
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(text: 'Please select a ', style: normalTextStyle),
-                  TextSpan(
-                      text: 'Valid Date ', style: normalHighLightTextStyle),
-                  TextSpan(
-                    text: 'to see ',
-                    style: normalTextStyle,
-                  ),
-                  TextSpan(
-                    text: 'notebook.',
-                    style: normalHighLightTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
+  Widget notebookDatePickerPage(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          // flex: 1,
+          child: Container(
             // color: Colors.red,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
+            height: double.infinity,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Consumer<NotebookProvider>(
-                  builder: (context, notebook, childProperty) {
-                    return Text('Date:  ', style: normalTextStyle);
-                  },
+                CoverLottieAnimation(),
+                const SizedBox(
+                  height: 3,
                 ),
-                Consumer<NotebookProvider>(
-                    builder: (context, notebook, childProperty) {
-                  return Text(
-                    notebook.pickedDate,
-                    style: normalHighLightTextStyle,
-                  );
-                }),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          Container(
-            alignment: Alignment.center,
-            // color: Colors.blue,
-            child: ElevatedButton(
-              onPressed: setDate,
-              style: ElevatedButton.styleFrom(
-                primary: Colors.black.withOpacity(.8),
-              ),
-              child: Text(
-                'Select Date',
-                style: GoogleFonts.getFont(
-                  'Ubuntu',
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Theme.of(context).colorScheme.background),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Please select a ', style: normalTextStyle),
+                        TextSpan(
+                            text: 'Valid Date ',
+                            style: normalHighLightTextStyle),
+                        TextSpan(
+                          text: 'to see ',
+                          style: normalTextStyle,
+                        ),
+                        TextSpan(
+                          text: 'notebook.',
+                          style: normalHighLightTextStyle,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Flexible(
-            flex: 2,
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: Consumer<NotebookProvider>(
-                  builder: (context, notebook, childProperty) {
-                return GestureDetector(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // color: Colors.red,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Consumer<NotebookProvider>(
+                        builder: (context, notebook, childProperty) {
+                          return Text('Date:  ', style: normalTextStyle);
+                        },
+                      ),
+                      Consumer<NotebookProvider>(
+                          builder: (context, notebook, childProperty) {
+                        return Text(
+                          notebook.pickedDate,
+                          style: normalHighLightTextStyle,
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                GestureDetector(
                   onTap: () {
-                    notebook.showLoading = true;
-                    notebook.getNotebookData(context);
+                    setDate();
                   },
-                  child: Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    color: Theme.of(context).colorScheme.secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Next',
-                            style: GoogleFonts.getFont('Ubuntu',
-                                textStyle: headerTextStyleWhite),
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Icon(
-                            FontAwesomeIcons.arrowRight,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                        ],
+                  child: Chip(
+                    elevation: 4,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    label: Text(
+                      'Select Date',
+                      style: GoogleFonts.getFont(
+                        'Ubuntu',
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Theme.of(context).colorScheme.background),
                       ),
                     ),
                   ),
-                );
-              }),
+                ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   // color: Colors.blue,
+                //   child: ElevatedButton(
+                //     onPressed: setDate,
+                //     style: ElevatedButton.styleFrom(
+                //       primary: Colors.black.withOpacity(.8),
+                //     ),
+                //     child: Text(
+                //       'Select Date',
+                //       style: GoogleFonts.getFont(
+                //         'Ubuntu',
+                //         textStyle: TextStyle(
+                //             fontWeight: FontWeight.bold,
+                //             fontSize: 15,
+                //             color: Theme.of(context).colorScheme.background),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        // Container(
+        //   padding: const EdgeInsets.symmetric(horizontal: 15),
+        //   child: Text(
+        //     '📓 Notebook',
+        //     style: headerTextStyleBlack,
+        //   ),
+        // ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: Consumer<NotebookProvider>(
+              builder: (context, notebook, childProperty) {
+            return GestureDetector(
+              onTap: () {
+                notebook.showLoading = true;
+                notebook.getNotebookData(context);
+              },
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width,
+                color: Theme.of(context).colorScheme.secondary,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Next',
+                        style: GoogleFonts.getFont('Ubuntu',
+                            textStyle: headerTextStyleWhite),
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      Icon(
+                        FontAwesomeIcons.arrowRight,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 

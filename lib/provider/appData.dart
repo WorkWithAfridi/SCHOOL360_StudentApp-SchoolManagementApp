@@ -23,7 +23,7 @@ class AppData extends ChangeNotifier {
   }
 
   TextStyle headerTextStyleBlack = GoogleFonts.getFont(
-    'Roboto',
+    'Open Sans',
     textStyle: const TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 20,
@@ -31,7 +31,8 @@ class AppData extends ChangeNotifier {
     ),
   );
   TextStyle headerTextStyleWhite = GoogleFonts.getFont(
-    'Roboto',
+    'Open Sans',
+
     textStyle: const TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 20,
@@ -39,12 +40,14 @@ class AppData extends ChangeNotifier {
     ),
   );
   TextStyle normalTextStyle = GoogleFonts.getFont(
-    'Roboto',
+    'Open Sans',
+
     textStyle: const TextStyle(
         color: Color(0xff212121), fontSize: 14, fontWeight: FontWeight.w400),
   );
   TextStyle normalHighLightTextStyle = GoogleFonts.getFont(
-    'Roboto',
+    'Open Sans',
+
     textStyle: const TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w600,

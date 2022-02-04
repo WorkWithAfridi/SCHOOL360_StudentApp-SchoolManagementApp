@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/functions/payment.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
@@ -41,28 +42,26 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 6,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).colorScheme.background,
-              size: 25,
-            ),
-          ),
-          centerTitle: true,
-          title: Text(
-            'Payment details',
-            style: headerTextStyleWhite,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 6,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.primary,
+            size: 25,
           ),
         ),
+        centerTitle: true,
+        title: Text(
+          'Payment details',
+          style: headerTextStyleBlack,
+        ),
       ),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           SizedBox(

@@ -92,32 +92,25 @@ class _QRScannerState extends State<QRScanner> {
       isStudentIdQR = true;
     }
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).colorScheme.background,
-              size: 25,
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 6,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.primary,
+            size: 25,
           ),
-          centerTitle: true,
-          title: Text(
-            'QR SCANNER',
-            style: GoogleFonts.getFont(
-              'Roboto',
-              textStyle: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).colorScheme.background,
-              ),
-            ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'QR SCANNER',
+          style: GoogleFonts.getFont(
+            'Roboto',
+            textStyle: headerTextStyleBlack
           ),
         ),
       ),

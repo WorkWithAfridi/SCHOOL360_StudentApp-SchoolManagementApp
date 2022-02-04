@@ -27,7 +27,7 @@ class Homepage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.onBackground,
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: const Text(
             'School 360',
             style: TextStyle(fontSize: 25),

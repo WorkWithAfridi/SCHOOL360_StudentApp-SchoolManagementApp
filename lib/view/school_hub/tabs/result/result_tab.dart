@@ -161,14 +161,14 @@ class _ResultTabState extends State<ResultTab> {
             Flexible(flex: 1, child: Container()),
             const CoverLottieAnimation(),
             // SizedBox(height: 10,),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              alignment: Alignment.center,
-              child: Text(
-                '🅰️ Result',
-                style: headerTextStyleBlack,
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   alignment: Alignment.center,
+            //   child: Text(
+            //     '🅰️ Result',
+            //     style: headerTextStyleBlack,
+            //   ),
+            // ),
             const SizedBox(
               height: 3,
             ),

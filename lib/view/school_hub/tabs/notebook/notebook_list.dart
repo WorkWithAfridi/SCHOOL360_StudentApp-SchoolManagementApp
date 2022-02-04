@@ -43,26 +43,23 @@ class _NotebookListState extends State<NotebookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 6,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).colorScheme.background,
-              size: 25,
-            ),
+      appBar: AppBar(
+        backgroundColor:Colors.white,
+        elevation: 6,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.primary,
+            size: 25,
           ),
-          centerTitle: true,
-          title: Text(
-            '📓 Notebook',
-            style: headerTextStyleWhite,
-          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          '📓 Notebook',
+          style: headerTextStyleBlack,
         ),
       ),
       body: Stack(
