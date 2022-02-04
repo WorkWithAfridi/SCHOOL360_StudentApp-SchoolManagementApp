@@ -10,6 +10,7 @@ import 'package:school_360_app/provider/dashboard.dart';
 import 'package:school_360_app/provider/invoice.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/view/school_hub/tabs/dashboard/widgets/animation/coverLottieAnimation.dart';
+import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
 
 import '../../payment_receipts.dart';
 
@@ -198,7 +199,7 @@ class _DashboardTabState extends State<DashboardTab> {
                             Padding(
                               padding: const EdgeInsets.only(top: 7),
                               child: Card(
-                                elevation: 6,
+                                elevation: 4,
                                 child: Consumer<DashboardProvider>(builder:
                                     (context, provider, childProperty) {
                                   return Container(
@@ -519,7 +520,7 @@ class _DashboardTabState extends State<DashboardTab> {
                   builder: (context, provider, childProperty) {
                     return GestureDetector(
                       onTap: () {
-                        provider.navigateToPage(1);
+                        Navigator.of(context).pushNamed(NoticeScreen.routeName);
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -615,38 +616,56 @@ class _DashboardTabState extends State<DashboardTab> {
                                     invoiceProvider.getInvoice(context);
                                   },
                                   child: Card(
-                                    elevation: 6,
+                                    elevation: 4,
                                     child: ListTile(
-                                      trailing: CircleAvatar(
-                                        backgroundColor: Theme.of(context)
+                                      trailing: Icon(
+                                        FontAwesomeIcons.download,
+                                        color: Theme.of(context)
                                             .colorScheme
                                             .secondary,
-                                        child: Text(
-                                          '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
-                                          style: normalTextStyle.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 10),
-                                          textAlign: TextAlign.center,
-                                        ),
                                       ),
-                                      title: RichText(
-                                        text: TextSpan(
-                                          style: DefaultTextStyle.of(context)
-                                              .style,
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: "Invoice No: ",
-                                              style: normalTextStyle,
-                                            ),
-                                            TextSpan(
-                                              text: provider
-                                                  .dataModelForPastPayment
-                                                  .data![index]
-                                                  .receiptNo,
-                                              style: normalHighLightTextStyle,
-                                            ),
-                                          ],
-                                        ),
+                                      title:
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Bill No: ',
+                                                style: normalTextStyle
+                                                    .copyWith(
+                                                    color: Colors
+                                                        .black87),
+                                              ),
+                                              Text(
+                                                '${provider.dataModelForPastPayment.data![index].receiptNo}',
+                                                style:
+                                                normalHighLightTextStyle,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Total: ',
+                                                style: normalTextStyle
+                                                    .copyWith(
+                                                    color: Colors
+                                                        .black54),
+                                              ),
+                                              Text(
+                                                '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
+                                                style:
+                                                normalHighLightTextStyle,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                       subtitle: Column(
                                         crossAxisAlignment:

@@ -79,7 +79,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
             return Container(
               // color: Colors.red,
               width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 0),
+              padding: const EdgeInsets.only(left: 5, right: 5, top: 0),
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(

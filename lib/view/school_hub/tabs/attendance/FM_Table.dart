@@ -90,7 +90,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                       height: 10,
                     ),
                     Card(
-                      elevation: 6,
+                      elevation:4,
                       child: Container(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
@@ -418,7 +418,11 @@ class _FMTable_PageState extends State<FMTable_Page> {
                           ],
                         ),
                       ),
-                    )
+                    ),
+
+                    const SizedBox(
+                      height: 5,
+                    ),
                   ],
                 ),
               ),

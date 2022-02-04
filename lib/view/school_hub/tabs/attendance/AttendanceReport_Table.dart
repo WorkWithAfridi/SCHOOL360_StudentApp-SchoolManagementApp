@@ -386,7 +386,10 @@ class _AttendanceReportTable_PageState
                           ],
                         ),
                       ),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                   ],
                 ),
               ),
