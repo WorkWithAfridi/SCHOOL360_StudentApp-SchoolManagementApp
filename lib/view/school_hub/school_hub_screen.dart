@@ -106,10 +106,10 @@ class _SchoolHubState extends State<SchoolHub> {
           ),
         ),
       ),
-      backgroundColor: Colors.white.withOpacity(.8),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
@@ -318,6 +318,7 @@ class _SchoolHubState extends State<SchoolHub> {
             )
           ],
         ),
+        backgroundColor: backgroundColor,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

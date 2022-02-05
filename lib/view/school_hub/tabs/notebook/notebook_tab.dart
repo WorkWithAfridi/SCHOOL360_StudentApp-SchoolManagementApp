@@ -138,11 +138,17 @@ class _NotebookTabState extends State<NotebookTab> {
     );
   }
 
+  bool isLoading = false;
   Widget notebookDatePickerPage(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        isLoading
+            ? LinearProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+              )
+            : Container(),
         Expanded(
           // flex: 1,
           child: Container(
@@ -265,9 +271,16 @@ class _NotebookTabState extends State<NotebookTab> {
           child: Consumer<NotebookProvider>(
               builder: (context, notebook, childProperty) {
             return GestureDetector(
-              onTap: () {
-                notebook.showLoading = true;
+              onTap: () async {
+                setState(() {
+                  isLoading=true;
+                });
+                // notebook.showLoading = true;
                 notebook.getNotebookData(context);
+                await Future.delayed(Duration(seconds: 1));
+                setState(() {
+                  isLoading=false;
+                });
               },
               child: Container(
                 height: 40,

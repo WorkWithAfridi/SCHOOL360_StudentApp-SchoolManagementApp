@@ -8,7 +8,7 @@ class CoverLottieAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * .4,
-      width: MediaQuery.of(context).size.height * .7,
+      // width: MediaQuery.of(context).size.height * .7,
       child: Lottie.asset('lib/assets/lottieAnimation/lottieTrophyAnimation.json'),
     );
   }

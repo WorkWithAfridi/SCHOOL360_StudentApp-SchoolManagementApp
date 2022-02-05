@@ -9,8 +9,8 @@ class CoverLottieAnimation extends StatelessWidget {
     return
       Container(
         // color: Colors.red,
-        height: MediaQuery.of(context).size.height * .4,
-        width: MediaQuery.of(context).size.height * .4,
+        // height: MediaQuery.of(context).size.height * .4,
+        // width: MediaQuery.of(context).size.height * .4,
         child: Lottie.asset(
             'lib/assets/lottieAnimation/lottieAnimationWritingLaptop.json'),
       );

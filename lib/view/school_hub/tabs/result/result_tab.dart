@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +8,7 @@ import 'package:school_360_app/provider/result.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/widgets/animation/coverLottieAnimation.dart';
 
 class ResultTab extends StatefulWidget {
-  const ResultTab({Key? key})
-      : super(key: key);
+  const ResultTab({Key? key}) : super(key: key);
   @override
   State<ResultTab> createState() => _ResultTabState();
 }
@@ -71,19 +69,21 @@ class _ResultTabState extends State<ResultTab> {
               alignment: Alignment.center,
               child: result.showAlertBox
                   ? showAlertBox(context)
-                  : resultProvider.showLoading? showLoading(): Stack(
-                    children: [
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: resultProvider.showLoadingForResultPage
-                            ? showLoading()
-                            : Container(),
-                      ),
-                      yearPickerForReportGeneration(context)
-                    ],
-                  ),
+                  : resultProvider.showLoading
+                      ? showLoading()
+                      : Stack(
+                          children: [
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: resultProvider.showLoadingForResultPage
+                                  ? showLoading()
+                                  : Container(),
+                            ),
+                            yearPickerForReportGeneration(context)
+                          ],
+                        ),
             ),
 
             // _showContent
@@ -152,13 +152,19 @@ class _ResultTabState extends State<ResultTab> {
     );
   }
 
+  bool isLoading = false;
   Widget yearPickerForReportGeneration(BuildContext context) {
     return Consumer<ResultProvider>(
       builder: (context, resultProvider, childProperty) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            isLoading
+                ? LinearProgressIndicator(
+                    color: Theme.of(context).colorScheme.secondary,
+                  )
+                : Container(),
             Flexible(flex: 1, child: Container()),
             const CoverLottieAnimation(),
             // SizedBox(height: 10,),
@@ -186,8 +192,7 @@ class _ResultTabState extends State<ResultTab> {
                     ),
                     TextSpan(text: 'Year ', style: normalHighLightTextStyle),
                     TextSpan(text: 'to generate ', style: normalTextStyle),
-                    TextSpan(
-                        text: 'report.', style: normalHighLightTextStyle),
+                    TextSpan(text: 'Result Report.', style: normalHighLightTextStyle),
                   ],
                 ),
               ),
@@ -211,7 +216,7 @@ class _ResultTabState extends State<ResultTab> {
                       //   width: 10,
                       // ),
                       Container(
-                        width: MediaQuery.of(context).size.width*.6,
+                        width: MediaQuery.of(context).size.width * .6,
                         // color: Colors.red,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
@@ -248,14 +253,31 @@ class _ResultTabState extends State<ResultTab> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
                         if (resultProvider.selectedYear != 'Select year') {
-                          resultProvider.showLoadingForResultPage=true;
+                          // resultProvider.showLoadingForResultPage = true;
                           resultProvider.getResult(context);
+
+                          await Future.delayed(Duration(seconds: 1));
+                          setState(() {
+                            isLoading = false;
+                          });
                         } else {
+
+                          setState(() {
+                            isLoading = false;
+                          });
                           var snackBar = SnackBar(
-                            backgroundColor: Theme.of(context).colorScheme.secondary,
-                            content: Text('Please select a valid input to continue.', style: appData.normalTextStyle.copyWith(color: Colors.white),),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            content: Text(
+                              'Please select a valid input to continue.',
+                              style: appData.normalTextStyle
+                                  .copyWith(color: Colors.white),
+                            ),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
@@ -280,8 +302,7 @@ class _ResultTabState extends State<ResultTab> {
                               Icon(
                                 FontAwesomeIcons.arrowRight,
                                 size: 16,
-                                color:
-                                    Theme.of(context).colorScheme.background,
+                                color: Theme.of(context).colorScheme.background,
                               ),
                             ],
                           ),

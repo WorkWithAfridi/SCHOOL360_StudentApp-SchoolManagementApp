@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/download_file.dart';
 import 'package:school_360_app/functions/open_webview.dart';
@@ -150,13 +151,43 @@ class _DashboardTabState extends State<DashboardTab> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text('Welcome back, ', style: normalTextStyle)),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(qrCodeData.studentName,
-                      style: headerTextStyleBlack)),
+              Stack(
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    alignment: Alignment.bottomRight,
+                    height: MediaQuery.of(context).size.height * .25,
+                    child: Lottie.asset(
+                        'lib/assets/lottieAnimation/hiLottieAnimation.json',
+                        fit: BoxFit.fill),
+                  ),
+
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                  //   child: Text('SCHOOL360',
+                  //       style: headerTextStyleBlack),
+                  // ),
+                  Container(
+                      height: MediaQuery.of(context).size.height * .25,
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child:
+                                Text('Welcome back, ', style: normalTextStyle),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text('${qrCodeData.studentName}.',
+                                style: headerTextStyleBlack),
+                          ),
+                        ],
+                      ))
+                ],
+              ),
               const SizedBox(
                 height: 7,
               ),
@@ -173,8 +204,9 @@ class _DashboardTabState extends State<DashboardTab> {
               ),
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
+                  // alignment: Alignment.centerRight,
                   child:
-                      Text('Attendance Summary', style: headerTextStyleBlack)),
+                      Text('Attendance Summary.', style: headerTextStyleBlack)),
               const SizedBox(
                 height: 8,
               ),
@@ -183,17 +215,17 @@ class _DashboardTabState extends State<DashboardTab> {
                 child: Stack(
                   children: [
                     const Positioned(
-                      right: 0,
+                      left: 0,
                       top: 0,
                       child: CoverLottieAnimation(),
                     ),
                     Positioned(
-                      left: 0,
+                      right: 0,
                       top: 0,
                       child: Container(
                         // color: Colors.pink,
                         width: MediaQuery.of(context).size.width * .45,
-                        padding: const EdgeInsets.only(left: 15),
+                        padding: const EdgeInsets.only(right: 15),
                         child: Stack(
                           children: [
                             Padding(
@@ -624,28 +656,22 @@ class _DashboardTabState extends State<DashboardTab> {
                                             .colorScheme
                                             .secondary,
                                       ),
-                                      title:
-                                      Column(
+                                      title: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .start,
+                                            MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment
-                                            .start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Text(
                                                 'Bill No: ',
-                                                style: normalTextStyle
-                                                    .copyWith(
-                                                    color: Colors
-                                                        .black87),
+                                                style: normalTextStyle.copyWith(
+                                                    color: Colors.black87),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].receiptNo}',
-                                                style:
-                                                normalHighLightTextStyle,
+                                                style: normalHighLightTextStyle,
                                               ),
                                             ],
                                           ),
@@ -653,15 +679,12 @@ class _DashboardTabState extends State<DashboardTab> {
                                             children: [
                                               Text(
                                                 'Total: ',
-                                                style: normalTextStyle
-                                                    .copyWith(
-                                                    color: Colors
-                                                        .black54),
+                                                style: normalTextStyle.copyWith(
+                                                    color: Colors.black54),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
-                                                style:
-                                                normalHighLightTextStyle,
+                                                style: normalHighLightTextStyle,
                                               ),
                                             ],
                                           ),

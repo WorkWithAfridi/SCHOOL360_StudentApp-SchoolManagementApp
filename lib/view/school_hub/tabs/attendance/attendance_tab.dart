@@ -226,13 +226,12 @@ class _AttendanceTabState extends State<AttendanceTab> {
                         Container(
                           padding: const EdgeInsets.only(right: 15),
                           alignment: Alignment.centerRight,
-                          color: Colors.transparent,
+                          // color: Colors.transparent,
                           width: double.infinity,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
                               elevation: 4,
-                              dropdownColor: backgroundColor,
                               value: provider.selectedYear,
                               items: provider.years
                                   .map(buildYearMenuItem)
@@ -333,7 +332,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
-              if (_currentStep == 1) {
+              if (_currentStep == 1)  {
                 setState(() {
                   isLoading = true;
                 });
@@ -352,7 +351,9 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           .toString();
                     }
                   }
+
                   provider.callApiForFMData(context);
+                  await Future.delayed(Duration(seconds: 1));
                   setState(() {
                     isLoading = false;
                   });
@@ -368,7 +369,10 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           .toString();
                     }
                   }
+
                   provider.callApiForAttendanceData(context);
+
+                  await Future.delayed(Duration(seconds: 1));
                   setState(() {
                     isLoading = false;
                   });
