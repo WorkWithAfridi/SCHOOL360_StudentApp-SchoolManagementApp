@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/model/student_id_validator.dart';
@@ -13,7 +14,6 @@ import 'package:school_360_app/view/school_hub/tabs/attendance/attendance_tab.da
 import 'package:school_360_app/view/school_hub/tabs/dashboard/dashboard_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
-import 'package:school_360_app/view/school_hub/tabs/notice/notice_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/result_tab.dart';
 
@@ -70,20 +70,8 @@ class _SchoolHubState extends State<SchoolHub> {
 
   @override
   Widget build(BuildContext context) {
-    return ZoomDrawer(
-      menuScreen: menuPage(context),
-      mainScreen: mainPage(context),
-      controller: zoomDrawerController,
-      borderRadius: 15.0,
-      showShadow: true,
-      duration: const Duration(milliseconds: 100),
-      openCurve: Curves.fastLinearToSlowEaseIn,
-      closeCurve: Curves.fastLinearToSlowEaseIn,
-      angle: -5,
-      style: DrawerStyle.Style3,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      slideWidth: MediaQuery.of(context).size.width * 0.50,
-    );
+    return mainPage(context);
+
   }
 
   Scaffold menuPage(BuildContext context) {
@@ -135,12 +123,11 @@ class _SchoolHubState extends State<SchoolHub> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CircleAvatar(
-                      child: Text(
-                        qrCodeData.studentName.substring(0, 1),
-                        style: headerTextStyleWhite.copyWith(fontSize: 25),
-                      ),
+                      child: Lottie.asset(
+                          'lib/assets/lottieAnimation/personLottieAnimation.json',
+                          fit: BoxFit.fill),
                       radius: MediaQuery.of(context).size.width * .1,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: Colors.transparent,
                     ),
                   ),
                   SizedBox(
@@ -272,12 +259,17 @@ class _SchoolHubState extends State<SchoolHub> {
       ),
     );
   }
-
+  GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
   DefaultTabController mainPage(BuildContext context) {
     qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);
     return DefaultTabController(
       length: 5,
       child: Scaffold(
+        key: scaffolKey,
+        drawer: Drawer(
+          elevation: 4,
+          child: menuPage(context),
+        ),
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 6,
@@ -298,8 +290,7 @@ class _SchoolHubState extends State<SchoolHub> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              debugCounterMenuButton++;
-              toggleMenu();
+              scaffolKey.currentState?.openDrawer();
             },
             icon: Icon(
               FontAwesomeIcons.bars,
