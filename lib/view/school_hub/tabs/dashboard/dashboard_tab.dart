@@ -246,7 +246,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                               .colorScheme
                                               .primary
                                               .withOpacity(.5),
-                                          width: 2),
+                                          width: 4),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     alignment: Alignment.center,
