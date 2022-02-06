@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -36,7 +35,6 @@ class _SchoolHubState extends State<SchoolHub> {
   late TextStyle normalHighLightTextStyle;
   late AppData appData;
   late StudentIdValidator studentIdValidator;
-  ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   bool isMenuOpen = false;
   int pageNo = 0;
 
@@ -61,17 +59,9 @@ class _SchoolHubState extends State<SchoolHub> {
     super.initState();
   }
 
-  void toggleMenu() {
-    setState(() {
-      isMenuOpen = !isMenuOpen;
-    });
-    zoomDrawerController.toggle?.call();
-  }
-
   @override
   Widget build(BuildContext context) {
     return mainPage(context);
-
   }
 
   Scaffold menuPage(BuildContext context) {
@@ -112,14 +102,33 @@ class _SchoolHubState extends State<SchoolHub> {
             child: Container(
               // color: Theme.of(context).colorScheme.secondary,
               color: Colors.white70,
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      height: 45,
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height:5,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CircleAvatar(
@@ -150,7 +159,6 @@ class _SchoolHubState extends State<SchoolHub> {
                     onTap: () {
                       Navigator.of(context)
                           .pushNamed(PaymentReceiptPage.routeName);
-                      toggleMenu();
                     },
                     child: Container(
                       height: 45,
@@ -259,6 +267,7 @@ class _SchoolHubState extends State<SchoolHub> {
       ),
     );
   }
+
   GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
   DefaultTabController mainPage(BuildContext context) {
     qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);

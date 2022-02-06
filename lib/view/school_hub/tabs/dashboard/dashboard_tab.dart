@@ -176,6 +176,34 @@ class _DashboardTabState extends State<DashboardTab> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text('Powered by ',
+                                style: normalTextStyle.copyWith(fontSize: 12)),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text('SCHOOL360.',
+                                style: headerTextStyleBlack.copyWith(
+                                    fontSize: 15)),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Container(
+                              height: 1,
+                              width: MediaQuery.of(context).size.width * .1,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(.3),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
                             child:
                                 Text('Welcome back, ', style: normalTextStyle),
                           ),
@@ -191,22 +219,32 @@ class _DashboardTabState extends State<DashboardTab> {
               const SizedBox(
                 height: 7,
               ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   child: Container(
+              //     height: 1,
+              //     width: double.maxFinite,
+              //     color: Theme.of(context).colorScheme.primary.withOpacity(.3),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 8,
+              // ),
+              // Container(
+              //     padding: const EdgeInsets.symmetric(horizontal: 15),
+              //     // alignment: Alignment.centerRight,
+              //     child:
+              //         Text('Attendance Summary.', style: headerTextStyleBlack)),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                color: Theme.of(context).colorScheme.primary,
+                width: double.infinity,
                 child: Container(
-                  height: 1,
-                  width: double.maxFinite,
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.3),
+                  width: 60,
+                  child:
+                      Text('Attendance Summary', style: headerTextStyleWhite),
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  // alignment: Alignment.centerRight,
-                  child:
-                      Text('Attendance Summary.', style: headerTextStyleBlack)),
               const SizedBox(
                 height: 8,
               ),
@@ -392,36 +430,49 @@ class _DashboardTabState extends State<DashboardTab> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 7,
-              ),
+              // const SizedBox(
+              //   height: 7,
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   child: Container(
+              //     height: 1,
+              //     width: double.infinity,
+              //     color: Theme.of(context).colorScheme.primary.withOpacity(.3),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 7,
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   width: MediaQuery.of(context).size.width,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     crossAxisAlignment: CrossAxisAlignment.end,
+              //     children: [
+              //       Text(
+              //         'Notices',
+              //         style: headerTextStyleBlack,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 5,
+              // ),
+
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                color: Theme.of(context).colorScheme.primary,
+                width: double.infinity,
                 child: Container(
-                  height: 1,
-                  width: double.infinity,
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.3),
+                  width: 60,
+                  child: Text('Announcements', style: headerTextStyleWhite),
                 ),
               ),
               const SizedBox(
                 height: 7,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Notices',
-                      style: headerTextStyleBlack,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 5,
               ),
               Padding(
                 padding:
@@ -591,25 +642,38 @@ class _DashboardTabState extends State<DashboardTab> {
                   color: Theme.of(context).colorScheme.primary.withOpacity(.3),
                 ),
               ),
-              const SizedBox(
-                height: 7,
-              ),
+              // const SizedBox(
+              //   height: 7,
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   width: MediaQuery.of(context).size.width,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     crossAxisAlignment: CrossAxisAlignment.end,
+              //     children: [
+              //       Text(
+              //         'Past Payments',
+              //         style: headerTextStyleBlack,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 1,
+              // ),
+
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Past Payments',
-                      style: headerTextStyleBlack,
-                    ),
-                  ],
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                color: Theme.of(context).colorScheme.primary,
+                width: double.infinity,
+                child: Container(
+                  width: 60,
+                  child: Text('Past payments', style: headerTextStyleWhite),
                 ),
               ),
               const SizedBox(
-                height: 1,
+                height: 7,
               ),
               Consumer<DashboardProvider>(
                   builder: (context, provider, childProperty) {
