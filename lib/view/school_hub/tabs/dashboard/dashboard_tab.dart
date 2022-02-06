@@ -241,8 +241,8 @@ class _DashboardTabState extends State<DashboardTab> {
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child:
-                      Text('Attendance Summary', style: headerTextStyleWhite),
+                  child: Text('Attendance Summary',
+                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
                 ),
               ),
               const SizedBox(
@@ -468,7 +468,8 @@ class _DashboardTabState extends State<DashboardTab> {
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child: Text('Announcements', style: headerTextStyleWhite),
+                  child: Text('Announcements',
+                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
                 ),
               ),
               const SizedBox(
@@ -669,7 +670,8 @@ class _DashboardTabState extends State<DashboardTab> {
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child: Text('Past payments', style: headerTextStyleWhite),
+                  child: Text('Past payments',
+                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
                 ),
               ),
               const SizedBox(
@@ -700,7 +702,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                 : provider.dataModelForPastPayment.data!.length,
                             itemBuilder: (context, index) {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.symmetric(horizontal: 10),
                                 child: GestureDetector(
                                   onTap: () {
                                     InvoiceProvider invoiceProvider =
@@ -712,6 +714,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                     invoiceProvider.getInvoice(context);
                                   },
                                   child: Card(
+                                    // color: Colors.R,
                                     elevation: 4,
                                     child: ListTile(
                                       trailing: Icon(
@@ -729,9 +732,13 @@ class _DashboardTabState extends State<DashboardTab> {
                                           Row(
                                             children: [
                                               Text(
-                                                'Bill No: ',
-                                                style: normalTextStyle.copyWith(
-                                                    color: Colors.black87),
+                                                'Bill No.: ',
+                                                style: headerTextStyleBlack
+                                                    .copyWith(
+                                                  fontSize: 15,
+                                                  color: Colors.black87
+                                                      .withOpacity(.7),
+                                                ),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].receiptNo}',
@@ -743,8 +750,12 @@ class _DashboardTabState extends State<DashboardTab> {
                                             children: [
                                               Text(
                                                 'Total: ',
-                                                style: normalTextStyle.copyWith(
-                                                    color: Colors.black54),
+                                                style: headerTextStyleBlack
+                                                    .copyWith(
+                                                  fontSize: 15,
+                                                  color: Colors.black87
+                                                      .withOpacity(.7),
+                                                ),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
@@ -761,7 +772,13 @@ class _DashboardTabState extends State<DashboardTab> {
                                           // Text(
                                           //     'Amount: ${provider.dataModelForPastPayment.data![index].totalPaidAmount}'),
                                           Text(
-                                              'Payed on: ${provider.dataModelForPastPayment.data![index].date}'),
+                                            'Payed on: ${provider.dataModelForPastPayment.data![index].date}',
+                                            style: normalTextStyle.copyWith(
+                                              fontSize: 12,
+                                              color:
+                                                  Colors.black.withOpacity(.4),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

@@ -365,10 +365,13 @@ class _NoticeTabState extends State<NoticeTab> {
                       elevation: 4,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Color(
-                                  (math.Random().nextDouble() * 0xFFFFFF)
-                                      .toInt())
-                              .withOpacity(1.0),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+
+                          // Color(
+                          //         (math.Random().nextDouble() * 0xFFFFFF)
+                          //             .toInt())
+                          //     .withOpacity(1.0),
                           child: Text(
                             (index + 1).toString(),
                             style: headerTextStyleWhite,
@@ -380,11 +383,15 @@ class _NoticeTabState extends State<NoticeTab> {
                               .toString(),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: normalTextStyle,
+                          style: headerTextStyleBlack.copyWith(
+                            fontSize: 15,
+                            color: Colors.black87.withOpacity(.7),
+                          ),
                         ),
                         subtitle: Text(
                           "Uploaded on: ${notice.dataModelForNotice.data![index].date.toString()}",
                           style: normalTextStyle.copyWith(
+                            fontSize: 12,
                             color: Colors.black.withOpacity(.4),
                           ),
                         ),
@@ -392,105 +399,105 @@ class _NoticeTabState extends State<NoticeTab> {
                     ),
                   );
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5, top: 5),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              String url =
-                                  "https://school360.app/${_qrCodeData.schoolId}/homes/download/notice~${notice.dataModelForNotice.data![index].url}";
-                              Download download = Download();
-                              download.downloadAndOpenFile(
-                                  url,
-                                  notice.dataModelForNotice.data![index].url
-                                      .toString());
-                            },
-                            onLongPress: () {
-                              if (maxLine == 1) {
-                                setState(() {
-                                  maxLine = 3;
-                                });
-                              } else {
-                                setState(() {
-                                  maxLine = 1;
-                                });
-                              }
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 30,
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    '${(index + 1).toString()}.',
-                                    style: normalTextStyle,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            titleIsInEnglish
-                                                ? notice.dataModelForNotice
-                                                    .data![index].title
-                                                    .toString()
-                                                : notice.dataModelForNotice
-                                                    .data![index].titleBn
-                                                    .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: maxLine,
-                                            style: normalTextStyle),
-                                        Text(
-                                          "Uploaded on: ${notice.dataModelForNotice.data![index].date.toString()}",
-                                          style: normalTextStyle.copyWith(
-                                              color:
-                                                  Colors.black.withOpacity(.4),
-                                              fontSize: 13),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  // width: 80,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.download,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      size: 17,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(0.4),
-                            height: 1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  // Padding(
+                  //   padding: const EdgeInsets.only(bottom: 5, top: 5),
+                  //   child: SizedBox(
+                  //     width: MediaQuery.of(context).size.width,
+                  //     child: Column(
+                  //       children: [
+                  //         GestureDetector(
+                  //           onTap: () {
+                  //             String url =
+                  //                 "https://school360.app/${_qrCodeData.schoolId}/homes/download/notice~${notice.dataModelForNotice.data![index].url}";
+                  //             Download download = Download();
+                  //             download.downloadAndOpenFile(
+                  //                 url,
+                  //                 notice.dataModelForNotice.data![index].url
+                  //                     .toString());
+                  //           },
+                  //           onLongPress: () {
+                  //             if (maxLine == 1) {
+                  //               setState(() {
+                  //                 maxLine = 3;
+                  //               });
+                  //             } else {
+                  //               setState(() {
+                  //                 maxLine = 1;
+                  //               });
+                  //             }
+                  //           },
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: [
+                  //               Container(
+                  //                 width: 30,
+                  //                 alignment: Alignment.topCenter,
+                  //                 child: Text(
+                  //                   '${(index + 1).toString()}.',
+                  //                   style: normalTextStyle,
+                  //                 ),
+                  //               ),
+                  //               Expanded(
+                  //                 child: Container(
+                  //                   alignment: Alignment.topLeft,
+                  //                   child: Column(
+                  //                     crossAxisAlignment:
+                  //                         CrossAxisAlignment.start,
+                  //                     children: [
+                  //                       Text(
+                  //                           titleIsInEnglish
+                  //                               ? notice.dataModelForNotice
+                  //                                   .data![index].title
+                  //                                   .toString()
+                  //                               : notice.dataModelForNotice
+                  //                                   .data![index].titleBn
+                  //                                   .toString(),
+                  //                           overflow: TextOverflow.ellipsis,
+                  //                           maxLines: maxLine,
+                  //                           style: normalTextStyle),
+                  //                       Text(
+                  //                         "Uploaded on: ${notice.dataModelForNotice.data![index].date.toString()}",
+                  //                         style: normalTextStyle.copyWith(
+                  //                             color:
+                  //                                 Colors.black.withOpacity(.4),
+                  //                             fontSize: 13),
+                  //                       )
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 // width: 80,
+                  //                 padding: const EdgeInsets.symmetric(
+                  //                     horizontal: 10),
+                  //                 child: Center(
+                  //                   child: Icon(
+                  //                     Icons.download,
+                  //                     color: Theme.of(context)
+                  //                         .colorScheme
+                  //                         .secondary,
+                  //                     size: 17,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         const SizedBox(
+                  //           height: 10,
+                  //         ),
+                  //         Container(
+                  //           color: Theme.of(context)
+                  //               .colorScheme
+                  //               .onBackground
+                  //               .withOpacity(0.4),
+                  //           height: 1,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // );
                 },
               ),
             ],

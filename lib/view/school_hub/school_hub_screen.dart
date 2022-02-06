@@ -55,8 +55,8 @@ class _SchoolHubState extends State<SchoolHub> {
   late QRCodeDataProvider qrCodeData;
   @override
   void initState() {
-    getData();
     super.initState();
+    getData();
   }
 
   @override
@@ -142,6 +142,9 @@ class _SchoolHubState extends State<SchoolHub> {
                   SizedBox(
                     height: 10,
                   ),
+                  SizedBox(
+                    height: 6,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
@@ -157,8 +160,10 @@ class _SchoolHubState extends State<SchoolHub> {
                   ),
                   InkWell(
                     onTap: () {
+                      Navigator.of(context).pop();
                       Navigator.of(context)
                           .pushNamed(PaymentReceiptPage.routeName);
+
                     },
                     child: Container(
                       height: 45,
