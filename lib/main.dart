@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/functions/open_webview.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/attendance.dart';
@@ -53,10 +54,10 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.black.withOpacity(.8),
-            secondary: Color(0xffFF284C),
-            onBackground: Color(0xff212121),
-            background: Color(0xffEDECEF),
+            primary: black,
+            secondary: red,
+            onBackground: black,
+            background: white,
           ),
         ),
         initialRoute: SplashScreen.routeName,

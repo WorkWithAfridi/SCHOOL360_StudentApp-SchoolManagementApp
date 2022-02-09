@@ -57,7 +57,7 @@ class _ResultTabState extends State<ResultTab> {
               height: double.infinity,
               width: double.infinity,
               child: GridPaper(
-                color: Colors.black.withOpacity(0.08),
+                color: red.withOpacity(0.05),
                 divisions: 4,
                 interval: 500,
                 subdivisions: 8,
@@ -188,11 +188,20 @@ class _ResultTabState extends State<ResultTab> {
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Please select a ',
-                      style: normalTextStyle,
+                      style: defaultTS,
                     ),
-                    TextSpan(text: 'Year ', style: normalHighLightTextStyle),
-                    TextSpan(text: 'to generate ', style: normalTextStyle),
-                    TextSpan(text: 'Result Report.', style: normalHighLightTextStyle),
+                    TextSpan(
+                      text: 'Year ',
+                      style: defaultHighLightedTS,
+                    ),
+                    TextSpan(
+                      text: 'to generate ',
+                      style: defaultTS,
+                    ),
+                    TextSpan(
+                      text: 'Result Report.',
+                      style: defaultHighLightedTS,
+                    ),
                   ],
                 ),
               ),
@@ -201,7 +210,7 @@ class _ResultTabState extends State<ResultTab> {
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 15),
               width: double.infinity,
-              color: Theme.of(context).colorScheme.background.withOpacity(.3),
+              // color: Theme.of(context).colorScheme.background.withOpacity(.3),
               child: Container(
                 // height: MediaQuery.of(context).size.height * .4,
                 width: double.infinity,
@@ -220,6 +229,8 @@ class _ResultTabState extends State<ResultTab> {
                         // color: Colors.red,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
+                            dropdownColor: white,
+                            style: defaultTS,
                             isExpanded: true,
                             alignment: Alignment.center,
                             elevation: 4,
@@ -266,13 +277,11 @@ class _ResultTabState extends State<ResultTab> {
                             isLoading = false;
                           });
                         } else {
-
                           setState(() {
                             isLoading = false;
                           });
                           var snackBar = SnackBar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
+                            backgroundColor: red,
                             content: Text(
                               'Please select a valid input to continue.',
                               style: appData.normalTextStyle
@@ -285,7 +294,7 @@ class _ResultTabState extends State<ResultTab> {
                       child: Container(
                         height: 40,
                         width: MediaQuery.of(context).size.width,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: red,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
@@ -294,7 +303,7 @@ class _ResultTabState extends State<ResultTab> {
                               Text(
                                 'Next',
                                 style: GoogleFonts.getFont('Ubuntu',
-                                    textStyle: headerTextStyleWhite),
+                                    textStyle: headerTSWhite),
                               ),
                               const SizedBox(
                                 width: 3,
@@ -302,7 +311,7 @@ class _ResultTabState extends State<ResultTab> {
                               Icon(
                                 FontAwesomeIcons.arrowRight,
                                 size: 16,
-                                color: Theme.of(context).colorScheme.background,
+                                color: white,
                               ),
                             ],
                           ),

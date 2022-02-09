@@ -50,7 +50,6 @@ class _AttendanceTabState extends State<AttendanceTab> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    print('running build');
     return Consumer<AttendanceProvider>(
         builder: (context, attendance, childProperty) {
       return Stack(
@@ -59,7 +58,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -160,7 +159,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
           // ),
           isLoading
               ? LinearProgressIndicator(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: red,
                 )
               : Container(),
           Stepper(
@@ -173,25 +172,28 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     children: <TextSpan>[
                       TextSpan(
                         text: 'Please select a ',
-                        style: normalTextStyle,
+                        style: defaultTS,
                       ),
                       TextSpan(
                         text: 'Month, ',
-                        style: normalHighLightTextStyle,
+                        style: defaultHighLightedTS,
                       ),
-                      TextSpan(text: 'Year ', style: normalHighLightTextStyle),
+                      TextSpan(
+                        text: 'Year ',
+                        style: defaultHighLightedTS,
+                      ),
                       TextSpan(
                         text: 'and a ',
-                        style: GoogleFonts.getFont(
-                          'Ubuntu',
-                          textStyle: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
+                        style: defaultTS,
                       ),
                       TextSpan(
-                          text: 'Class Period ',
-                          style: normalHighLightTextStyle),
-                      TextSpan(text: 'to continue.', style: normalTextStyle)
+                        text: 'Class Period ',
+                        style: defaultHighLightedTS,
+                      ),
+                      TextSpan(
+                        text: 'to continue.',
+                        style: defaultTS,
+                      )
                     ],
                   ),
                 ),
@@ -211,6 +213,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           // color: Colors.red,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                              dropdownColor: white,
+                              style: defaultTS,
                               isExpanded: true,
                               elevation: 4,
                               value: provider.selectedMonth,
@@ -230,6 +234,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           width: double.infinity,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                              dropdownColor: white,
+                              style: defaultTS,
                               isExpanded: true,
                               elevation: 4,
                               value: provider.selectedYear,
@@ -248,6 +254,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
                           // color: Colors.red,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                              dropdownColor: white,
+                              style: defaultTS,
                               isExpanded: true,
                               elevation: 4,
                               value: provider.selectedCourse,
@@ -273,10 +281,10 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
-                      TextSpan(text: 'Generate an ', style: normalTextStyle),
+                      TextSpan(text: 'Generate an ', style: defaultTS),
                       TextSpan(
                           text: 'Attendance report.',
-                          style: normalHighLightTextStyle),
+                          style: defaultHighLightedTS),
                     ],
                   ),
                 ),
@@ -292,19 +300,19 @@ class _AttendanceTabState extends State<AttendanceTab> {
                       children: <TextSpan>[
                         TextSpan(
                           text: 'Generating report for ',
-                          style: normalTextStyle,
+                          style: defaultTS,
                         ),
                         TextSpan(
                             text: provider.selectedCourse,
-                            style: normalHighLightTextStyle),
+                            style: defaultHighLightedTS),
                         TextSpan(
                           text: ' for ',
-                          style: normalTextStyle,
+                          style: defaultTS,
                         ),
                         TextSpan(
                             text:
                                 '${provider.selectedMonth}-${provider.selectedYear}.',
-                            style: normalHighLightTextStyle),
+                            style: defaultHighLightedTS),
                       ],
                     ),
                   ),
@@ -332,7 +340,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
-              if (_currentStep == 1)  {
+              if (_currentStep == 1) {
                 setState(() {
                   isLoading = true;
                 });

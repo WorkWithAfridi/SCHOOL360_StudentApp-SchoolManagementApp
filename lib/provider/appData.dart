@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:school_360_app/functions/appData.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 
 class AppData extends ChangeNotifier {
   int _selectedTab = 0;
@@ -24,10 +25,10 @@ class AppData extends ChangeNotifier {
 
   TextStyle headerTextStyleBlack = GoogleFonts.getFont(
     'Open Sans',
-    textStyle: const TextStyle(
+    textStyle:TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 20,
-      color: Color(0xff212121),
+      color: white,
     ),
   );
   TextStyle headerTextStyleWhite = GoogleFonts.getFont(

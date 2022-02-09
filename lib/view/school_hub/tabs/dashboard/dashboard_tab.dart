@@ -5,6 +5,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/download_file.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/functions/open_webview.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/dashboard.dart';
@@ -69,7 +70,7 @@ class _DashboardTabState extends State<DashboardTab> {
           height: double.infinity,
           width: double.infinity,
           child: GridPaper(
-            color: Colors.black.withOpacity(0.08),
+            color: red.withOpacity(0.05),
             divisions: 4,
             interval: 500,
             subdivisions: 8,
@@ -139,7 +140,7 @@ class _DashboardTabState extends State<DashboardTab> {
       child: LiquidPullToRefresh(
         onRefresh: getData,
         height: 100,
-        color: Theme.of(context).colorScheme.primary,
+        color: black,
         animSpeedFactor: 2,
         showChildOpacityTransition: false,
         child: SingleChildScrollView(
@@ -176,14 +177,11 @@ class _DashboardTabState extends State<DashboardTab> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Text('Powered by ',
-                                style: normalTextStyle.copyWith(fontSize: 12)),
+                            child: Text('Powered by ', style: defaultTS),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Text('SCHOOL360.',
-                                style: headerTextStyleBlack.copyWith(
-                                    fontSize: 15)),
+                            child: Text('SCHOOL360.', style: userNameTS),
                           ),
                           SizedBox(
                             height: 5,
@@ -204,13 +202,12 @@ class _DashboardTabState extends State<DashboardTab> {
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child:
-                                Text('Welcome back, ', style: normalTextStyle),
+                            child: Text('Welcome back, ', style: defaultTS),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text('${qrCodeData.studentName}.',
-                                style: headerTextStyleBlack),
+                                style: userNameTS),
                           ),
                         ],
                       ))
@@ -237,12 +234,11 @@ class _DashboardTabState extends State<DashboardTab> {
               //         Text('Attendance Summary.', style: headerTextStyleBlack)),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                color: Theme.of(context).colorScheme.primary,
+                color: black,
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child: Text('Attendance Summary',
-                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
+                  child: Text('Attendance Summary 👋', style: headerTSWhite),
                 ),
               ),
               const SizedBox(
@@ -309,11 +305,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text: 'Total Classes: ',
-                                                  style:
-                                                      normalTextStyle.copyWith(
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
+                                                  style: defaultTS,
                                                 ),
                                                 TextSpan(
                                                     text: provider
@@ -322,7 +314,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                                         .totalWorkingDays
                                                         .toString(),
                                                     style:
-                                                        normalHighLightTextStyle),
+                                                        defaultHighLightedTS),
                                               ],
                                             ),
                                           ),
@@ -335,11 +327,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                               children: <TextSpan>[
                                                 TextSpan(
                                                     text: 'Presents: ',
-                                                    style: normalTextStyle
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                    )),
+                                                    style: defaultTS),
                                                 TextSpan(
                                                     text: provider
                                                         .dataModelForDashboardAttendance
@@ -347,7 +335,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                                         .totalPresentDays
                                                         .toString(),
                                                     style:
-                                                        normalHighLightTextStyle),
+                                                        defaultHighLightedTS),
                                               ],
                                             ),
                                           ),
@@ -360,11 +348,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                               children: <TextSpan>[
                                                 TextSpan(
                                                     text: 'Absents: ',
-                                                    style: normalTextStyle
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                    )),
+                                                    style: defaultTS),
                                                 TextSpan(
                                                     text: provider
                                                         .dataModelForDashboardAttendance
@@ -372,7 +356,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                                         .totalAbsentDays
                                                         .toString(),
                                                     style:
-                                                        normalHighLightTextStyle),
+                                                        defaultHighLightedTS),
                                               ],
                                             ),
                                           ),
@@ -385,11 +369,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                               children: <TextSpan>[
                                                 TextSpan(
                                                     text: 'On Leave: ',
-                                                    style: normalTextStyle
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                    )),
+                                                    style: defaultTS),
                                                 TextSpan(
                                                     text: provider
                                                         .dataModelForDashboardAttendance
@@ -397,7 +377,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                                         .totalLeaveDays
                                                         .toString(),
                                                     style:
-                                                        normalHighLightTextStyle),
+                                                        defaultHighLightedTS),
                                               ],
                                             ),
                                           ),
@@ -418,8 +398,10 @@ class _DashboardTabState extends State<DashboardTab> {
                                     color: const Color(0xff212121),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('Report',
-                                      style: normalHighLightTextStyle),
+                                  child: Text(
+                                    'Report',
+                                    style: defaultHighLightedTS,
+                                  ),
                                 ),
                               ),
                             ),
@@ -464,12 +446,11 @@ class _DashboardTabState extends State<DashboardTab> {
 
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                color: Theme.of(context).colorScheme.primary,
+                color: black,
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child: Text('Announcements',
-                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
+                  child: Text('Announcements 🔔', style: headerTSWhite),
                 ),
               ),
               const SizedBox(
@@ -514,7 +495,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                           alignment: Alignment.topCenter,
                                           child: Text(
                                             '${(index + 1).toString()}.',
-                                            style: normalTextStyle,
+                                            style: defaultTS,
                                           ),
                                         ),
                                         Expanded(
@@ -531,14 +512,10 @@ class _DashboardTabState extends State<DashboardTab> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,
-                                                    style: normalTextStyle),
+                                                    style: defaultTS),
                                                 Text(
                                                   "Uploaded on: ${provider.dataModelForNotice.data![index].date.toString()}",
-                                                  style:
-                                                      normalTextStyle.copyWith(
-                                                          color: Colors.black
-                                                              .withOpacity(.4),
-                                                          fontSize: 13),
+                                                  style: subtitleTS,
                                                 )
                                               ],
                                             ),
@@ -551,9 +528,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                           child: Center(
                                             child: Icon(
                                               Icons.download,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
+                                              color: red,
                                               size: 17,
                                             ),
                                           ),
@@ -569,10 +544,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                     child: Container(
                                       height: 1,
                                       width: double.infinity,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withOpacity(.2),
+                                      color: black,
                                     ),
                                   ),
                                   const SizedBox(
@@ -611,7 +583,7 @@ class _DashboardTabState extends State<DashboardTab> {
                         children: [
                           Text(
                             'View more',
-                            style: normalHighLightTextStyle,
+                            style: defaultHighLightedTS,
                           ),
                           const SizedBox(
                             width: 3,
@@ -619,10 +591,7 @@ class _DashboardTabState extends State<DashboardTab> {
                           Icon(
                             FontAwesomeIcons.angleDoubleRight,
                             size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withOpacity(.8),
+                            color: red,
                           )
                         ],
                       ),
@@ -666,12 +635,11 @@ class _DashboardTabState extends State<DashboardTab> {
 
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                color: Theme.of(context).colorScheme.primary,
+                color: black,
                 width: double.infinity,
                 child: Container(
                   width: 60,
-                  child: Text('Past payments',
-                      style: headerTextStyleWhite.copyWith(fontSize: 18)),
+                  child: Text('Past payments 💳', style: headerTextStyleWhite),
                 ),
               ),
               const SizedBox(
@@ -686,8 +654,7 @@ class _DashboardTabState extends State<DashboardTab> {
                         alignment: Alignment.center,
                         child: Text(
                           'No Payment Data Found!',
-                          style: normalTextStyle.copyWith(
-                              color: Colors.black87.withOpacity(.7)),
+                          style: defaultTS,
                         ),
                       )
                     : Column(
@@ -714,15 +681,11 @@ class _DashboardTabState extends State<DashboardTab> {
                                     invoiceProvider.getInvoice(context);
                                   },
                                   child: Card(
-                                    // color: Colors.R,
+                                    // color: white,
                                     elevation: 4,
                                     child: ListTile(
-                                      trailing: Icon(
-                                        FontAwesomeIcons.download,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
+                                      trailing: Icon(FontAwesomeIcons.download,
+                                          color: red),
                                       title: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -732,17 +695,14 @@ class _DashboardTabState extends State<DashboardTab> {
                                           Row(
                                             children: [
                                               Text(
-                                                'Bill No.: ',
-                                                style: headerTextStyleBlack
-                                                    .copyWith(
-                                                  fontSize: 15,
-                                                  color: Colors.black87
-                                                      .withOpacity(.7),
-                                                ),
+                                                'Bill No: ',
+                                                style: defaultTS.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].receiptNo}',
-                                                style: normalHighLightTextStyle,
+                                                style: defaultHighLightedTS,
                                               ),
                                             ],
                                           ),
@@ -750,16 +710,13 @@ class _DashboardTabState extends State<DashboardTab> {
                                             children: [
                                               Text(
                                                 'Total: ',
-                                                style: headerTextStyleBlack
-                                                    .copyWith(
-                                                  fontSize: 15,
-                                                  color: Colors.black87
-                                                      .withOpacity(.7),
-                                                ),
+                                                style:  defaultTS.copyWith(
+                                                    fontWeight:
+                                                    FontWeight.w400),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
-                                                style: normalHighLightTextStyle,
+                                                style: defaultHighLightedTS,
                                               ),
                                             ],
                                           ),
@@ -773,11 +730,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                           //     'Amount: ${provider.dataModelForPastPayment.data![index].totalPaidAmount}'),
                                           Text(
                                             'Payed on: ${provider.dataModelForPastPayment.data![index].date}',
-                                            style: normalTextStyle.copyWith(
-                                              fontSize: 12,
-                                              color:
-                                                  Colors.black.withOpacity(.4),
-                                            ),
+                                            style: subtitleTS
                                           ),
                                         ],
                                       ),
@@ -807,7 +760,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                 children: [
                                   Text(
                                     'View more',
-                                    style: normalHighLightTextStyle,
+                                    style: defaultHighLightedTS,
                                   ),
                                   const SizedBox(
                                     width: 3,
@@ -815,10 +768,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                   Icon(
                                     FontAwesomeIcons.angleDoubleRight,
                                     size: 15,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(.8),
+                                    color: red,
                                   )
                                 ],
                               ),

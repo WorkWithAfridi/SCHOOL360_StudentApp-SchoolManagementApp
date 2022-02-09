@@ -7,6 +7,8 @@ import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/provider/school_hub_payment.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_details_page.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class PaymentTab extends StatefulWidget {
   const PaymentTab({Key? key}) : super(key: key);
 
@@ -52,7 +54,7 @@ class _PaymentTabState extends State<PaymentTab> {
               height: double.infinity,
               width: double.infinity,
               child: GridPaper(
-                color: Colors.black.withOpacity(0.08),
+                color: red.withOpacity(0.05),
                 divisions: 4,
                 interval: 500,
                 subdivisions: 8,
@@ -126,6 +128,8 @@ class _PaymentTabState extends State<PaymentTab> {
                                               child:
                                                   DropdownButtonHideUnderline(
                                                 child: DropdownButton(
+                                                    dropdownColor: white,
+                                                    style: defaultTS,
                                                     isExpanded: true,
                                                     elevation: 4,
                                                     value:
@@ -191,6 +195,8 @@ class _PaymentTabState extends State<PaymentTab> {
                                                     child:
                                                         DropdownButtonHideUnderline(
                                                       child: DropdownButton(
+                                                          dropdownColor: white,
+                                                          style: defaultTS,
                                                           isExpanded: true,
                                                           elevation: 4,
                                                           value: provider

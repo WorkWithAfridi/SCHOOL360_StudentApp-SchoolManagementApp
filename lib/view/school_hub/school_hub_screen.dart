@@ -69,7 +69,7 @@ class _SchoolHubState extends State<SchoolHub> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: black,
           elevation: 0,
           title: Text(
             'SCHOOL360',
@@ -84,14 +84,14 @@ class _SchoolHubState extends State<SchoolHub> {
           ),
         ),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -101,7 +101,7 @@ class _SchoolHubState extends State<SchoolHub> {
             width: MediaQuery.of(context).size.width,
             child: Container(
               // color: Theme.of(context).colorScheme.secondary,
-              color: Colors.white70,
+              // color: Colors.black,
               padding: const EdgeInsets.only(bottom: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +121,7 @@ class _SchoolHubState extends State<SchoolHub> {
                       height: 45,
                       child: Icon(
                         Icons.arrow_back,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: black,
                         size: 25,
                       ),
                     ),
@@ -149,13 +149,13 @@ class _SchoolHubState extends State<SchoolHub> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
                       qrCodeData.studentName,
-                      style: headerTextStyleBlack.copyWith(fontSize: 15),
+                      style: userNameTS,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Divider(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: black,
                     ),
                   ),
                   InkWell(
@@ -175,18 +175,15 @@ class _SchoolHubState extends State<SchoolHub> {
                         children: [
                           Icon(
                             FontAwesomeIcons.receipt,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 27,
+                            color: black,
+                            size: 22,
                           ),
                           const SizedBox(
                             width: 5,
                           ),
                           Text(
                             'Invoices',
-                            style: normalTextStyle.copyWith(
-                              fontSize: 16,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                            style: defaultTS,
                           )
                         ],
                       ),
@@ -209,19 +206,15 @@ class _SchoolHubState extends State<SchoolHub> {
                                   Icon(
                                     FontAwesomeIcons.slidersH,
                                     color:
-                                        Theme.of(context).colorScheme.primary,
-                                    size: 25,
+                                        black,
+                                    size: 22,
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     'Settings',
-                                    style: normalTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
+                                    style: defaultTS
                                   )
                                 ],
                               ),
@@ -241,20 +234,15 @@ class _SchoolHubState extends State<SchoolHub> {
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.signOutAlt,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    size: 25,
+                                    color: black,
+                                    size: 22,
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     'Sign Out',
-                                    style: normalTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
+                                    style: defaultTS
                                   )
                                 ],
                               ),
@@ -274,6 +262,7 @@ class _SchoolHubState extends State<SchoolHub> {
   }
 
   GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
+
   DefaultTabController mainPage(BuildContext context) {
     qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);
     return DefaultTabController(
@@ -285,7 +274,7 @@ class _SchoolHubState extends State<SchoolHub> {
           child: menuPage(context),
         ),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: black,
           elevation: 6,
           title: Text(
             pageNo == 0
@@ -308,7 +297,7 @@ class _SchoolHubState extends State<SchoolHub> {
             },
             icon: Icon(
               FontAwesomeIcons.bars,
-              color: Theme.of(context).colorScheme.primary,
+              color: white,
             ),
           ),
           actions: [
@@ -318,12 +307,12 @@ class _SchoolHubState extends State<SchoolHub> {
               },
               icon: Icon(
                 FontAwesomeIcons.bell,
-                color: Theme.of(context).colorScheme.primary,
+                color: white,
               ),
             )
           ],
         ),
-        backgroundColor: backgroundColor,
+        backgroundColor: white,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -471,36 +460,36 @@ class _SchoolHubState extends State<SchoolHub> {
               appData.navigateToPage(4);
             }
           },
-          selectedItemColor: Theme.of(context).colorScheme.secondary,
-          unselectedItemColor: Theme.of(context).colorScheme.primary,
+          selectedItemColor: red,
+          unselectedItemColor: black,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.home),
                 label: ' ',
-                backgroundColor: Colors.white),
+                backgroundColor: white),
             BottomNavigationBarItem(
                 icon: Icon(
                   FontAwesomeIcons.book,
                 ),
                 label: '',
-                backgroundColor: Colors.white),
+                backgroundColor: white),
             BottomNavigationBarItem(
                 icon: Icon(
                   FontAwesomeIcons.clipboardCheck,
                 ),
                 label: '',
-                backgroundColor: Colors.white),
+                backgroundColor: white),
             BottomNavigationBarItem(
                 icon: Icon(
                   FontAwesomeIcons.starHalfAlt,
                 ),
                 label: '',
-                backgroundColor: Colors.white),
+                backgroundColor: white),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.solidCreditCard),
                 label: '',
-                backgroundColor: Colors.white),
+                backgroundColor: white),
           ],
         ),
       ),

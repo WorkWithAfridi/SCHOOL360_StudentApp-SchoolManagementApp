@@ -376,7 +376,7 @@ class _NoticeTabState extends State<NoticeTab> {
                             (index + 1).toString(),
                             style: headerTextStyleWhite,
                           ),
-                          radius: 23,
+                          // radius: 23,
                         ),
                         title: Text(
                           notice.dataModelForNotice.data![index].title

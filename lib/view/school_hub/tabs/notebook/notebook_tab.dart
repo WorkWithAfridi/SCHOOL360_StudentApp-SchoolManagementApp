@@ -10,6 +10,8 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/notebook.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/widgets/animation/coverLottieAnimation.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class NotebookTab extends StatefulWidget {
   static const routeName = '/school_hub/notebook_tabs';
   const NotebookTab({Key? key}) : super(key: key);
@@ -55,7 +57,7 @@ class _NotebookTabState extends State<NotebookTab> {
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -167,25 +169,18 @@ class _NotebookTabState extends State<NotebookTab> {
                     text: TextSpan(
                       style: DefaultTextStyle.of(context).style,
                       children: <TextSpan>[
+                        TextSpan(text: 'Please select a ', style: defaultTS),
                         TextSpan(
-                            text: 'Please select a ', style: normalTextStyle),
+                            text: 'Valid Date ', style: defaultHighLightedTS),
+                        TextSpan(text: 'to view ', style: defaultTS),
                         TextSpan(
-                            text: 'Valid Date ',
-                            style: normalHighLightTextStyle),
-                        TextSpan(
-                          text: 'to view ',
-                          style: normalTextStyle,
-                        ),
-                        TextSpan(
-                          text: 'notebook.',
-                          style: normalHighLightTextStyle,
-                        ),
+                            text: 'notebook.', style: defaultHighLightedTS),
                       ],
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 2,
                 ),
                 Container(
                   // color: Colors.red,
@@ -197,21 +192,19 @@ class _NotebookTabState extends State<NotebookTab> {
                     children: [
                       Consumer<NotebookProvider>(
                         builder: (context, notebook, childProperty) {
-                          return Text('Date:  ', style: normalTextStyle);
+                          return Text('Date:  ', style: defaultTS);
                         },
                       ),
                       Consumer<NotebookProvider>(
                           builder: (context, notebook, childProperty) {
-                        return Text(
-                          notebook.pickedDate,
-                          style: normalHighLightTextStyle,
-                        );
+                        return Text(notebook.pickedDate,
+                            style: defaultHighLightedTS);
                       }),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 3,
+                  height: 10,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -219,17 +212,8 @@ class _NotebookTabState extends State<NotebookTab> {
                   },
                   child: Chip(
                     elevation: 4,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    label: Text(
-                      'Select Date',
-                      style: GoogleFonts.getFont(
-                        'Ubuntu',
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
+                    backgroundColor: red,
+                    label: Text('Select Date', style: headerTSWhite),
                   ),
                 ),
                 // Container(
@@ -273,19 +257,19 @@ class _NotebookTabState extends State<NotebookTab> {
             return GestureDetector(
               onTap: () async {
                 setState(() {
-                  isLoading=true;
+                  isLoading = true;
                 });
                 // notebook.showLoading = true;
                 notebook.getNotebookData(context);
                 await Future.delayed(Duration(seconds: 1));
                 setState(() {
-                  isLoading=false;
+                  isLoading = false;
                 });
               },
               child: Container(
                 height: 40,
                 width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).colorScheme.secondary,
+                color: red,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
@@ -293,8 +277,10 @@ class _NotebookTabState extends State<NotebookTab> {
                     children: [
                       Text(
                         'Next',
-                        style: GoogleFonts.getFont('Ubuntu',
-                            textStyle: headerTextStyleWhite),
+                        style: GoogleFonts.getFont(
+                          'Ubuntu',
+                          textStyle: headerTSWhite,
+                        ),
                       ),
                       const SizedBox(
                         width: 3,
@@ -302,7 +288,7 @@ class _NotebookTabState extends State<NotebookTab> {
                       Icon(
                         FontAwesomeIcons.arrowRight,
                         size: 16,
-                        color: Theme.of(context).colorScheme.background,
+                        color: white,
                       ),
                     ],
                   ),
