@@ -5,6 +5,8 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/attendance.dart';
 import 'package:school_360_app/provider/result.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class AttendanceReportTable_Page extends StatefulWidget {
   static const routeName = '/school_hub/result_tabs/AttendanceReportTable_Page';
   AttendanceReportTable_Page({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class _AttendanceReportTable_PageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -53,24 +55,24 @@ class _AttendanceReportTable_PageState
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           'Attendance Report',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -111,7 +113,7 @@ class _AttendanceReportTable_PageState
                               child: Container(
                                 width: 60,
                                 child: Text('Student Information',
-                                    style: headerTextStyleWhite),
+                                    style: headerTSWhite),
                               ),
                             ),
                             SizedBox(
@@ -121,30 +123,30 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Showing result for the month: ${provider.selectedMonth.substring(0, 3)} - ${provider.selectedYear}.',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Student Name: ${provider.dataModelForAttendance.data!.name.toString()}',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Student Code: ${provider.dataModelForAttendance.data!.studentCode.toString()}',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Student of: ${provider.dataModelForAttendance.data!.className.toString()}',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text('Class: ${provider.selectedCourse}',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                           ],
                         ),
@@ -169,7 +171,7 @@ class _AttendanceReportTable_PageState
                               child: Container(
                                 width: 60,
                                 child: Text('Attendance Summary',
-                                    style: headerTextStyleWhite),
+                                    style: headerTSWhite),
                               ),
                             ),
                             const SizedBox(
@@ -180,25 +182,25 @@ class _AttendanceReportTable_PageState
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Total Holidays: ${provider.dataModelForAttendance.data!.totalHolidays.toString()}.',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Total Present days: ${provider.dataModelForAttendance.data!.totalPresentDays.toString()}.',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Total Absent days: ${provider.dataModelForAttendance.data!.totalAbsentDays.toString()}.',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                   'Total Leave days: ${provider.dataModelForAttendance.data!.totalLeaveDays.toString()}.',
-                                  style: normalTextStyle),
+                                  style: defaultTS),
                             ),
                           ],
                         ),
@@ -223,7 +225,7 @@ class _AttendanceReportTable_PageState
                               child: Container(
                                 width: 60,
                                 child: Text('Attendance Breakdown',
-                                    style: headerTextStyleWhite),
+                                    style: headerTSWhite),
                               ),
                             ),
                             // Container(
@@ -296,34 +298,14 @@ class _AttendanceReportTable_PageState
                                                       TextSpan(
                                                         text: (index + 1)
                                                             .toString(),
-                                                        style:
-                                                            GoogleFonts.getFont(
-                                                          'Ubuntu',
-                                                          textStyle: TextStyle(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.7),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 30),
-                                                        ),
+                                                        style: headerTSBlack,
                                                       ),
                                                       TextSpan(
                                                         text: 'th ',
                                                         style:
                                                             GoogleFonts.getFont(
                                                           'Ubuntu',
-                                                          textStyle: TextStyle(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.7),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 15),
+                                                          textStyle: defaultTS,
                                                         ),
                                                       ),
                                                     ],
@@ -350,29 +332,7 @@ class _AttendanceReportTable_PageState
                                                               index]
                                                           .status
                                                           .toString(),
-                                                      style:
-                                                          GoogleFonts.getFont(
-                                                        'Ubuntu',
-                                                        textStyle: TextStyle(
-                                                            color: provider
-                                                                        .dataModelForAttendance
-                                                                        .data!
-                                                                        .attendanceInfo![
-                                                                            index]
-                                                                        .status
-                                                                        .toString() ==
-                                                                    "Present"
-                                                                ? Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .secondary
-                                                                : Colors.black
-                                                                    .withOpacity(
-                                                                        0.7),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18),
-                                                      ),
+                                                      style: headerTSBlack,
                                                     ),
                                                     // const SizedBox(
                                                     //   height: 5,
@@ -380,8 +340,8 @@ class _AttendanceReportTable_PageState
                                                     Container(
                                                       width: double.infinity,
                                                       height: 1,
-                                                      color: Colors.black
-                                                          .withOpacity(0.7),
+                                                      color: black
+                                                          .withOpacity(0.3),
                                                     )
                                                   ],
                                                 ),

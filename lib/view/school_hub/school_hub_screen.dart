@@ -288,7 +288,7 @@ class _SchoolHubState extends State<SchoolHub> {
                             : pageNo == 4
                                 ? '💳 Payment'
                                 : 'School 360',
-            style: headerTextStyleBlack,
+            style: headerTSWhite,
           ),
           centerTitle: true,
           leading: IconButton(

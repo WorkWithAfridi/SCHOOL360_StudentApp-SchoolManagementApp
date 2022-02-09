@@ -101,8 +101,8 @@ class _NotebookTabState extends State<NotebookTab> {
       child: Consumer<NotebookProvider>(
           builder: (context, notebook, childProperty) {
         return AlertDialog(
-          title: Text(notebook.alertBoxTitle, style: headerTextStyleBlack),
-          content: Text(notebook.alertBoxText, style: normalTextStyle),
+          title: Text(notebook.alertBoxTitle, style: headerTSBlack),
+          content: Text(notebook.alertBoxText, style: defaultTS),
           actions: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width * 0.3,

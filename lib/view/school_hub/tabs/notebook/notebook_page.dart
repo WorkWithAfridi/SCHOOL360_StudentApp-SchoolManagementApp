@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/notebook.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class NotebookPage extends StatefulWidget {
-  static const routeName='/school_hub/notebook_tabs/notebook_page';
+  static const routeName = '/school_hub/notebook_tabs/notebook_page';
   NotebookPage({Key? key}) : super(key: key);
 
   @override
@@ -24,10 +26,10 @@ class _NotebookPageState extends State<NotebookPage> {
 
   void getData() {
     appData = Provider.of<AppData>(context, listen: false);
-    headerTextStyleBlack=appData.headerTextStyleBlack;
-    headerTextStyleWhite=appData.headerTextStyleWhite;
-    normalTextStyle=appData.normalTextStyle;
-    normalHighLightTextStyle=appData.normalHighLightTextStyle;
+    headerTextStyleBlack = appData.headerTextStyleBlack;
+    headerTextStyleWhite = appData.headerTextStyleWhite;
+    normalTextStyle = appData.normalTextStyle;
+    normalHighLightTextStyle = appData.normalHighLightTextStyle;
   }
 
   @override
@@ -36,11 +38,12 @@ class _NotebookPageState extends State<NotebookPage> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -48,14 +51,14 @@ class _NotebookPageState extends State<NotebookPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           '📚 Notes',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
       body: Stack(
@@ -64,7 +67,7 @@ class _NotebookPageState extends State<NotebookPage> {
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -85,72 +88,69 @@ class _NotebookPageState extends State<NotebookPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            notebook.dataModelForNotebook.data!
-                                .noteBookList![notebook.selectedIndex].subjectName
+                            notebook
+                                .dataModelForNotebook
+                                .data!
+                                .noteBookList![notebook.selectedIndex]
+                                .subjectName
                                 .toString(),
-                            style: headerTextStyleBlack,
-                          ),
-                          const SizedBox(
-                            height: 3,
+                            style: headerTSBlack,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text('Date:', style: normalTextStyle),
+                              Text('Date:', style: defaultTS),
                               Text(
                                 ' ${notebook.dataModelForNotebook.data!.noteBookList![notebook.selectedIndex].date.toString()}',
-                                style: normalHighLightTextStyle,
+                                style: defaultHighLightedTS,
                               ),
                             ],
                           ),
                           notebook
-                              .dataModelForNotebook
-                              .data!
-                              .noteBookList![notebook.selectedIndex]
-                              .fileLocation ==
-                              null
+                                      .dataModelForNotebook
+                                      .data!
+                                      .noteBookList![notebook.selectedIndex]
+                                      .fileLocation ==
+                                  null
                               ? Container()
                               : Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  //TODO: Implement download feature on NoteBook detail page
-                                  print('Start download');
-                                },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Downloadable file:',
-                                      style: normalHighLightTextStyle,
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    Icon(
-                                      Icons.download,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      size: 16,
-                                    )
+                                    GestureDetector(
+                                      onTap: () {
+                                        //TODO: Implement download feature on NoteBook detail page
+                                        print('Start download');
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Downloadable file:',
+                                            style: defaultHighLightedTS,
+                                          ),
+                                          Icon(
+                                            Icons.download,
+                                            color: red,
+                                            size: 16,
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
                           const SizedBox(
                             height: 15,
                           ),
                           Container(
                             height: 1,
                             width: double.infinity,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(.3),
+                            color: black,
                           ),
                           const SizedBox(
                             height: 15,
@@ -159,7 +159,7 @@ class _NotebookPageState extends State<NotebookPage> {
                             notebook.dataModelForNotebook.data!
                                 .noteBookList![notebook.selectedIndex].message
                                 .toString(),
-                            style: normalTextStyle,
+                            style: defaultTS,
                           ),
                           const SizedBox(
                             height: 15,
@@ -167,10 +167,7 @@ class _NotebookPageState extends State<NotebookPage> {
                           Container(
                             height: 1,
                             width: double.infinity,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(.3),
+                            color: black,
                           ),
                         ],
                       ),

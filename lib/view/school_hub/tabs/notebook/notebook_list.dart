@@ -9,7 +9,7 @@ import 'package:school_360_app/provider/notebook.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_page.dart';
 
 class NotebookList extends StatefulWidget {
-  static const routeName='/school_hub/notebook_tabs/notebook_list';
+  static const routeName = '/school_hub/notebook_tabs/notebook_list';
   NotebookList({Key? key}) : super(key: key);
 
   @override
@@ -29,10 +29,10 @@ class _NotebookListState extends State<NotebookList> {
 
   void getData() {
     appData = Provider.of<AppData>(context, listen: false);
-    headerTextStyleBlack=appData.headerTextStyleBlack;
-    headerTextStyleWhite=appData.headerTextStyleWhite;
-    normalTextStyle=appData.normalTextStyle;
-    normalHighLightTextStyle=appData.normalHighLightTextStyle;
+    headerTextStyleBlack = appData.headerTextStyleBlack;
+    headerTextStyleWhite = appData.headerTextStyleWhite;
+    normalTextStyle = appData.normalTextStyle;
+    normalHighLightTextStyle = appData.normalHighLightTextStyle;
   }
 
   @override
@@ -41,11 +41,12 @@ class _NotebookListState extends State<NotebookList> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -53,14 +54,14 @@ class _NotebookListState extends State<NotebookList> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           '📓 Notebook',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
       backgroundColor: backgroundColor,
@@ -70,7 +71,7 @@ class _NotebookListState extends State<NotebookList> {
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -107,103 +108,116 @@ class _NotebookListState extends State<NotebookList> {
                       // ),
                       notebook.dataModelForNotebook.data!.noteBookList!.isEmpty
                           ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Its quite empty down here, maybe ask your teacher for some homework?',
-                            style: normalHighLightTextStyle.copyWith(color: Colors.grey.withOpacity(.9)),
-                          ),
-                        ),
-                      )
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Text(
+                                  'Its quite empty down here, maybe ask your teacher for some homework?',
+                                  style: defaultTS,
+                                ),
+                              ),
+                            )
                           : ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: notebook
-                            .dataModelForNotebook.data!.noteBookList!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              notebook.selectedIndex = index;
-                              Navigator.of(context).pushNamed(NotebookPage.routeName);
-                            },
-                            child: Card(
-                              elevation: 4,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 5,
-                                            horizontal: 10),
-                                        child: Text(
-                                          notebook.dataModelForNotebook.data!
-                                              .noteBookList![index].subjectName
-                                              .toString(),
-                                          style: headerTextStyleBlack.copyWith(color: Colors.black87),
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: notebook.dataModelForNotebook.data!
+                                  .noteBookList!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    notebook.selectedIndex = index;
+                                    Navigator.of(context)
+                                        .pushNamed(NotebookPage.routeName);
+                                  },
+                                  child: Card(
+                                    elevation: 4,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: Text(
+                                                notebook
+                                                    .dataModelForNotebook
+                                                    .data!
+                                                    .noteBookList![index]
+                                                    .subjectName
+                                                    .toString(),
+                                                style: headerTSBlack,
+                                              ),
+                                            ),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Text(
+                                                notebook
+                                                    .dataModelForNotebook
+                                                    .data!
+                                                    .noteBookList![index]
+                                                    .date
+                                                    .toString(),
+                                                style: defaultHighLightedTS,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Text(
-                                          notebook.dataModelForNotebook.data!
-                                              .noteBookList![index].date
-                                              .toString(),
-                                          style: normalHighLightTextStyle,
+                                        // Container(
+                                        //   height: 1,
+                                        //   width: double.infinity,
+                                        //   color: Theme.of(context)
+                                        //       .colorScheme
+                                        //       .primary
+                                        //       .withOpacity(.3),
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // SizedBox(height: 5,),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Text(
+                                            notebook.dataModelForNotebook.data!
+                                                .noteBookList![index].message
+                                                .toString(),
+                                            maxLines: 4,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: defaultTS,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  // Container(
-                                  //   height: 1,
-                                  //   width: double.infinity,
-                                  //   color: Theme.of(context)
-                                  //       .colorScheme
-                                  //       .primary
-                                  //       .withOpacity(.3),
-                                  // ),
-                                  // const SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                  // SizedBox(height: 5,),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      notebook.dataModelForNotebook.data!
-                                          .noteBookList![index].message
-                                          .toString(),
-                                      maxLines: 4,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: normalTextStyle,
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        // Container(
+                                        //   height: 1,
+                                        //   width: double.infinity,
+                                        //   color: Theme.of(context)
+                                        //       .colorScheme
+                                        //       .primary
+                                        //       .withOpacity(.3),
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  // Container(
-                                  //   height: 1,
-                                  //   width: double.infinity,
-                                  //   color: Theme.of(context)
-                                  //       .colorScheme
-                                  //       .primary
-                                  //       .withOpacity(.3),
-                                  // ),
-                                  // const SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )
+                                );
+                              },
+                            )
                     ],
                   ),
                 ),

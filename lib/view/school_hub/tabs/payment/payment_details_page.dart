@@ -43,7 +43,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -51,24 +51,24 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           'Payment details',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 400,
               subdivisions: 9,
@@ -99,7 +99,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                   child: Container(
                     height: 40,
                     width: MediaQuery.of(context).size.width,
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: red,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
@@ -108,7 +108,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                           Text(
                             'Proceed to Checkout',
                             style: GoogleFonts.getFont('Ubuntu',
-                                textStyle: headerTextStyleWhite),
+                                textStyle: headerTSWhite),
                           ),
                           const SizedBox(
                             width: 3,
@@ -116,7 +116,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                           Icon(
                             FontAwesomeIcons.arrowRight,
                             size: 16,
-                            color: Theme.of(context).colorScheme.background,
+                            color: white,
                           ),
                         ],
                       ),
@@ -134,7 +134,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   Container fullReceipt(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: Consumer<SchoolHubPaymentProvider>(
         builder: (context, provider, childProperty) {
           return SingleChildScrollView(
@@ -145,17 +145,17 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 7.0),
-                  child: Text('Payment Summary.', style: headerTextStyleBlack),
+                  child: Text('Payment Summary.', style: headerTSBlack),
                 ),
                 RichText(
                   text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
-                      TextSpan(text: 'Name: ', style: normalTextStyle),
+                      TextSpan(text: 'Name: ', style: defaultTS),
                       TextSpan(
                           text:
                               '${provider.data_model_for_fees.student_info.name}.',
-                          style: normalHighLightTextStyle),
+                          style: defaultHighLightedTS),
                     ],
                   ),
                 ),
@@ -163,12 +163,11 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                   text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
-                      TextSpan(
-                          text: 'Receipt number: ', style: normalTextStyle),
+                      TextSpan(text: 'Receipt number: ', style: defaultTS),
                       TextSpan(
                           text:
                               '${provider.data_model_for_fees.fees_data.receipt_no}.',
-                          style: normalHighLightTextStyle),
+                          style: defaultHighLightedTS),
                     ],
                   ),
                 ),
@@ -176,18 +175,18 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                   text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
-                      TextSpan(text: 'Due: ', style: normalTextStyle),
+                      TextSpan(text: 'Due: ', style: defaultTS),
                       TextSpan(
                           text: '${provider.total}',
-                          style: normalHighLightTextStyle),
-                      TextSpan(text: 'TK.', style: normalTextStyle),
+                          style: defaultHighLightedTS),
+                      TextSpan(text: 'TK.', style: defaultTS),
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Text('Bill Summary.', style: headerTextStyleBlack),
+                Text('Bill Summary.', style: headerTSBlack),
                 const SizedBox(
                   height: 5,
                 ),
@@ -200,13 +199,13 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                       SizedBox(
                         width: 30,
                         child: Center(
-                          child: Text('#', style: headerTextStyleWhite),
+                          child: Text('#', style: headerTSWhite),
                         ),
                       ),
                       Expanded(
                         child: Container(
                           alignment: Alignment.centerLeft,
-                          child: Text('Summary', style: headerTextStyleWhite),
+                          child: Text('Summary', style: headerTSWhite),
                         ),
                       ),
                     ],
@@ -233,7 +232,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                   width: 30,
                                   alignment: Alignment.topCenter,
                                   child: Text('${(index + 1).toString()}.',
-                                      style: normalTextStyle),
+                                      style: defaultTS),
                                 ),
                                 Expanded(
                                   child: Container(
@@ -250,7 +249,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                                 .fees_data
                                                 .allocated_list[index]
                                                 .sub_category_name,
-                                            style: normalTextStyle),
+                                            style: defaultTS),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -264,12 +263,12 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                                   TextSpan(
                                                       text:
                                                           'Allocated Amount: ',
-                                                      style: normalTextStyle),
+                                                      style: defaultTS),
                                                   TextSpan(
                                                       text:
                                                           '${provider.data_model_for_fees.fees_data.allocated_list[index].actual_allocated_amount_for_this_student}.',
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                          defaultHighLightedTS),
                                                 ],
                                               ),
                                             ),
@@ -281,12 +280,12 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                                 children: <TextSpan>[
                                                   TextSpan(
                                                       text: 'Already paid: ',
-                                                      style: normalTextStyle),
+                                                      style: defaultTS),
                                                   TextSpan(
                                                       text:
                                                           '${provider.data_model_for_fees.fees_data.allocated_list[index].already_paid_amount}.',
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                          defaultHighLightedTS),
                                                 ],
                                               ),
                                             ),
@@ -298,12 +297,12 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                                 children: <TextSpan>[
                                                   TextSpan(
                                                       text: 'Discount: ',
-                                                      style: normalTextStyle),
+                                                      style: defaultTS),
                                                   TextSpan(
                                                       text:
                                                           '${provider.data_model_for_fees.fees_data.allocated_list[index].already_discount_amount}.',
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                          defaultHighLightedTS),
                                                 ],
                                               ),
                                             ),
@@ -323,13 +322,11 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                     style: DefaultTextStyle.of(context).style,
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Total: ',
-                                          style: normalTextStyle),
+                                          text: 'Total: ', style: defaultTS),
                                       TextSpan(
                                           text: (provider.total).toString(),
-                                          style: normalHighLightTextStyle),
-                                      TextSpan(
-                                          text: 'TK.', style: normalTextStyle),
+                                          style: defaultHighLightedTS),
+                                      TextSpan(text: 'TK.', style: defaultTS),
                                     ],
                                   ),
                                 ),

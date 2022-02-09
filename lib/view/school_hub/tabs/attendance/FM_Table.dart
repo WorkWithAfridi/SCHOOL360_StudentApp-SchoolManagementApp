@@ -5,6 +5,8 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/attendance.dart';
 import 'package:school_360_app/provider/result.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class FMTable_Page extends StatefulWidget {
   static const routeName = '/school_hub/result_tabs/FMTable';
   FMTable_Page({Key? key}) : super(key: key);
@@ -43,7 +45,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -51,24 +53,24 @@ class _FMTable_PageState extends State<FMTable_Page> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           'Attendance Report',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -90,7 +92,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                       height: 10,
                     ),
                     Card(
-                      elevation:4,
+                      elevation: 4,
                       child: Container(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
@@ -106,7 +108,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                 width: 60,
                                 child: Text(
                                   'Student Information',
-                                  style: headerTextStyleWhite,
+                                  style: headerTSWhite,
                                 ),
                               ),
                             ),
@@ -118,7 +120,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 'Showing result for the month: ${provider.selectedMonth.substring(0, 3)}',
-                                style: normalTextStyle,
+                                style: defaultTS,
                               ),
                             ),
                             Container(
@@ -126,21 +128,21 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 'Student Name: ${provider.dataModelForLogInLogOutTimings.data!.name.toString()}',
-                                style: normalTextStyle,
+                                style: defaultTS,
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 'Student Code: ${provider.dataModelForLogInLogOutTimings.data!.studentCode.toString()}',
-                                style: normalTextStyle,
+                                style: defaultTS,
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 'Student of: ${provider.dataModelForLogInLogOutTimings.data!.className.toString()}',
-                                style: normalTextStyle,
+                                style: defaultTS,
                               ),
                             ),
                           ],
@@ -169,13 +171,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                     width: 60,
                                     child: Text(
                                       'Date',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        textStyle: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17),
-                                      ),
+                                      style: headerTSWhite
                                     ),
                                   ),
                                   const SizedBox(
@@ -191,14 +187,8 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                             child: Container(
                                               width: double.infinity,
                                               child: Text(
-                                                'Logged in at',
-                                                style: GoogleFonts.getFont(
-                                                  'Ubuntu',
-                                                  textStyle: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
+                                                'Logged in',
+                                                style: headerTSWhite,
                                               ),
                                             ),
                                           ),
@@ -207,14 +197,8 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                             child: Container(
                                               width: double.infinity,
                                               child: Text(
-                                                'Logged out at',
-                                                style: GoogleFonts.getFont(
-                                                  'Ubuntu',
-                                                  textStyle: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
+                                                'Logged out',
+                                                style: headerTSWhite
                                               ),
                                             ),
                                           ),
@@ -231,13 +215,16 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                   ListView.builder(
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: provider.dataModelForLogInLogOutTimings
-                                        .data!.attendanceInfo!.length
+                                    itemCount: provider
+                                        .dataModelForLogInLogOutTimings
+                                        .data!
+                                        .attendanceInfo!
+                                        .length
                                         .toInt(),
                                     itemBuilder: (context, index) {
                                       return Padding(
-                                        padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5),
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
@@ -246,36 +233,23 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                             children: [
                                               Container(
                                                   width: 60,
-                                                  alignment: Alignment.bottomCenter,
+                                                  alignment:
+                                                      Alignment.bottomCenter,
                                                   child: RichText(
                                                     text: TextSpan(
                                                       style:
-                                                      DefaultTextStyle.of(context)
-                                                          .style,
+                                                          DefaultTextStyle.of(
+                                                                  context)
+                                                              .style,
                                                       children: <TextSpan>[
                                                         TextSpan(
-                                                          text: (index + 1).toString(),
-                                                          style: GoogleFonts.getFont(
-                                                            'Ubuntu',
-                                                            textStyle: TextStyle(
-                                                                color: Colors.black
-                                                                    .withOpacity(0.7),
-                                                                fontWeight:
-                                                                FontWeight.bold,
-                                                                fontSize: 30),
-                                                          ),
+                                                          text: (index + 1)
+                                                              .toString(),
+                                                          style: headerTSBlack,
                                                         ),
                                                         TextSpan(
                                                           text: 'th ',
-                                                          style: GoogleFonts.getFont(
-                                                            'Ubuntu',
-                                                            textStyle: TextStyle(
-                                                                color: Colors.black
-                                                                    .withOpacity(0.7),
-                                                                fontWeight:
-                                                                FontWeight.bold,
-                                                                fontSize: 15),
-                                                          ),
+                                                          style: defaultTS,
                                                         ),
                                                       ],
                                                     ),
@@ -289,105 +263,62 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                                   // color: Colors.purple,
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     children: [
                                                       Row(
                                                         children: [
                                                           Flexible(
                                                             flex: 1,
                                                             child: Container(
-                                                              width: double.infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               child: Text(
                                                                 (provider
-                                                                    .dataModelForLogInLogOutTimings
-                                                                    .data!
-                                                                    .attendanceInfo![
-                                                                index]
-                                                                    .loginTime
-                                                                    .toString() ==
-                                                                    "-")
+                                                                            .dataModelForLogInLogOutTimings
+                                                                            .data!
+                                                                            .attendanceInfo![
+                                                                                index]
+                                                                            .loginTime
+                                                                            .toString() ==
+                                                                        "-")
                                                                     ? "-"
                                                                     : provider
-                                                                    .dataModelForLogInLogOutTimings
-                                                                    .data!
-                                                                    .attendanceInfo![
-                                                                index]
-                                                                    .loginTime
-                                                                    .toString(),
-                                                                style:
-                                                                GoogleFonts.getFont(
-                                                                  'Ubuntu',
-                                                                  textStyle: TextStyle(
-                                                                      color: (provider
-                                                                          .dataModelForLogInLogOutTimings
-                                                                          .data!
-                                                                          .attendanceInfo![
-                                                                      index]
-                                                                          .loginTime
-                                                                          .toString() ==
-                                                                          "-")
-                                                                          ? Colors.black
-                                                                          .withOpacity(
-                                                                          0.7)
-                                                                          : Theme.of(
-                                                                          context)
-                                                                          .colorScheme
-                                                                          .secondary,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize: 17),
-                                                                ),
+                                                                        .dataModelForLogInLogOutTimings
+                                                                        .data!
+                                                                        .attendanceInfo![
+                                                                            index]
+                                                                        .loginTime
+                                                                        .toString(),
+                                                                style: headerTSBlack,
                                                               ),
                                                             ),
                                                           ),
                                                           Flexible(
                                                             flex: 1,
                                                             child: Container(
-                                                              width: double.infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               child: Text(
                                                                 (provider
-                                                                    .dataModelForLogInLogOutTimings
-                                                                    .data!
-                                                                    .attendanceInfo![
-                                                                index]
-                                                                    .logoutTime
-                                                                    .toString() ==
-                                                                    "-")
+                                                                            .dataModelForLogInLogOutTimings
+                                                                            .data!
+                                                                            .attendanceInfo![
+                                                                                index]
+                                                                            .logoutTime
+                                                                            .toString() ==
+                                                                        "-")
                                                                     ? "-"
                                                                     : provider
-                                                                    .dataModelForLogInLogOutTimings
-                                                                    .data!
-                                                                    .attendanceInfo![
-                                                                index]
-                                                                    .logoutTime
-                                                                    .toString(),
-                                                                style:
-                                                                GoogleFonts.getFont(
-                                                                  'Ubuntu',
-                                                                  textStyle: TextStyle(
-                                                                      color: (provider
-                                                                          .dataModelForLogInLogOutTimings
-                                                                          .data!
-                                                                          .attendanceInfo![
-                                                                      index]
-                                                                          .loginTime
-                                                                          .toString() ==
-                                                                          "-")
-                                                                          ? Colors.black
-                                                                          .withOpacity(
-                                                                          0.7)
-                                                                          : Theme.of(
-                                                                          context)
-                                                                          .colorScheme
-                                                                          .secondary,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize: 17),
-                                                                ),
+                                                                        .dataModelForLogInLogOutTimings
+                                                                        .data!
+                                                                        .attendanceInfo![
+                                                                            index]
+                                                                        .logoutTime
+                                                                        .toString(),
+                                                                style: headerTSBlack,
                                                               ),
                                                             ),
                                                           ),
@@ -396,8 +327,8 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                                       Container(
                                                         width: double.infinity,
                                                         height: 1,
-                                                        color: Colors.black
-                                                            .withOpacity(0.7),
+                                                        color: black
+                                                            .withOpacity(0.3),
                                                       )
                                                     ],
                                                   ),
@@ -419,7 +350,6 @@ class _FMTable_PageState extends State<FMTable_Page> {
                         ),
                       ),
                     ),
-
                     const SizedBox(
                       height: 5,
                     ),

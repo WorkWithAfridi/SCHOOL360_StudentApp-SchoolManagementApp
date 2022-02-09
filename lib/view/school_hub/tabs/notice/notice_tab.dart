@@ -8,6 +8,8 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/notice.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
 
+import '../../../../functions/globar_variables.dart';
+
 class NoticeTab extends StatefulWidget {
   const NoticeTab({Key? key}) : super(key: key);
 
@@ -54,7 +56,7 @@ class _NoticeTabState extends State<NoticeTab> {
           height: double.infinity,
           width: double.infinity,
           child: GridPaper(
-            color: Colors.black.withOpacity(0.08),
+            color: red.withOpacity(0.05),
             divisions: 4,
             interval: 500,
             subdivisions: 5,
@@ -211,7 +213,7 @@ class _NoticeTabState extends State<NoticeTab> {
           return AlertDialog(
             title: Text(
               notice.alertBoxTitle,
-              style: headerTextStyleBlack,
+              style: headerTSBlack,
             ),
             content: RichText(
               text: TextSpan(
@@ -219,7 +221,7 @@ class _NoticeTabState extends State<NoticeTab> {
                 children: <TextSpan>[
                   TextSpan(
                     text: notice.alertBoxText,
-                    style: normalTextStyle,
+                    style: defaultTS,
                   ),
                 ],
               ),
@@ -286,7 +288,7 @@ class _NoticeTabState extends State<NoticeTab> {
                               ? Colors.grey
                               : notice.pageNo == 0
                                   ? Colors.grey
-                                  : Theme.of(context).colorScheme.onBackground,
+                                  : black,
                           size: 17,
                         ),
                       ),
@@ -301,8 +303,8 @@ class _NoticeTabState extends State<NoticeTab> {
                     builder: (context, notice, child) {
                       return Text('page: ${notice.pageNo + 1}',
                           style: notice.showAlertBox
-                              ? normalTextStyle.copyWith(color: Colors.grey)
-                              : normalTextStyle);
+                              ? defaultTS.copyWith(color: Colors.grey)
+                              : defaultTS);
                     },
                   ),
                 ),
@@ -323,9 +325,7 @@ class _NoticeTabState extends State<NoticeTab> {
                     width: double.infinity,
                     child: Icon(
                       FontAwesomeIcons.chevronRight,
-                      color: notice.showAlertBox
-                          ? Colors.grey
-                          : Theme.of(context).colorScheme.onBackground,
+                      color: notice.showAlertBox ? Colors.grey : black,
                       size: 17,
                     ),
                   ),
@@ -364,9 +364,12 @@ class _NoticeTabState extends State<NoticeTab> {
                     child: Card(
                       elevation: 4,
                       child: ListTile(
+                        trailing: Icon(
+                          Icons.download,
+                          color: red,
+                        ),
                         leading: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                          backgroundColor: black,
 
                           // Color(
                           //         (math.Random().nextDouble() * 0xFFFFFF)
@@ -374,26 +377,19 @@ class _NoticeTabState extends State<NoticeTab> {
                           //     .withOpacity(1.0),
                           child: Text(
                             (index + 1).toString(),
-                            style: headerTextStyleWhite,
+                            style: headerTSWhite,
                           ),
                           // radius: 23,
                         ),
                         title: Text(
-                          notice.dataModelForNotice.data![index].title
-                              .toString(),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: headerTextStyleBlack.copyWith(
-                            fontSize: 15,
-                            color: Colors.black87.withOpacity(.7),
-                          ),
-                        ),
+                            notice.dataModelForNotice.data![index].title
+                                .toString(),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: headerTSBlack.copyWith(fontSize: 14)),
                         subtitle: Text(
                           "Uploaded on: ${notice.dataModelForNotice.data![index].date.toString()}",
-                          style: normalTextStyle.copyWith(
-                            fontSize: 12,
-                            color: Colors.black.withOpacity(.4),
-                          ),
+                          style: subtitleTS,
                         ),
                       ),
                     ),

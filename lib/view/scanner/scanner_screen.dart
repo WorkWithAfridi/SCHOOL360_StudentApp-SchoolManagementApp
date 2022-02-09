@@ -13,6 +13,7 @@ import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/view/pay_slip_payment/payment_summary_screen.dart';
 import 'package:school_360_app/view/school_hub/school_hub_screen.dart';
 
+import '../../functions/globar_variables.dart';
 import '../../model/payment/data_model_for_pay_slip_payment.dart';
 
 class QRScanner extends StatefulWidget {
@@ -93,7 +94,7 @@ class _QRScannerState extends State<QRScanner> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -101,20 +102,17 @@ class _QRScannerState extends State<QRScanner> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           'QR SCANNER',
-          style: GoogleFonts.getFont(
-            'Roboto',
-            textStyle: headerTextStyleBlack
-          ),
+          style: GoogleFonts.getFont('Roboto', textStyle: headerTSWhite),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: white,
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -193,23 +191,28 @@ class _QRScannerState extends State<QRScanner> {
               height: MediaQuery.of(context).size.height * .15,
               width: MediaQuery.of(context).size.width,
               child: Center(
-                child: Text(
-                  'Please scan the QR code to continue.',
-                  style: GoogleFonts.getFont(
-                    'Roboto',
-                    textStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                child: Text('Please scan the QR code to continue.',
+                    style: defaultTS.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 12)),
               ),
             ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: isLoading
+                ? LinearProgressIndicator(
+                    color: red,
+                  )
+                : Container(),
           ),
         ],
       ),
     );
   }
+
+  bool isLoading = false;
 
   Widget _buildQrView(BuildContext context) {
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
@@ -247,6 +250,7 @@ class _QRScannerState extends State<QRScanner> {
         if (_scanAgain) {
           setState(() {
             _scanAgain = false;
+            isLoading = true;
             result = scanData;
           });
           if (result!.code.toString().toLowerCase() == 'workwithafridi') {
@@ -293,6 +297,7 @@ class _QRScannerState extends State<QRScanner> {
       if (data1["status"] == "error") {
         setState(() {
           _showAlertBox = true;
+          isLoading = false;
         });
         return;
       }
@@ -304,6 +309,9 @@ class _QRScannerState extends State<QRScanner> {
             studentIdValidator.studentInfo!.studentCode.toString();
         qrCodeData.studentName =
             studentIdValidator.studentInfo!.name.toString();
+        setState(() {
+          isLoading = false;
+        });
         Navigator.pushNamedAndRemoveUntil(
           context,
           SchoolHub.routeName,
@@ -337,6 +345,9 @@ class _QRScannerState extends State<QRScanner> {
           if (dataModel.status == "success") {
             Navigator.of(context).pushReplacementNamed(PaymentSummary.routeName,
                 arguments: {'dataModel': dataModel, 'schoolId': tempSchoolId});
+            setState(() {
+              isLoading = false;
+            });
           }
         }
       } else if (mode == 'StudentID') {
@@ -344,6 +355,9 @@ class _QRScannerState extends State<QRScanner> {
       }
     } catch (e) {
       setState(() {
+        setState(() {
+          isLoading = false;
+        });
         _showAlertBox = true;
       });
     }
@@ -352,6 +366,7 @@ class _QRScannerState extends State<QRScanner> {
   void reset() {
     _scanAgain = true;
     _showAlertBox = false;
+    isLoading=false;
   }
 
   Widget alertBoxLayout(BuildContext context) {
@@ -359,9 +374,9 @@ class _QRScannerState extends State<QRScanner> {
       width: MediaQuery.of(context).size.width * 1,
       child: AlertDialog(
         title: Text("Attention",
-            style: headerTextStyleBlack.copyWith(color: Colors.red)),
+            style: headerTSBlack),
         content: Text("Invalid QR code. Please try again with a valid code!",
-            style: normalTextStyle),
+            style: defaultTS),
         actions: <Widget>[
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,

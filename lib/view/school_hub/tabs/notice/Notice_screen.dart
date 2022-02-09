@@ -46,12 +46,12 @@ class _NoticeScreenState extends State<NoticeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         // backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 6,
         title: Text(
           'Announcements',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -60,13 +60,13 @@ class _NoticeScreenState extends State<NoticeScreen> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
       ),
       body: NoticeTab(),
-      backgroundColor: backgroundColor,
+      backgroundColor: white,
     );
   }
 }

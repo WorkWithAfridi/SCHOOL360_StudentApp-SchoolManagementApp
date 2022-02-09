@@ -95,14 +95,15 @@ class _PaymentTabState extends State<PaymentTab> {
                                         children: <TextSpan>[
                                           TextSpan(
                                             text: 'Please select a ',
-                                            style: normalTextStyle,
+                                            style: defaultTS,
                                           ),
                                           TextSpan(
                                               text: 'Year ',
-                                              style: normalHighLightTextStyle),
+                                              style: defaultHighLightedTS),
                                           TextSpan(
-                                              text: 'to continue.',
-                                              style: normalTextStyle),
+                                            text: 'to continue.',
+                                            style: defaultTS,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -157,14 +158,14 @@ class _PaymentTabState extends State<PaymentTab> {
                                         children: <TextSpan>[
                                           TextSpan(
                                             text: 'Please select a ',
-                                            style: normalTextStyle,
+                                            style: defaultTS,
                                           ),
                                           TextSpan(
                                               text: 'Month ',
-                                              style: normalHighLightTextStyle),
+                                            style: defaultHighLightedTS,),
                                           TextSpan(
                                               text: 'to continue.',
-                                              style: normalTextStyle),
+                                            style: defaultTS,),
                                         ],
                                       ),
                                     ),
@@ -220,7 +221,7 @@ class _PaymentTabState extends State<PaymentTab> {
                                     isActive:
                                         (_currentStep == 2) ? true : false,
                                     title: Text('Bill Summary.',
-                                        style: normalTextStyle),
+                                        style: defaultTS),
                                     content: provider.showLoadingForStepThree
                                         ? showLoading()
                                         : SizedBox(
@@ -230,19 +231,19 @@ class _PaymentTabState extends State<PaymentTab> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text('Showing ',
-                                                    style: normalTextStyle),
+                                                    style: defaultTS),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
                                                           top: 0.0),
                                                   child: Text(
                                                     'Payment Summary',
-                                                    style: headerTextStyleBlack,
+                                                    style: defaultHighLightedTS,
                                                   ),
                                                 ),
                                                 Text(
                                                     'for the month: ${provider.selectedMonth} and year: ${provider.selectedYear}.',
-                                                    style: normalTextStyle),
+                                                    style: defaultTS),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
@@ -255,12 +256,12 @@ class _PaymentTabState extends State<PaymentTab> {
                                                       TextSpan(
                                                           text: 'Name: ',
                                                           style:
-                                                              normalTextStyle),
+                                                          defaultTS),
                                                       TextSpan(
                                                           text:
                                                               '${provider.data_model_for_fees.student_info.name}.',
                                                           style:
-                                                              normalHighLightTextStyle),
+                                                          defaultHighLightedTS),
                                                     ],
                                                   ),
                                                 ),
@@ -273,13 +274,11 @@ class _PaymentTabState extends State<PaymentTab> {
                                                       TextSpan(
                                                           text:
                                                               'Receipt number: ',
-                                                          style:
-                                                              normalTextStyle),
+                                                          style:defaultTS),
                                                       TextSpan(
                                                           text:
                                                               '${provider.data_model_for_fees.fees_data.receipt_no}.',
-                                                          style:
-                                                              normalHighLightTextStyle),
+                                                          style:defaultHighLightedTS),
                                                     ],
                                                   ),
                                                 ),
@@ -288,31 +287,20 @@ class _PaymentTabState extends State<PaymentTab> {
                                                 ),
                                                 RichText(
                                                   text: TextSpan(
-                                                    style:
-                                                        DefaultTextStyle.of(
-                                                                context)
-                                                            .style,
+                                                    style: DefaultTextStyle.of(
+                                                            context)
+                                                        .style,
                                                     children: <TextSpan>[
                                                       TextSpan(
                                                           text: 'Due: ',
-                                                          style:
-                                                              normalTextStyle),
+                                                          style:defaultTS),
                                                       TextSpan(
                                                           text:
                                                               '${provider.total}',
-                                                          style:
-                                                              normalHighLightTextStyle),
+                                                          style:defaultHighLightedTS),
                                                       TextSpan(
                                                         text: 'TK.',
-                                                        style: GoogleFonts
-                                                            .getFont(
-                                                          'Ubuntu',
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                        ),
+                                                        style:defaultTS
                                                       ),
                                                     ],
                                                   ),
@@ -322,35 +310,20 @@ class _PaymentTabState extends State<PaymentTab> {
                                                       .size
                                                       .width,
                                                   alignment:
-                                                  Alignment.centerRight,
+                                                      Alignment.centerRight,
                                                   child: GestureDetector(
                                                     onTap: () {
                                                       Navigator.of(context)
                                                           .pushNamed(
-                                                          PaymentDetailsPage
-                                                              .routeName);
+                                                              PaymentDetailsPage
+                                                                  .routeName);
                                                     },
                                                     child: Chip(
                                                       elevation: 3,
-                                                      backgroundColor:Theme.of(context).colorScheme.secondary,
+                                                      backgroundColor: red,
                                                       label: Text(
                                                         'Payment breakdown',
-                                                        style:
-                                                        GoogleFonts.getFont(
-                                                          'Ubuntu',
-                                                          textStyle: TextStyle(
-                                                            decoration:
-                                                            TextDecoration
-                                                                .none,
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: Theme.of(
-                                                                context)
-                                                                .colorScheme
-                                                                .background,
-                                                          ),
-                                                        ),
+                                                        style: headerTSWhite.copyWith(fontSize: 14)
                                                       ),
                                                     ),
                                                   ),
@@ -364,7 +337,7 @@ class _PaymentTabState extends State<PaymentTab> {
                                         (_currentStep == 3) ? true : false,
                                     title: Text(
                                       'Make Payment.',
-                                      style: normalTextStyle,
+                                      style: defaultTS
                                     ),
                                     content: SizedBox(
                                       width: double.infinity,
@@ -375,10 +348,10 @@ class _PaymentTabState extends State<PaymentTab> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('Checkout.',
-                                              style: headerTextStyleBlack),
+                                              style: headerTSHighLight),
                                           Text(
                                               'Please make your payment by pressing continue.',
-                                              style: normalTextStyle)
+                                              style: defaultTS)
                                         ],
                                       ),
                                     ),
@@ -389,13 +362,10 @@ class _PaymentTabState extends State<PaymentTab> {
                                     if (provider.selectedYear ==
                                         'Select academic year') {
                                       var snackBar = SnackBar(
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
+                                        backgroundColor: red,
                                         content: Text(
                                           'Please select a valid input to continue.',
-                                          style: appData.normalTextStyle
-                                              .copyWith(color: Colors.white),
+                                          style: defaultTSWhite,
                                         ),
                                       );
                                       ScaffoldMessenger.of(context)
@@ -415,13 +385,10 @@ class _PaymentTabState extends State<PaymentTab> {
                                     if (provider.selectedMonth ==
                                         'Select month') {
                                       var snackBar = SnackBar(
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
+                                        backgroundColor: red,
                                         content: Text(
                                           'Please select a valid input to continue.',
-                                          style: appData.normalTextStyle
-                                              .copyWith(color: Colors.white),
+                                          style: defaultTSWhite,
                                         ),
                                       );
                                       ScaffoldMessenger.of(context)
@@ -507,7 +474,7 @@ class _PaymentTabState extends State<PaymentTab> {
         return AlertDialog(
           title: Text(
             provider.alertBoxTitle,
-            style: headerTextStyleBlack,
+            style: headerTSBlack,
           ),
           content: RichText(
             text: TextSpan(
@@ -515,7 +482,7 @@ class _PaymentTabState extends State<PaymentTab> {
               children: <TextSpan>[
                 TextSpan(
                   text: provider.alertBoxText,
-                  style: normalTextStyle,
+                  style: defaultTS,
                 ),
               ],
             ),

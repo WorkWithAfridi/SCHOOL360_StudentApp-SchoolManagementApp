@@ -7,6 +7,8 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/dashboard.dart';
 import 'package:school_360_app/provider/invoice.dart';
 
+import '../../functions/globar_variables.dart';
+
 class PaymentReceiptPage extends StatefulWidget {
   static const routeName = '/payment_receipts';
   const PaymentReceiptPage({Key? key}) : super(key: key);
@@ -45,12 +47,12 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         centerTitle: true,
         title: Text(
           'Invoices',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
         leading: IconButton(
           onPressed: () {
@@ -58,7 +60,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
@@ -73,7 +75,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
               height: double.infinity,
               width: double.infinity,
               child: GridPaper(
-                color: Colors.black.withOpacity(0.1),
+                color: red.withOpacity(0.05),
                 divisions: 10,
                 interval: 800,
                 subdivisions: 8,
@@ -86,7 +88,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                 children: [
                   isLoading
                       ? LinearProgressIndicator(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: red,
                         )
                       : Container(),
                   Expanded(
@@ -103,8 +105,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       'No Payment Data Found!',
-                                      style: normalTextStyle.copyWith(
-                                          color: Colors.grey),
+                                      style: defaultTS,
                                     ),
                                   )
                                 : SingleChildScrollView(
@@ -165,23 +166,17 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                                   child: ListTile(
                                                     trailing: Icon(
                                                       FontAwesomeIcons.download,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary,
+                                                      color: red,
                                                     ),
                                                     leading: CircleAvatar(
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .primary,
+                                                      backgroundColor: black,
                                                       // Color(
                                                       //     (math.Random().nextDouble() * 0xFFFFFF)
                                                       //         .toInt())
                                                       //     .withOpacity(1.0),
                                                       child: Text(
                                                         (index + 1).toString(),
-                                                        style:
-                                                            headerTextStyleWhite,
+                                                        style: headerTSWhite,
                                                       ),
                                                       radius: 23,
                                                     ),
@@ -195,44 +190,29 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                                       children: [
                                                         Row(
                                                           children: [
-                                                            Text(
-                                                              'Bill No.: ',
-                                                              style:
-                                                                  headerTextStyleBlack
-                                                                      .copyWith(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black87
-                                                                    .withOpacity(
-                                                                        .7),
-                                                              ),
-                                                            ),
+                                                            Text('Bill No: ',
+                                                                style:
+                                                                    defaultTS),
                                                             Text(
                                                               '${provider.dataModelForPastPayment.data![index].receiptNo}',
                                                               style:
-                                                                  normalHighLightTextStyle,
+                                                                  defaultHighLightedTS,
                                                             ),
                                                           ],
                                                         ),
                                                         Row(
                                                           children: [
+                                                            Text('Total: ',
+                                                                style:
+                                                                    defaultTS),
                                                             Text(
-                                                              'Total: ',
+                                                              '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}',
                                                               style:
-                                                                  headerTextStyleBlack
-                                                                      .copyWith(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black87
-                                                                    .withOpacity(
-                                                                        .7),
-                                                              ),
+                                                                  defaultHighLightedTS,
                                                             ),
-                                                            Text(
-                                                              '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
-                                                              style:
-                                                                  normalHighLightTextStyle,
-                                                            ),
+                                                            Text('Tk.',
+                                                                style:
+                                                                    defaultTS),
                                                           ],
                                                         ),
                                                       ],
@@ -244,13 +224,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                                       children: [
                                                         Text(
                                                           'Payed on: ${provider.dataModelForPastPayment.data![index].date}',
-                                                          style: normalTextStyle
-                                                              .copyWith(
-                                                            fontSize: 12,
-                                                            color: Colors.black
-                                                                .withOpacity(
-                                                                    .4),
-                                                          ),
+                                                          style: subtitleTS,
                                                         ),
                                                       ],
                                                     ),
@@ -314,7 +288,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                               ? Colors.grey
                               : provider.pageNoForPayment == 0
                                   ? Colors.grey.withOpacity(1)
-                                  : Theme.of(context).colorScheme.primary,
+                                  : black,
                           size: 17,
                         ),
                       ),
@@ -329,11 +303,9 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                     builder: (context, notice, child) {
                       return Text('page: ${notice.pageNoForPayment + 1}',
                           style: notice.showAlertBox
-                              ? normalTextStyle.copyWith(
+                              ? defaultTS.copyWith(
                                   color: Colors.grey.withOpacity(.2))
-                              : normalTextStyle.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.primary));
+                              : defaultTS);
                     },
                   ),
                 ),
@@ -358,7 +330,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       FontAwesomeIcons.chevronRight,
                       color: provider.showAlertBox
                           ? Colors.grey.withOpacity(.2)
-                          : Theme.of(context).colorScheme.primary,
+                          : black,
                       size: 17,
                     ),
                   ),

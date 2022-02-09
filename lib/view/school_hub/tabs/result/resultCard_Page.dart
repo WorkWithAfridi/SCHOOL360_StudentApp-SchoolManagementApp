@@ -43,7 +43,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 6,
         leading: IconButton(
           onPressed: () {
@@ -51,14 +51,14 @@ class _ResultCardPageState extends State<ResultCardPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
+            color: white,
             size: 25,
           ),
         ),
         centerTitle: true,
         title: Text(
           '💯 Results',
-          style: headerTextStyleBlack,
+          style: headerTSWhite,
         ),
       ),
       backgroundColor: backgroundColor,
@@ -68,7 +68,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
             height: double.infinity,
             width: double.infinity,
             child: GridPaper(
-              color: Colors.black.withOpacity(0.08),
+              color: red.withOpacity(0.05),
               divisions: 4,
               interval: 500,
               subdivisions: 8,
@@ -115,9 +115,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
+                                          color: black,
                                           width: double.infinity,
                                           child: Row(
                                             mainAxisAlignment:
@@ -129,7 +127,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                       .resultInfo![index]
                                                       .name
                                                       .toString(),
-                                                  style: headerTextStyleWhite),
+                                                  style: headerTSWhite),
                                             ],
                                           ),
                                         ),
@@ -146,7 +144,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                   alignment: Alignment.topLeft,
                                                   child: Text(
                                                     'Grade: ',
-                                                    style: normalTextStyle,
+                                                    style: defaultTS,
                                                   ),
                                                 ),
                                               ),
@@ -161,7 +159,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                           .cAlphaGpaWithOptional
                                                           .toString(),
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                      defaultHighLightedTS),
                                                 ),
                                               ),
                                             ],
@@ -170,7 +168,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           width: double.infinity,
                                           height: 1,
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: black.withOpacity(0.4),
                                         ),
                                         Container(
                                           padding: const EdgeInsets.symmetric(
@@ -185,7 +183,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                   alignment: Alignment.topLeft,
                                                   child: Text(
                                                     'GPA: ',
-                                                    style: normalTextStyle,
+                                                    style: defaultTS,
                                                   ),
                                                 ),
                                               ),
@@ -200,7 +198,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                           .gpaWithOptional
                                                           .toString(),
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                      defaultHighLightedTS),
                                                 ),
                                               ),
                                             ],
@@ -209,7 +207,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           width: double.infinity,
                                           height: 1,
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: black.withOpacity(0.4),
                                         ),
                                         Container(
                                           padding: const EdgeInsets.symmetric(
@@ -224,7 +222,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                   alignment: Alignment.topLeft,
                                                   child: Text(
                                                     'Mark Obtained: ',
-                                                    style: normalTextStyle,
+                                                    style: defaultTS,
                                                   ),
                                                 ),
                                               ),
@@ -239,7 +237,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                           .totalObtainMark
                                                           .toString(),
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                      defaultHighLightedTS),
                                                 ),
                                               ),
                                             ],
@@ -248,7 +246,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           width: double.infinity,
                                           height: 1,
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: black.withOpacity(0.4),
                                         ),
                                         Container(
                                           padding: const EdgeInsets.symmetric(
@@ -263,7 +261,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                   alignment: Alignment.topLeft,
                                                   child: Text(
                                                     'Class Position: ',
-                                                    style: normalTextStyle,
+                                                    style: defaultTS,
                                                   ),
                                                 ),
                                               ),
@@ -278,7 +276,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                           .classPosition
                                                           .toString(),
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                      defaultHighLightedTS),
                                                 ),
                                               ),
                                             ],
@@ -287,7 +285,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           width: double.infinity,
                                           height: 1,
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: black.withOpacity(0.4),
                                         ),
                                         Container(
                                           padding: const EdgeInsets.symmetric(
@@ -302,7 +300,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                   alignment: Alignment.topLeft,
                                                   child: Text(
                                                     'Credits Completed: ',
-                                                    style: normalTextStyle,
+                                                    style: defaultTS,
                                                   ),
                                                 ),
                                               ),
@@ -317,7 +315,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                                           .totalCredit
                                                           .toString(),
                                                       style:
-                                                          normalHighLightTextStyle),
+                                                      defaultHighLightedTS),
                                                 ),
                                               ),
                                             ],
@@ -326,7 +324,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                         Container(
                                           width: double.infinity,
                                           height: 1,
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: black.withOpacity(0.4),
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -334,23 +332,10 @@ class _ResultCardPageState extends State<ResultCardPage> {
                                           children: [
                                             Chip(
                                               elevation: 0,
-                                              backgroundColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
+                                              backgroundColor: red,
                                               label: Text(
                                                 'View marksheet',
-                                                style: GoogleFonts.getFont(
-                                                  'Ubuntu',
-                                                  textStyle: TextStyle(
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                  ),
-                                                ),
+                                                style: headerTextStyleWhite.copyWith(fontSize: 14),
                                               ),
                                             ),
                                           ],
