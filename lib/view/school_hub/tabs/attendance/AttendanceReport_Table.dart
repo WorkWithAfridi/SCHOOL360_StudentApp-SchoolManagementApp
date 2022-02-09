@@ -121,32 +121,67 @@ class _AttendanceReportTable_PageState
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Showing result for the month: ${provider.selectedMonth.substring(0, 3)} - ${provider.selectedYear}.',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text('Showing result for the month:',
+                                      style: defaultTS),
+                                  Text(
+                                    ' ${provider.selectedMonth.substring(0, 3)} - ${provider.selectedYear}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Student Name: ${provider.dataModelForAttendance.data!.name.toString()}',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text('Student Name:', style: defaultTS),
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.name.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Student Code: ${provider.dataModelForAttendance.data!.studentCode.toString()}',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text('Student Code:', style: defaultTS),
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.studentCode.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Student of: ${provider.dataModelForAttendance.data!.className.toString()}',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      'Student of:',
+                                      style: defaultTS),
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.className.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text('Class: ${provider.selectedCourse}',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text('Class:',
+                                      style: defaultTS),
+                                  Text(
+                                    ' ${provider.selectedCourse}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -180,27 +215,60 @@ class _AttendanceReportTable_PageState
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Total Holidays: ${provider.dataModelForAttendance.data!.totalHolidays.toString()}.',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      'Total Holidays:',
+                                      style: defaultTS),
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.totalHolidays.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Total Present days: ${provider.dataModelForAttendance.data!.totalPresentDays.toString()}.',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      'Total Present days: ',
+                                      style: defaultTS),
+                                  Text(
+                                    '${provider.dataModelForAttendance.data!.totalPresentDays.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Total Absent days: ${provider.dataModelForAttendance.data!.totalAbsentDays.toString()}.',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      'Total Absent days:',
+                                      style: defaultTS),
+
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.totalAbsentDays.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                  'Total Leave days: ${provider.dataModelForAttendance.data!.totalLeaveDays.toString()}.',
-                                  style: defaultTS),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      'Total Leave days:',
+                                      style: defaultTS),
+                                  Text(
+                                    ' ${provider.dataModelForAttendance.data!.totalLeaveDays.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),

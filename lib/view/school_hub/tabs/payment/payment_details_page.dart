@@ -352,8 +352,45 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                     const SizedBox(
                       height: 10,
                     ),
+                    Container(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: silver.withOpacity(.25),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Total: ',
+                            style: headerTSBlack.copyWith(fontSize: 25),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                provider.total.toString(),
+                                style: defaultHighLightedTS.copyWith(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              Text(
+                                ' Tk.',
+                                style: defaultTS.copyWith(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(
-                      height: 10,
+                      height: 50,
                     ),
                   ],
                 ),

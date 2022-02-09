@@ -127,13 +127,14 @@ class _SchoolHubState extends State<SchoolHub> {
                     ),
                   ),
                   SizedBox(
-                    height:5,
+                    height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CircleAvatar(
                       child: Lottie.asset(
                           'lib/assets/lottieAnimation/personLottieAnimation.json',
+                          repeat: false,
                           fit: BoxFit.fill),
                       radius: MediaQuery.of(context).size.width * .1,
                       backgroundColor: Colors.transparent,
@@ -163,7 +164,6 @@ class _SchoolHubState extends State<SchoolHub> {
                       Navigator.of(context).pop();
                       Navigator.of(context)
                           .pushNamed(PaymentReceiptPage.routeName);
-
                     },
                     child: Container(
                       height: 45,
@@ -205,17 +205,13 @@ class _SchoolHubState extends State<SchoolHub> {
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.slidersH,
-                                    color:
-                                        black,
+                                    color: black,
                                     size: 22,
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  Text(
-                                    'Settings',
-                                    style: defaultTS
-                                  )
+                                  Text('Settings', style: defaultTS)
                                 ],
                               ),
                             ),
@@ -240,10 +236,7 @@ class _SchoolHubState extends State<SchoolHub> {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  Text(
-                                    'Sign Out',
-                                    style: defaultTS
-                                  )
+                                  Text('Sign Out', style: defaultTS)
                                 ],
                               ),
                             ),

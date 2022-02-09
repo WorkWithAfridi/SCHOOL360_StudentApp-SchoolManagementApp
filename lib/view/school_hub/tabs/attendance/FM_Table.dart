@@ -118,31 +118,63 @@ class _FMTable_PageState extends State<FMTable_Page> {
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'Showing result for the month: ${provider.selectedMonth.substring(0, 3)}',
-                                style: defaultTS,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Showing result for the month: ',
+                                    style: defaultTS,
+                                  ),
+                                  Text(
+                                    '${provider.selectedMonth.substring(0, 3)}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
                               ),
                             ),
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'Student Name: ${provider.dataModelForLogInLogOutTimings.data!.name.toString()}',
-                                style: defaultTS,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Student Name: ',
+                                    style: defaultTS,
+                                  ),
+                                  Text(
+                                    '${provider.dataModelForLogInLogOutTimings.data!.name.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'Student Code: ${provider.dataModelForLogInLogOutTimings.data!.studentCode.toString()}',
-                                style: defaultTS,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Student Code: ',
+                                    style: defaultTS,
+                                  ),
+                                  Text(
+                                    '${provider.dataModelForLogInLogOutTimings.data!.studentCode.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'Student of: ${provider.dataModelForLogInLogOutTimings.data!.className.toString()}',
-                                style: defaultTS,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Student of: ',
+                                    style: defaultTS,
+                                  ),
+                                  Text(
+                                    '${provider.dataModelForLogInLogOutTimings.data!.className.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
                               ),
                             ),
                           ],

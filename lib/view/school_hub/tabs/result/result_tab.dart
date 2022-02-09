@@ -199,7 +199,7 @@ class _ResultTabState extends State<ResultTab> {
                       style: defaultTS,
                     ),
                     TextSpan(
-                      text: 'Result Report.',
+                      text: 'Report.',
                       style: defaultHighLightedTS,
                     ),
                   ],
