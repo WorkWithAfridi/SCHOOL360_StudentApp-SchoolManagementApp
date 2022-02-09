@@ -160,9 +160,7 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(
-                                      'Student of:',
-                                      style: defaultTS),
+                                  Text('Student of:', style: defaultTS),
                                   Text(
                                     ' ${provider.dataModelForAttendance.data!.className.toString()}',
                                     style: defaultHighLightedTS,
@@ -174,8 +172,7 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text('Class:',
-                                      style: defaultTS),
+                                  Text('Class:', style: defaultTS),
                                   Text(
                                     ' ${provider.selectedCourse}',
                                     style: defaultHighLightedTS,
@@ -217,9 +214,7 @@ class _AttendanceReportTable_PageState
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(
-                                      'Total Holidays:',
-                                      style: defaultTS),
+                                  Text('Total Holidays:', style: defaultTS),
                                   Text(
                                     ' ${provider.dataModelForAttendance.data!.totalHolidays.toString()}',
                                     style: defaultHighLightedTS,
@@ -231,8 +226,7 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(
-                                      'Total Present days: ',
+                                  Text('Total Present days: ',
                                       style: defaultTS),
                                   Text(
                                     '${provider.dataModelForAttendance.data!.totalPresentDays.toString()}',
@@ -245,10 +239,7 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(
-                                      'Total Absent days:',
-                                      style: defaultTS),
-
+                                  Text('Total Absent days:', style: defaultTS),
                                   Text(
                                     ' ${provider.dataModelForAttendance.data!.totalAbsentDays.toString()}',
                                     style: defaultHighLightedTS,
@@ -260,9 +251,7 @@ class _AttendanceReportTable_PageState
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(
-                                      'Total Leave days:',
-                                      style: defaultTS),
+                                  Text('Total Leave days:', style: defaultTS),
                                   Text(
                                     ' ${provider.dataModelForAttendance.data!.totalLeaveDays.toString()}',
                                     style: defaultHighLightedTS,
@@ -400,7 +389,19 @@ class _AttendanceReportTable_PageState
                                                               index]
                                                           .status
                                                           .toString(),
-                                                      style: headerTSBlack,
+                                                      style: headerTSBlack
+                                                          .copyWith(
+                                                        color: provider
+                                                                    .dataModelForAttendance
+                                                                    .data!
+                                                                    .attendanceInfo![
+                                                                        index]
+                                                                    .status
+                                                                    .toString() ==
+                                                                'Present'
+                                                            ? red
+                                                            : black,
+                                                      ),
                                                     ),
                                                     // const SizedBox(
                                                     //   height: 5,
@@ -408,8 +409,17 @@ class _AttendanceReportTable_PageState
                                                     Container(
                                                       width: double.infinity,
                                                       height: 1,
-                                                      color: black
-                                                          .withOpacity(0.3),
+                                                      color: provider
+                                                                  .dataModelForAttendance
+                                                                  .data!
+                                                                  .attendanceInfo![
+                                                                      index]
+                                                                  .status
+                                                                  .toString() ==
+                                                              'Present'
+                                                          ? red
+                                                          : black
+                                                              .withOpacity(0.3),
                                                     )
                                                   ],
                                                 ),
