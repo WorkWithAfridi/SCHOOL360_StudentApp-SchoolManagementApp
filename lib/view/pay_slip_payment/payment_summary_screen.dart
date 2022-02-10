@@ -44,31 +44,28 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     _dataModel = routeArgs['dataModel'] as DataModelForPaySlipPayment;
     _schoolId = routeArgs['schoolId'] as String;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 6,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).colorScheme.background,
-              size: 25,
-            ),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 6,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.background,
+            size: 25,
           ),
-          centerTitle: true,
-          title: Text(
-            'PAYMENT INFO.',
-            style: GoogleFonts.getFont(
-              'Ubuntu',
-              textStyle: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).colorScheme.background,
-              ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'PAYMENT INFO.',
+          style: GoogleFonts.getFont(
+            'Ubuntu',
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+              color: Theme.of(context).colorScheme.background,
             ),
           ),
         ),
