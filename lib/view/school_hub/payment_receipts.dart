@@ -156,7 +156,8 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                                                           .toString();
                                                   invoiceProvider
                                                       .getInvoice(context);
-
+                                                  await Future.delayed(
+                                                      Duration(seconds: 1));
                                                   setState(() {
                                                     isLoading = false;
                                                   });

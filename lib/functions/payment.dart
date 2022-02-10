@@ -58,24 +58,24 @@ class Payment {
     Sslcommerz sslcommerz = Sslcommerz(
       initializer: SSLCommerzInitialization(
         //For Test
-        // ipn_url: "www.ipnurl.com",
-        // multi_card_name: "visa,master,bkash",
-        // currency: SSLCurrencyType.BDT,
-        // product_category: "Food",
-        // sdkType: SSLCSdkType.TESTBOX,
-        // store_id: "testbox",
-        // store_passwd: "qwerty",
-        // total_amount: 10,
-        // tran_id: "1231321321321312",
+        ipn_url: "www.ipnurl.com",
+        multi_card_name: "visa,master,bkash",
+        currency: SSLCurrencyType.BDT,
+        product_category: "Food",
+        sdkType: SSLCSdkType.TESTBOX,
+        store_id: "testbox",
+        store_passwd: "qwerty",
+        total_amount: 10,
+        tran_id: "1231321321321312",
 
         //For Live
-        currency: SSLCurrencyType.BDT,
-        product_category: "Bill",
-        sdkType: SSLCSdkType.LIVE,
-        store_id: _id,
-        store_passwd: _pw,
-        total_amount: total,
-        tran_id: "${DateTime.now()}${receipt_no}",
+        // currency: SSLCurrencyType.BDT,
+        // product_category: "Bill",
+        // sdkType: SSLCSdkType.LIVE,
+        // store_id: _id,
+        // store_passwd: _pw,
+        // total_amount: total,
+        // tran_id: "${DateTime.now()}${receipt_no}",
       ),
     );
 

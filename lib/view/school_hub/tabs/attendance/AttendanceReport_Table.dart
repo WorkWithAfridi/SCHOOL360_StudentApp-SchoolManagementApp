@@ -93,7 +93,7 @@ class _AttendanceReportTable_PageState
                     const SizedBox(
                       height: 10,
                     ),
-                    provider.getCalender(),
+                    provider.getCalenderForAttendanceTable(),
                     const SizedBox(
                       height: 5,
                     ),
@@ -409,17 +409,8 @@ class _AttendanceReportTable_PageState
                                                     Container(
                                                       width: double.infinity,
                                                       height: 1,
-                                                      color: provider
-                                                                  .dataModelForAttendance
-                                                                  .data!
-                                                                  .attendanceInfo![
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              'Present'
-                                                          ? red
-                                                          : black
-                                                              .withOpacity(0.3),
+                                                      color: black
+                                                          .withOpacity(0.3),
                                                     )
                                                   ],
                                                 ),

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/model/attendance/data_model_for_attendance.dart';
 import 'package:school_360_app/model/attendance/data_model_for_log_in_log_out_timings.dart';
 import 'package:school_360_app/model/dropdown_list/data_model_for_course_dropdown_list.dart';
@@ -271,6 +272,7 @@ class AttendanceProvider extends ChangeNotifier {
     try {
       QRCodeDataProvider qrCodeData =
           Provider.of<QRCodeDataProvider>(context, listen: false);
+      // print(qrCodeData.studentId);
       String url =
           'https://school360.app/${qrCodeData.schoolId}/service_bridge/getStudentAttendanceByMonthYear';
       http.Response response = await http.post(Uri.parse(url), body: {
@@ -295,6 +297,7 @@ class AttendanceProvider extends ChangeNotifier {
         dataModelForLogInLogOutTimings =
             DataModelForLogInLogOutTimings.fromJson(decodedData);
         if (dataModelForLogInLogOutTimings.status == 'success') {
+          await getCalenderDataForFMTable();
           Navigator.of(context).pushNamed(FMTable_Page.routeName);
         } else {
           showLoading = false;
@@ -328,6 +331,45 @@ class AttendanceProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> getCalenderDataForFMTable() async {
+    int loopCount = dataModelForLogInLogOutTimings.data!.attendanceInfo!.length;
+    List<Appointment> calenderDataListTemp = [];
+    for (int i = 0; i < loopCount; i++) {
+      print(dataModelForLogInLogOutTimings.data!.attendanceInfo![i].status
+          .toString());
+      calenderDataListTemp.add(
+        Appointment(
+          startTime: DateTime(int.parse(selectedYear),
+              StringMonthToIntMonth(_selectedMonth), i + 1, 0, 0, 0),
+          endTime: DateTime(int.parse(selectedYear),
+              StringMonthToIntMonth(_selectedMonth), i + 1, 12, 0, 0),
+          subject: 'Attendance Report',
+          color:
+
+              // Colors.blue
+
+              dataModelForLogInLogOutTimings.data!.attendanceInfo![i].status
+                          .toString() ==
+                      'Present'
+                  ? Colors.blue
+                  : dataModelForLogInLogOutTimings
+                              .data!.attendanceInfo![i].status
+                              .toString() ==
+                          'Absent'
+                      ? Colors.red
+                      : dataModelForLogInLogOutTimings
+                                  .data!.attendanceInfo![i].status
+                                  .toString() ==
+                              'Leave'
+                          ? Colors.green
+                          : Colors.transparent,
+        ),
+      );
+    }
+
+    calenderDataListForFMTable = calenderDataListTemp;
+  }
+
   late DataModelForAttendance dataModelForAttendance;
   Future<void> callApiForAttendanceData(BuildContext context) async {
     try {
@@ -356,7 +398,7 @@ class AttendanceProvider extends ChangeNotifier {
         var decodedData = jsonDecode(data);
         dataModelForAttendance = DataModelForAttendance.fromJson(decodedData);
         if (dataModelForAttendance.status == 'success') {
-          await getCalenderData();
+          await getCalenderDataForAttendanceTable();
 
           Navigator.of(context).pushNamed(AttendanceReportTable_Page.routeName);
         } else {
@@ -391,9 +433,10 @@ class AttendanceProvider extends ChangeNotifier {
     }
   }
 
-  List<Appointment> calenderDataList = [];
+  List<Appointment> calenderDataListForAttendanceTable = [];
+  List<Appointment> calenderDataListForFMTable = [];
 
-  Future<void> getCalenderData() async {
+  Future<void> getCalenderDataForAttendanceTable() async {
     int loopCount = dataModelForAttendance.data!.attendanceInfo!.length;
     List<Appointment> calenderDataListTemp = [];
     for (int i = 0; i < loopCount; i++) {
@@ -425,10 +468,149 @@ class AttendanceProvider extends ChangeNotifier {
       );
     }
 
-    calenderDataList = calenderDataListTemp;
+    calenderDataListForAttendanceTable = calenderDataListTemp;
   }
 
-  Widget getCalender() {
+  Widget getCalenderForFMTable() {
+    return Container(
+      // height: 420,
+      child: Card(
+        elevation: 4,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SfCalendar(
+                view: CalendarView.month,
+                // onTap: (x){
+                //   print(x.date?.day.toString());
+                // },
+                // initialDisplayDate: DateTime(2021, 12),
+                dataSource: CalenderDataSource(calenderDataListForFMTable),
+                initialDisplayDate: DateTime(int.parse(selectedYear),
+                    StringMonthToIntMonth(_selectedMonth)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Present'),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Absent'),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Leave'),
+                    ],
+                  ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       height: 10,
+                  //       width: 10,
+                  //       decoration: BoxDecoration(
+                  //           color: Colors.green,
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(10))),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 5,
+                  //     ),
+                  //     Text('Working Days'),
+                  //   ],
+                  // )
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                '*A detailed breakdown of the login/logout timings can be viewed below.',
+                style: defaultTS.copyWith(
+                  fontSize: 12,
+                  color: Colors.black.withOpacity(.5),
+                ),
+              ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       '*Click on a specific date, to get login & logout timings for that day.',
+              //       style: defaultTS.copyWith(
+              //         fontSize: 12,
+              //         color: Colors.black.withOpacity(.5),
+              //       ),
+              //     ),
+              //     Text(
+              //       '*A detailed breakdown of the timings can be viewed below.',
+              //       style: defaultTS.copyWith(
+              //         fontSize: 12,
+              //         color: Colors.black.withOpacity(.5),
+              //       ),
+              //     ),
+              //   ],
+              // )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getCalenderForAttendanceTable() {
     return Container(
       // height: 420,
       child: Card(
@@ -443,7 +625,8 @@ class AttendanceProvider extends ChangeNotifier {
                 //   print(x.date?.day.toString());
                 // },
                 // initialDisplayDate: DateTime(2021, 12),
-                dataSource: CalenderDataSource(calenderDataList),
+                dataSource:
+                    CalenderDataSource(calenderDataListForAttendanceTable),
                 initialDisplayDate: DateTime(int.parse(selectedYear),
                     StringMonthToIntMonth(_selectedMonth)),
               ),

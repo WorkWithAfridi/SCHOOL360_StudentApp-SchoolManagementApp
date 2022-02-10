@@ -357,7 +357,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: silver.withOpacity(.25),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

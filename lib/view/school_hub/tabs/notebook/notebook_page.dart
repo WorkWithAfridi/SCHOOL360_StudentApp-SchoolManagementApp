@@ -61,6 +61,7 @@ class _NotebookPageState extends State<NotebookPage> {
           style: headerTSWhite,
         ),
       ),
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
@@ -73,109 +74,113 @@ class _NotebookPageState extends State<NotebookPage> {
               subdivisions: 8,
             ),
           ),
-          Consumer<NotebookProvider>(
-            builder: (context, notebook, childProperty) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            notebook
-                                .dataModelForNotebook
-                                .data!
-                                .noteBookList![notebook.selectedIndex]
-                                .subjectName
-                                .toString(),
-                            style: headerTSBlack,
-                          ),
-                          Row(
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Consumer<NotebookProvider>(
+              builder: (context, notebook, childProperty) {
+                return Column(
+                  children: [
+                    Card(
+                      elevation: 6,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 15, top: 10, bottom: 10),
+                        child: SingleChildScrollView(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Date:', style: defaultTS),
                               Text(
-                                ' ${notebook.dataModelForNotebook.data!.noteBookList![notebook.selectedIndex].date.toString()}',
-                                style: defaultHighLightedTS,
+                                notebook
+                                    .dataModelForNotebook
+                                    .data!
+                                    .noteBookList![notebook.selectedIndex]
+                                    .subjectName
+                                    .toString(),
+                                style: headerTSBlack,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text('Posted on:', style: defaultTS),
+                                  Text(
+                                    ' ${notebook.dataModelForNotebook.data!.noteBookList![notebook.selectedIndex].date.toString()}',
+                                    style: defaultHighLightedTS,
+                                  ),
+                                ],
+                              ),
+                              notebook
+                                          .dataModelForNotebook
+                                          .data!
+                                          .noteBookList![notebook.selectedIndex]
+                                          .fileLocation ==
+                                      null
+                                  ? Container()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            //TODO: Implement download feature on NoteBook detail page
+                                            print('Start download');
+                                          },
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Downloadable file:',
+                                                style: defaultHighLightedTS,
+                                              ),
+                                              Icon(
+                                                Icons.download,
+                                                color: red,
+                                                size: 16,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                height: 1,
+                                width: double.infinity,
+                                color: black.withOpacity(.5),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                notebook.dataModelForNotebook.data!
+                                    .noteBookList![notebook.selectedIndex].message
+                                    .toString(),
+                                style: defaultTS,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                height: 1,
+                                width: double.infinity,
+                                color: black.withOpacity(.5),
                               ),
                             ],
                           ),
-                          notebook
-                                      .dataModelForNotebook
-                                      .data!
-                                      .noteBookList![notebook.selectedIndex]
-                                      .fileLocation ==
-                                  null
-                              ? Container()
-                              : Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        //TODO: Implement download feature on NoteBook detail page
-                                        print('Start download');
-                                      },
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Downloadable file:',
-                                            style: defaultHighLightedTS,
-                                          ),
-                                          Icon(
-                                            Icons.download,
-                                            color: red,
-                                            size: 16,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            height: 1,
-                            width: double.infinity,
-                            color: black,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            notebook.dataModelForNotebook.data!
-                                .noteBookList![notebook.selectedIndex].message
-                                .toString(),
-                            style: defaultTS,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            height: 1,
-                            width: double.infinity,
-                            color: black,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           ),
         ],
       ),

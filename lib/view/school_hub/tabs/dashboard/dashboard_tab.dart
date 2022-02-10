@@ -458,7 +458,7 @@ class _DashboardTabState extends State<DashboardTab> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
+                    const EdgeInsets.only(right: 20.0, left:10),
                 child: Consumer<DashboardProvider>(
                   builder: (context, provider, childProperty) {
                     return Column(
@@ -580,6 +580,7 @@ class _DashboardTabState extends State<DashboardTab> {
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             'View more',

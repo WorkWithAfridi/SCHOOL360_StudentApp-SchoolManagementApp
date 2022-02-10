@@ -59,7 +59,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
         ),
         centerTitle: true,
         title: Text(
-          'Attendance Report',
+          'Login / Logout Report',
           style: headerTSWhite,
         ),
       ),
@@ -91,6 +91,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                     const SizedBox(
                       height: 10,
                     ),
+                    provider.getCalenderForFMTable(),
                     Card(
                       elevation: 4,
                       child: Container(
@@ -125,7 +126,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                     style: defaultTS,
                                   ),
                                   Text(
-                                    '${provider.selectedMonth.substring(0, 3)}',
+                                    '${provider.selectedMonth}',
                                     style: defaultHighLightedTS,
                                   ),
                                 ],
@@ -177,6 +178,21 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                 ],
                               ),
                             ),
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(horizontal: 10),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(
+                            //         'Period: ',
+                            //         style: defaultTS,
+                            //       ),
+                            //       Text(
+                            //         '${provider.dataModelForLogInLogOutTimings.data!.shiftName.toString()}',
+                            //         style: defaultHighLightedTS,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -201,10 +217,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                 children: [
                                   Container(
                                     width: 60,
-                                    child: Text(
-                                      'Date',
-                                      style: headerTSWhite
-                                    ),
+                                    child: Text('Date', style: headerTSWhite),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -228,10 +241,8 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                             flex: 1,
                                             child: Container(
                                               width: double.infinity,
-                                              child: Text(
-                                                'Logged out',
-                                                style: headerTSWhite
-                                              ),
+                                              child: Text('Logged out',
+                                                  style: headerTSWhite),
                                             ),
                                           ),
                                         ],
@@ -260,7 +271,7 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
-                                          height: 35,
+                                          height: 55,
                                           child: Row(
                                             children: [
                                               Container(
@@ -302,6 +313,26 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                                     children: [
                                                       Row(
                                                         children: [
+                                                          Text(
+                                                            'Status:',
+                                                            style: defaultTS,
+                                                          ),
+                                                          Text(
+                                                            ' ${provider.dataModelForLogInLogOutTimings.data!.attendanceInfo![index].status}',
+                                                            style: provider
+                                                                        .dataModelForLogInLogOutTimings
+                                                                        .data!
+                                                                        .attendanceInfo![
+                                                                            index]
+                                                                        .status ==
+                                                                    'Present'
+                                                                ? defaultHighLightedTS
+                                                                : defaultTS,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
                                                           Flexible(
                                                             flex: 1,
                                                             child: Container(
@@ -324,7 +355,19 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                                                             index]
                                                                         .loginTime
                                                                         .toString(),
-                                                                style: headerTSBlack,
+                                                                style: !(provider
+                                                                            .dataModelForLogInLogOutTimings
+                                                                            .data!
+                                                                            .attendanceInfo![
+                                                                                index]
+                                                                            .loginTime
+                                                                            .toString() ==
+                                                                        "-")
+                                                                    ? headerTSBlack
+                                                                        .copyWith(
+                                                                            color:
+                                                                                red)
+                                                                    : headerTSBlack,
                                                               ),
                                                             ),
                                                           ),
@@ -350,7 +393,19 @@ class _FMTable_PageState extends State<FMTable_Page> {
                                                                             index]
                                                                         .logoutTime
                                                                         .toString(),
-                                                                style: headerTSBlack,
+                                                                style: !(provider
+                                                                            .dataModelForLogInLogOutTimings
+                                                                            .data!
+                                                                            .attendanceInfo![
+                                                                                index]
+                                                                            .logoutTime
+                                                                            .toString() ==
+                                                                        "-")
+                                                                    ? headerTSBlack
+                                                                        .copyWith(
+                                                                            color:
+                                                                                red)
+                                                                    : headerTSBlack,
                                                               ),
                                                             ),
                                                           ),

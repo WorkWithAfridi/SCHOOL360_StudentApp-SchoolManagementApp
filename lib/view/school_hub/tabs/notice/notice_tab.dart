@@ -48,6 +48,7 @@ class _NoticeTabState extends State<NoticeTab> {
     super.initState();
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -63,7 +64,7 @@ class _NoticeTabState extends State<NoticeTab> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 00, vertical: 0),
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -134,67 +135,77 @@ class _NoticeTabState extends State<NoticeTab> {
               //     ),
               //   ],
               // ),
+
+              isLoading
+                  ? LinearProgressIndicator(
+                      color: red,
+                    )
+                  : Container(),
               const SizedBox(
                 height: 5,
               ),
               Expanded(
-                child: SizedBox(
-                  height: double.infinity,
-                  child: Column(
-                    children: [
-                      // Container(
-                      //   height: 40,
-                      //   // color: Theme.of(context).colorScheme.primary,
-                      //   color: Colors.black.withOpacity(.8),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     crossAxisAlignment: CrossAxisAlignment.center,
-                      //     children: [
-                      //       SizedBox(
-                      //         width: 30,
-                      //         child: Center(
-                      //           child: Text('#', style: headerTextStyleWhite),
-                      //         ),
-                      //       ),
-                      //       Expanded(
-                      //         child: Text(
-                      //           'Title',
-                      //           style: headerTextStyleWhite,
-                      //         ),
-                      //       ),
-                      //       Container(
-                      //         // width: 80,
-                      //         padding: const EdgeInsets.symmetric(horizontal: 10),
-                      //         child: const Center(
-                      //           child: Icon(
-                      //             Icons.download,
-                      //             color: Colors.white,
-                      //             size: 17,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 5,
-                      // ),
-                      Consumer<NoticeProvider>(
-                        builder: (context, notice, childProperty) {
-                          return notice.showAlertBox
-                              ? showAlertBox(context)
-                              : notice.showLoading
-                                  ? Expanded(
-                                      child: Center(
-                                        child: showLoading(),
-                                      ),
-                                    )
-                                  : Expanded(
-                                      child: getNoticeTable(),
-                                    );
-                        },
-                      ),
-                    ],
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  child: SizedBox(
+                    height: double.infinity,
+                    child: Column(
+                      children: [
+                        // Container(
+                        //   height: 40,
+                        //   // color: Theme.of(context).colorScheme.primary,
+                        //   color: Colors.black.withOpacity(.8),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                        //     children: [
+                        //       SizedBox(
+                        //         width: 30,
+                        //         child: Center(
+                        //           child: Text('#', style: headerTextStyleWhite),
+                        //         ),
+                        //       ),
+                        //       Expanded(
+                        //         child: Text(
+                        //           'Title',
+                        //           style: headerTextStyleWhite,
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         // width: 80,
+                        //         padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //         child: const Center(
+                        //           child: Icon(
+                        //             Icons.download,
+                        //             color: Colors.white,
+                        //             size: 17,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 5,
+                        // ),
+                        Consumer<NoticeProvider>(
+                          builder: (context, notice, childProperty) {
+                            return notice.showAlertBox
+                                ? showAlertBox(context)
+                                : notice.showLoading
+                                    ? Expanded(
+                                        child: Center(
+                                          child: showLoading(),
+                                        ),
+                                      )
+                                    : Expanded(
+                                        child: getNoticeTable(),
+                                      );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -352,7 +363,10 @@ class _NoticeTabState extends State<NoticeTab> {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
                       String url =
                           "https://school360.app/${_qrCodeData.schoolId}/homes/download/notice~${notice.dataModelForNotice.data![index].url}";
                       Download download = Download();
@@ -360,6 +374,11 @@ class _NoticeTabState extends State<NoticeTab> {
                           url,
                           notice.dataModelForNotice.data![index].url
                               .toString());
+                      await Future.delayed(Duration(seconds: 1));
+
+                      setState(() {
+                        isLoading = false;
+                      });
                     },
                     child: Card(
                       elevation: 4,

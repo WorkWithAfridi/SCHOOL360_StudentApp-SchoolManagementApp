@@ -64,7 +64,7 @@ class _NotebookListState extends State<NotebookList> {
           style: headerTSWhite,
         ),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
@@ -83,6 +83,7 @@ class _NotebookListState extends State<NotebookList> {
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 0),
                 // color: Colors.pink,
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +114,8 @@ class _NotebookListState extends State<NotebookList> {
                                     horizontal: 10.0),
                                 child: Text(
                                   'Its quite empty down here, maybe ask your teacher for some homework?',
-                                  style: defaultTS,
+                                  style: defaultTS.copyWith(
+                                      color: black.withOpacity(.5)),
                                 ),
                               ),
                             )
@@ -148,43 +150,69 @@ class _NotebookListState extends State<NotebookList> {
                                                   const EdgeInsets.symmetric(
                                                       vertical: 5,
                                                       horizontal: 10),
-                                              child: Text(
-                                                notebook
-                                                    .dataModelForNotebook
-                                                    .data!
-                                                    .noteBookList![index]
-                                                    .subjectName
-                                                    .toString(),
-                                                style: headerTSBlack,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    notebook
+                                                        .dataModelForNotebook
+                                                        .data!
+                                                        .noteBookList![index]
+                                                        .subjectName
+                                                        .toString(),
+                                                    style: headerTSBlack,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text('Posted on: ', style: defaultTS),
+                                                      Text(
+                                                        notebook
+                                                            .dataModelForNotebook
+                                                            .data!
+                                                            .noteBookList![
+                                                                index]
+                                                            .date
+                                                            .toString(),
+                                                        style:
+                                                            defaultHighLightedTS,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Container(
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 10),
-                                              child: Text(
-                                                notebook
-                                                    .dataModelForNotebook
-                                                    .data!
-                                                    .noteBookList![index]
-                                                    .date
-                                                    .toString(),
-                                                style: defaultHighLightedTS,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(
+                                                  FontAwesomeIcons.thumbtack,
+                                                  color: black,
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        // Container(
-                                        //   height: 1,
-                                        //   width: double.infinity,
-                                        //   color: Theme.of(context)
-                                        //       .colorScheme
-                                        //       .primary
-                                        //       .withOpacity(.3),
-                                        // ),
-                                        // const SizedBox(
-                                        //   height: 5,
-                                        // ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Container(
+                                            height: 1,
+                                            width: double.infinity,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                                .withOpacity(.3),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
                                         // SizedBox(height: 5,),
                                         Container(
                                           padding: const EdgeInsets.symmetric(

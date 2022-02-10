@@ -61,7 +61,7 @@ class _ResultCardPageState extends State<ResultCardPage> {
           style: headerTSWhite,
         ),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: white,
       body: Stack(
         children: [
           SizedBox(
