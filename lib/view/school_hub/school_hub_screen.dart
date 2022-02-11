@@ -1,11 +1,15 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/globar_variables.dart';
+import 'package:school_360_app/model/data_model_for_notice.dart';
 import 'package:school_360_app/model/student_id_validator.dart';
 import 'package:school_360_app/provider/appData.dart';
+import 'package:school_360_app/provider/notice.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/view/home_screen.dart';
 import 'package:school_360_app/view/school_hub/payment_receipts.dart';
@@ -15,6 +19,8 @@ import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/result_tab.dart';
+
+import '../../provider/dashboard.dart';
 
 class SchoolHub extends StatefulWidget {
   static const routeName = '/school-hub';
@@ -293,17 +299,7 @@ class _SchoolHubState extends State<SchoolHub> {
               color: white,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(NoticeScreen.routeName);
-              },
-              icon: Icon(
-                FontAwesomeIcons.bell,
-                color: white,
-              ),
-            )
-          ],
+          actions: [getBadgedBellButton(context)],
         ),
         backgroundColor: white,
         body: SizedBox(
@@ -487,6 +483,69 @@ class _SchoolHubState extends State<SchoolHub> {
         ),
       ),
     );
+  }
+
+  Stream<int> getNumberForNoticeBadge() async* {
+    int length = 0;
+    yield length;
+
+    String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    NoticeProvider provider =
+        Provider.of<NoticeProvider>(context, listen: false);
+    provider.getNotice(context);
+    await Future.delayed(Duration(seconds: 1));
+    for (int i = 0; i < provider.dataModelForNotice.data!.length; i++) {
+      // if (provider.dataModelForNotice.data![i].date.toString() == today)
+      length++;
+    }
+    yield length;
+  }
+
+  Widget getBadgedBellButton(BuildContext context) {
+    return Consumer<DashboardProvider>(
+        builder: (context, provider, childProperty) {
+      // int length = ;
+
+      // TODO:FOR LIVE
+      // for (int i = 0; i < provider.dataModelForNotice.data!.length; i++) {
+      //   if (provider.dataModelForNotice.data![i].date.toString() == today)
+      //     length++;
+      // }
+
+      //TODO: FOR TEST
+      // await length = provider.dataModelForNotice.data!.length;
+      return StreamBuilder(
+          stream: getNumberForNoticeBadge(),
+          builder: (context, snapshot) {
+            bool hasNotice = true;
+
+            if (snapshot.data.toString() == '0') hasNotice = false;
+            return IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NoticeScreen.routeName);
+              },
+              icon: hasNotice
+                  ? Badge(
+                      elevation: 4,
+                      showBadge: true,
+                      badgeContent: Text(
+                        snapshot.data.toString(),
+                        style: defaultHighLightedTS.copyWith(color: white),
+                      ),
+                      badgeColor: red,
+                      padding: EdgeInsets.all(05),
+                      child: Icon(
+                        FontAwesomeIcons.bell,
+                        color: white,
+                      ),
+                    )
+                  : Icon(
+                      FontAwesomeIcons.bell,
+                      color: white,
+                    ),
+            );
+          });
+    });
   }
 
   Widget customBottomNavBarRow(BuildContext context) {

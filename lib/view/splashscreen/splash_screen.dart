@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:school_360_app/view/home_screen.dart';
+import '../../functions/globar_variables.dart';
 import '../scanner/scanner_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           backgroundColor: Color(0xffF4F6F9),
         ),
       ),
-      backgroundColor: Color(0xffF4F6F9),
+      backgroundColor: white,
       body: Stack(
         children: [
           // Container(
