@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'dart:io';
 
@@ -66,11 +67,11 @@ class _OpenWebViewState extends State<OpenWebView> {
             // backgroundColor: Theme.of(context).colorScheme.primary,
             title: Text(
               'Close?',
-              style: headerTextStyleBlack,
+              style: headerTSBlack,
             ),
             content: Text(
               'Are you sure, you want to close this window?',
-              style: normalTextStyle,
+              style: defaultTS,
             ),
             actions: <Widget>[
               TextButton(

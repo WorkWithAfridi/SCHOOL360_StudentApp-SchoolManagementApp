@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/provider/appData.dart';
 
+import 'globar_variables.dart';
 import 'open_webview.dart';
 
 class ShowAppData extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ShowAppDataState extends State<ShowAppData> {
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          elevation: 2,
+          elevation: 6,
           centerTitle: true,
           title: Text(
             'Hall of Fame',
@@ -57,12 +58,14 @@ class _ShowAppDataState extends State<ShowAppData> {
           ),
         ),
       ),
+      backgroundColor: white,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 25),
         // color: Colors.red,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +83,7 @@ class _ShowAppDataState extends State<ShowAppData> {
                 height: 15,
               ),
               Text(
-                'Hello! :)',
+                'Hello World! :)',
                 style: headerTextStyleBlack.copyWith(
                     color: Colors.black54, fontSize: 35),
               ),
@@ -186,6 +189,13 @@ class _ShowAppDataState extends State<ShowAppData> {
               ),
               const SizedBox(
                 height: 10,
+              ),
+              Text(
+                'Contact',
+                style: normalHighLightTextStyle.copyWith(
+                  color: Colors.black54,
+                  decoration: TextDecoration.none,
+                ),
               ),
               GestureDetector(
                 onTap: () {

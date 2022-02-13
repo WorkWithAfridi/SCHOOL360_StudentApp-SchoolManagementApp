@@ -120,14 +120,14 @@ class _TransactionSuccessState extends State<TransactionSuccess> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    appData.selectedTab = 0;
-                    appData.navigateToPage(0);
-                    Navigator.of(context).pop(context);
+                    // appData.selectedTab = 0;
+                    // appData.navigateToPage(0);
+                    Navigator.of(context).pop();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Back to home',
+                      Text('Close',
                           style:
                               defaultTS.copyWith(fontWeight: FontWeight.w800)),
                       const SizedBox(

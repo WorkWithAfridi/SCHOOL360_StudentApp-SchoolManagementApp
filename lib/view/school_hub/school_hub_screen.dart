@@ -265,6 +265,7 @@ class _SchoolHubState extends State<SchoolHub> {
   }
 
   GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
+  int debugCounter=0;
 
   DefaultTabController mainPage(BuildContext context) {
     qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);
@@ -279,19 +280,30 @@ class _SchoolHubState extends State<SchoolHub> {
         appBar: AppBar(
           backgroundColor: black,
           elevation: 6,
-          title: Text(
-            pageNo == 0
-                ? '🎒 Home'
-                : pageNo == 1
-                    ? '📓 Notebook'
-                    : pageNo == 2
-                        ? '👋 Attendance'
-                        : pageNo == 3
-                            ? '🅰️ Result'
-                            : pageNo == 4
-                                ? '💳 Payment'
-                                : 'School 360',
-            style: headerTSWhite,
+          title: GestureDetector(
+            onTap: (){
+              debugCounter++;
+              if(
+              debugCounter==23
+              ){
+                appData = Provider.of<AppData>(context, listen: false);
+                appData.showAppData(context);
+              }
+            },
+            child: Text(
+              pageNo == 0
+                  ? '🎒 Home'
+                  : pageNo == 1
+                      ? '📓 Notebook'
+                      : pageNo == 2
+                          ? '👋 Attendance'
+                          : pageNo == 3
+                              ? '🅰️ Result'
+                              : pageNo == 4
+                                  ? '💳 Payment'
+                                  : 'School 360',
+              style: headerTSWhite,
+            ),
           ),
           centerTitle: true,
           leading: IconButton(

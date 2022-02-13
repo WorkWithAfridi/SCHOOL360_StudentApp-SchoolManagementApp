@@ -363,7 +363,7 @@ class Homepage extends StatelessWidget {
                                                     onTap: () {
                                                       Navigator.of(context).pop();
                                                       Navigator.of(context)
-                                                          .pushReplacementNamed(
+                                                          .pushNamed(
                                                               QRScanner
                                                                   .routeName,
                                                               arguments: {
