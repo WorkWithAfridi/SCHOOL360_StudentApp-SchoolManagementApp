@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:school_360_app/view/scanner/LogInWithUserCredentials/logInWithUserCredentials_screen.dart';
 import 'package:school_360_app/view/scanner/scanner_screen.dart';
 
 import '../functions/globar_variables.dart';
@@ -152,7 +153,9 @@ class Homepage extends StatelessWidget {
                       Text(
                         'Please scan a QR code to continue.',
                         style: defaultTS.copyWith(
-                            fontSize: 10, fontWeight: FontWeight.w600),
+                            color: Colors.black54,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(
                         height: 0,
@@ -223,118 +226,317 @@ class Homepage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Card(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        elevation: 10,
-                        color: Colors.transparent,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(QRScanner.routeName,
-                                arguments: {'Mode': 'StudentID'});
-                          },
-                          child: Container(
-                            // padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
+                      Builder(builder: (context) {
+                        return Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          elevation: 10,
+                          color: Colors.transparent,
+                          child: GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).showBottomSheet(
+                                (context) => Container(
+                                    height: 220,
+                                    width: MediaQuery.of(context).size.width,
+                                    // height: 500,
+                                    color: black,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          // height: 20,
+                                          padding: EdgeInsets.only(top: 10),
+                                          width: MediaQuery.of(context).size.width,
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(5),
+                                              color: Colors.grey,
+                                            ),
+                                            height: 5,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .1,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // Container(
+                                              //   alignment: Alignment.center,
+                                              //   height: MediaQuery.of(context).size.height * .4,
+                                              //   width: MediaQuery.of(context).size.width,
+                                              //   child: Lottie.asset(
+                                              //       'lib/assets/lottieAnimation/lottie_animation_lock.json', repeat: false),
+                                              // ),
+                                              // SizedBox(
+                                              //   height: 20,
+                                              // ),
+                                              // Padding(
+                                              //   padding: EdgeInsets.symmetric(horizontal: 15),
+                                              //   child: Text(
+                                              //     'Please',
+                                              //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding: EdgeInsets.symmetric(horizontal: 15),
+                                              //   child: Text(
+                                              //     'Choose',
+                                              //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding: EdgeInsets.symmetric(horizontal: 15),
+                                              //   child: Text(
+                                              //     'a Log In method',
+                                              //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
+                                              //   ),
+                                              // ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Log In by:',
+                                                    textAlign: TextAlign.center,
+                                                    style: defaultTS.copyWith(
+                                                      color: Colors.white60,
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 15),
+                                                child: Card(
+                                                  // shape: const RoundedRectangleBorder(
+                                                  //     borderRadius: BorderRadius.all(Radius.circular(15))),
+                                                  elevation: 10,
+                                                  // color: Colors.transparent,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(context).pushNamed(LogInWithUserCredentials.routeName,);
+                                                    },
+                                                    child: Container(
+                                                      // height: MediaQuery.of(context).size.height,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      color: Colors.transparent,
+                                                      child: Text(
+                                                        'Using User ID and Password',
+                                                        style: defaultTS
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 15),
+                                                child: Card(
+                                                  // shape: const RoundedRectangleBorder(
+                                                  //     borderRadius: BorderRadius.all(Radius.circular(15))),
+                                                  elevation: 10,
+                                                  color: Colors.white,
+                                                  // color: Colors.transparent,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pushReplacementNamed(
+                                                              QRScanner
+                                                                  .routeName,
+                                                              arguments: {
+                                                            'Mode': 'StudentID'
+                                                          });
+                                                      // Navigator.of(context).pushNamed(QRScanner.routeName,
+                                                      //     arguments: {'Mode': 'StudentID'});
+                                                    },
+                                                    child: Container(
+                                                      color: Colors.transparent,
+                                                      // height: MediaQuery.of(context).size.height,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      // color: white,
+                                                      child: Text(
+                                                        'Scanning ID Card',
+                                                        style:
+                                                            defaultTS
+                                                                .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Terms & conditions',
+                                                    style: defaultTS.copyWith(
+                                                        color: Colors.white60,
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    '|',
+                                                    style: defaultTS.copyWith(
+                                                        color: Colors.white60,
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    'Privacy policy',
+                                                    style: defaultTS.copyWith(
+                                                        color: Colors.white60,
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              );
+                              // Navigator.of(context)
+                              //     .pushNamed(ChooseLogInType.routeName);
+                            },
+                            child: Container(
+                              // padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height * .09,
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    child: GridPaper(
+                                      color: red.withOpacity(.05),
+                                      divisions: 4,
+                                      interval: 500,
+                                      subdivisions: 8,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: double.infinity,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              // Icon(
+                                              //   FontAwesomeIcons.barcode,
+                                              //   color: Theme.of(context)
+                                              //       .colorScheme
+                                              //       .secondary,
+                                              //   size: MediaQuery.of(context)
+                                              //           .size
+                                              //           .height *
+                                              //       .055,
+                                              // ),
+
+                                              Lottie.asset(
+                                                  'lib/assets/lottieAnimation/lottieScanner (2).json'),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Log In',
+                                                style: headerTSBlack.copyWith(
+                                                    fontSize: 15),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.arrowRight,
+                                          size: 20,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * .09,
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  child: GridPaper(
-                                    color: red.withOpacity(.05),
-                                    divisions: 4,
-                                    interval: 500,
-                                    subdivisions: 8,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: double.infinity,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            // Icon(
-                                            //   FontAwesomeIcons.barcode,
-                                            //   color: Theme.of(context)
-                                            //       .colorScheme
-                                            //       .secondary,
-                                            //   size: MediaQuery.of(context)
-                                            //           .size
-                                            //           .height *
-                                            //       .055,
-                                            // ),
-
-                                            Lottie.asset(
-                                                'lib/assets/lottieAnimation/lottieScanner (2).json'),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Sign In with ID',
-                                              style: headerTSBlack.copyWith(
-                                                  fontSize: 15),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Icon(
-                                        FontAwesomeIcons.arrowRight,
-                                        size: 20,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Terms & conditions',
                             style: defaultTS.copyWith(
-                                fontSize: 10, fontWeight: FontWeight.w600),
+                                color: Colors.black54,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(
                             width: 5,
                           ),
                           Text(
                             '|',
-                            style: GoogleFonts.getFont(
-                              'Ubuntu',
-                              textStyle: TextStyle(
-                                  color:
-                                      // Theme.of(context).colorScheme.background.withOpacity(0.9),
-                                      Colors.black.withOpacity(0.6),
-                                  fontSize: 10,
-                                  height: .9,
-                                  wordSpacing: 1,
-                                  fontWeight: FontWeight.w700),
-                            ),
+                            style: defaultTS.copyWith(
+                                color: Colors.black54,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(
                             width: 5,
@@ -342,7 +544,9 @@ class Homepage extends StatelessWidget {
                           Text(
                             'Privacy policy',
                             style: defaultTS.copyWith(
-                                fontSize: 10, fontWeight: FontWeight.w600),
+                                color: Colors.black54,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),

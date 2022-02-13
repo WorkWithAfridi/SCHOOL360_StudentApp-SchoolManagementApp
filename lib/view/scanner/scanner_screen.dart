@@ -366,15 +366,14 @@ class _QRScannerState extends State<QRScanner> {
   void reset() {
     _scanAgain = true;
     _showAlertBox = false;
-    isLoading=false;
+    isLoading = false;
   }
 
   Widget alertBoxLayout(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 1,
       child: AlertDialog(
-        title: Text("Attention",
-            style: headerTSBlack),
+        title: Text("Attention", style: headerTSBlack),
         content: Text("Invalid QR code. Please try again with a valid code!",
             style: defaultTS),
         actions: <Widget>[

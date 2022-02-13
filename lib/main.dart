@@ -12,7 +12,9 @@ import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/provider/result.dart';
 import 'package:school_360_app/provider/school_hub_payment.dart';
 import 'package:school_360_app/view/home_screen.dart';
+import 'package:school_360_app/view/scanner/LogInWithUserCredentials/logInWithUserCredentials_screen.dart';
 import 'package:school_360_app/view/school_hub/payment_receipts.dart';
+import 'package:school_360_app/view/school_hub/school_hub_screen.dart';
 import 'package:school_360_app/view/school_hub/tabs/attendance/AttendanceReport_Table.dart';
 import 'package:school_360_app/view/school_hub/tabs/attendance/FM_Table.dart';
 import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_list.dart';
@@ -22,7 +24,6 @@ import 'package:school_360_app/view/school_hub/tabs/payment/payment_details_page
 import 'package:school_360_app/view/school_hub/tabs/result/resultCard_Page.dart';
 import 'package:school_360_app/view/transaction_status/transaction_error_screen.dart';
 import 'package:school_360_app/view/transaction_status/transaction_success_screen.dart';
-import 'package:school_360_app/view/school_hub/school_hub_screen.dart';
 
 import 'view/pay_slip_payment/payment_summary_screen.dart';
 import 'view/scanner/scanner_screen.dart';
@@ -79,6 +80,8 @@ class MyApp extends StatelessWidget {
           PaymentDetailsPage.routeName: (context) => const PaymentDetailsPage(),
           PaymentReceiptPage.routeName: (context) => const PaymentReceiptPage(),
           NoticeScreen.routeName: (context) => const NoticeScreen(),
+          LogInWithUserCredentials.routeName: (context) =>
+              LogInWithUserCredentials(),
         },
       ),
     );

@@ -103,7 +103,7 @@ class _ResultTabState extends State<ResultTab> {
         return AlertDialog(
           title: Text(
             provider.alertBoxTitle,
-            style: headerTextStyleBlack,
+            style: headerTSBlack,
           ),
           content: RichText(
             text: TextSpan(
@@ -111,7 +111,7 @@ class _ResultTabState extends State<ResultTab> {
               children: <TextSpan>[
                 TextSpan(
                   text: provider.alertBoxText,
-                  style: normalTextStyle,
+                  style: defaultTS,
                 ),
               ],
             ),

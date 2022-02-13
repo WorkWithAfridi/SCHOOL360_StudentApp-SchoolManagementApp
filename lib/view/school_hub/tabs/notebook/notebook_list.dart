@@ -187,12 +187,13 @@ class _NotebookListState extends State<NotebookList> {
                                             Container(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 10),
+                                                      horizontal: 0),
                                               child: IconButton(
                                                 onPressed: () {},
                                                 icon: Icon(
                                                   FontAwesomeIcons.thumbtack,
                                                   color: black,
+                                                  size: 15,
                                                 ),
                                               ),
                                             ),

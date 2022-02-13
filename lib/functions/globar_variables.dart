@@ -19,17 +19,17 @@ TextStyle userNameTS = GoogleFonts.getFont(
 
 TextStyle defaultTS = GoogleFonts.getFont(
   'Open Sans',
-  textStyle: TextStyle(color: black, fontSize: 14, fontWeight: FontWeight.w400),
+  textStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w400),
 );
 TextStyle defaultTSWhite = GoogleFonts.getFont(
   'Open Sans',
-  textStyle: TextStyle(color: white, fontSize: 14, fontWeight: FontWeight.w400),
+  textStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w400),
 );
 
 TextStyle subtitleTS = GoogleFonts.getFont(
   'Open Sans',
   textStyle: TextStyle(
-      color: black.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w400),
+      color: Colors.black87.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w400),
 );
 
 TextStyle defaultHighLightedTS = GoogleFonts.getFont(
@@ -50,7 +50,7 @@ TextStyle headerTSBlack = GoogleFonts.getFont(
   textStyle: TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 20,
-    color: black,
+    color: Colors.black87
   ),
 );
 TextStyle headerTSHighLight = GoogleFonts.getFont(

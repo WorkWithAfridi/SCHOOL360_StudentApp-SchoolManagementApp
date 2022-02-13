@@ -56,8 +56,12 @@ class _SchoolHubState extends State<SchoolHub> {
     normalTextStyle = appData.normalTextStyle;
     debugCounterMenuButton = 0;
     normalHighLightTextStyle = appData.normalHighLightTextStyle;
+    getNumberForNoticeBadge();
   }
 
+  // void show
+
+  int numberOfNotifications = 0;
   late QRCodeDataProvider qrCodeData;
   @override
   void initState() {
@@ -485,66 +489,49 @@ class _SchoolHubState extends State<SchoolHub> {
     );
   }
 
-  Stream<int> getNumberForNoticeBadge() async* {
-    int length = 0;
-    yield length;
-
+  void getNumberForNoticeBadge() async {
     String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
     NoticeProvider provider =
         Provider.of<NoticeProvider>(context, listen: false);
+    provider.pageNo = 0;
     provider.getNotice(context);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     for (int i = 0; i < provider.dataModelForNotice.data!.length; i++) {
+      //TODO: Undo the comment, in final version.
       // if (provider.dataModelForNotice.data![i].date.toString() == today)
-      length++;
+      numberOfNotifications++;
     }
-    yield length;
+    setState(() {});
   }
 
   Widget getBadgedBellButton(BuildContext context) {
     return Consumer<DashboardProvider>(
         builder: (context, provider, childProperty) {
-      // int length = ;
-
-      // TODO:FOR LIVE
-      // for (int i = 0; i < provider.dataModelForNotice.data!.length; i++) {
-      //   if (provider.dataModelForNotice.data![i].date.toString() == today)
-      //     length++;
-      // }
-
-      //TODO: FOR TEST
-      // await length = provider.dataModelForNotice.data!.length;
-      return StreamBuilder(
-          stream: getNumberForNoticeBadge(),
-          builder: (context, snapshot) {
-            bool hasNotice = true;
-
-            if (snapshot.data.toString() == '0') hasNotice = false;
-            return IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(NoticeScreen.routeName);
-              },
-              icon: hasNotice
-                  ? Badge(
-                      elevation: 4,
-                      showBadge: true,
-                      badgeContent: Text(
-                        snapshot.data.toString(),
-                        style: defaultHighLightedTS.copyWith(color: white),
-                      ),
-                      badgeColor: red,
-                      padding: EdgeInsets.all(05),
-                      child: Icon(
-                        FontAwesomeIcons.bell,
-                        color: white,
-                      ),
-                    )
-                  : Icon(
-                      FontAwesomeIcons.bell,
-                      color: white,
-                    ),
-            );
-          });
+      return IconButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(NoticeScreen.routeName);
+        },
+        icon: !(numberOfNotifications == 0)
+            ? Badge(
+                elevation: 4,
+                showBadge: true,
+                animationType: BadgeAnimationType.slide,
+                badgeContent: Text(
+                  numberOfNotifications.toString(),
+                  style: defaultHighLightedTS.copyWith(color: white),
+                ),
+                badgeColor: red,
+                padding: EdgeInsets.all(05),
+                child: Icon(
+                  FontAwesomeIcons.bell,
+                  color: white,
+                ),
+              )
+            : Icon(
+                FontAwesomeIcons.bell,
+                color: white,
+              ),
+      );
     });
   }
 
