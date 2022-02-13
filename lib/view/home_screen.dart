@@ -324,6 +324,7 @@ class Homepage extends StatelessWidget {
                                                   // color: Colors.transparent,
                                                   child: GestureDetector(
                                                     onTap: () {
+                                                      Navigator.of(context).pop();
                                                       Navigator.of(context).pushNamed(LogInWithUserCredentials.routeName,);
                                                     },
                                                     child: Container(
@@ -360,6 +361,7 @@ class Homepage extends StatelessWidget {
                                                   // color: Colors.transparent,
                                                   child: GestureDetector(
                                                     onTap: () {
+                                                      Navigator.of(context).pop();
                                                       Navigator.of(context)
                                                           .pushReplacementNamed(
                                                               QRScanner

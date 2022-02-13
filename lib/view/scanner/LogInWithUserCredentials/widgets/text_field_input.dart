@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
     );
     return TextField(
       style: defaultTS,
-      cursorColor: Colors.black54,
+      cursorColor: Colors.black12,
       controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,
@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
         border: inputBorder,
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
-        fillColor: Colors.black26,
+        fillColor: Colors.black12,
         filled: true,
         contentPadding: EdgeInsets.all(8),
       ),
