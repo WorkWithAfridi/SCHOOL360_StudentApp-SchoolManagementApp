@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -62,9 +64,7 @@ class _PaymentTabState extends State<PaymentTab> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: provider.showAlertBox
-                  ? showAlertBox(context)
-                  : provider.showLoading
+              child: provider.showLoading
                       ? showLoading()
                       : SingleChildScrollView(
                           physics: BouncingScrollPhysics(),
@@ -462,13 +462,23 @@ class _PaymentTabState extends State<PaymentTab> {
                           ),
                         ),
             ),
+            provider.showAlertBox
+                ? SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: AlertBoxLayout(context),
+              ),
+            )
+                : Container()
           ],
         );
       },
     );
   }
 
-  Widget showAlertBox(BuildContext context) {
+  Widget AlertBoxLayout(BuildContext context) {
     return Consumer<SchoolHubPaymentProvider>(
       builder: (context, provider, childProperty) {
         return AlertDialog(

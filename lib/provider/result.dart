@@ -60,7 +60,7 @@ class ResultProvider extends ChangeNotifier {
       if (data.isEmpty) {
         showLoading = false;
         alertBoxText =
-            'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+            'An Error occurred while trying to fetch the data! Please try again!';
         alertBoxTitle = 'Alert';
         alertBoxButtonTitle = "Close";
         alertBoxButtonAction = "Close-year";
@@ -145,7 +145,7 @@ class ResultProvider extends ChangeNotifier {
         } else {
           showLoadingForResultPage=false;
           alertBoxText =
-              'An Error occurred while trying to fetch the data! Please try scanning the ID again or contact your administration for more information.';
+              'An Error occurred while trying to fetch the data! Please try again or contact your administration for more information.';
           alertBoxTitle = 'Alert';
           alertBoxButtonTitle = "Close";
           alertBoxButtonAction = "Close-Result";

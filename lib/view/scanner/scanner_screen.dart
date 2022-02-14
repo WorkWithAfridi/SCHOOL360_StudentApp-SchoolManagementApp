@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,7 @@ import 'package:school_360_app/model/student_id_validator.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/view/pay_slip_payment/payment_summary_screen.dart';
 import 'package:school_360_app/view/school_hub/school_hub_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../functions/globar_variables.dart';
 import '../../model/payment/data_model_for_pay_slip_payment.dart';
@@ -80,6 +82,8 @@ class _QRScannerState extends State<QRScanner> {
     controller!.resumeCamera();
   }
 
+  bool rememberMe = false;
+
   @override
   Widget build(BuildContext context) {
     var routeArgs =
@@ -117,50 +121,82 @@ class _QRScannerState extends State<QRScanner> {
         alignment: Alignment.center,
         children: <Widget>[
           _buildQrView(context),
-          _showAlertBox ? alertBoxLayout(context) : Container(),
+
           Positioned(
             bottom: 0,
             left: 0,
             child: Container(
+              padding: EdgeInsets.only(top: 5),
               color: Theme.of(context).colorScheme.background,
               height: MediaQuery.of(context).size.height * .15,
               width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).colorScheme.background,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.flash_on,
-                        color: Colors.black,
-                      ),
-                      onPressed: () async {
-                        await controller?.toggleFlash();
-                        setState(() {});
-                      },
+              alignment: Alignment.topCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.flash_on,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            await controller?.toggleFlash();
+                            setState(() {});
+                          },
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.cameraswitch_outlined,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            await controller?.flipCamera();
+                            setState(() {});
+                          },
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      width: 30,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        rememberMe = !rememberMe;
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 30,
+                          child: Checkbox(
+                            checkColor: white,
+                            activeColor: red,
+                            value: rememberMe,
+                            onChanged: (value) {
+                              setState(() {
+                                rememberMe = value!;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Remember me',
+                          style: defaultTS,
+                        )
+                      ],
                     ),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.cameraswitch_outlined,
-                        color: Colors.black,
-                      ),
-                      onPressed: () async {
-                        await controller?.flipCamera();
-                        setState(() {});
-                      },
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -207,6 +243,14 @@ class _QRScannerState extends State<QRScanner> {
                   )
                 : Container(),
           ),
+          _showAlertBox ? SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+              child: AlertBoxLayout(context),
+            ),
+          ) : Container(),
         ],
       ),
     );
@@ -283,6 +327,7 @@ class _QRScannerState extends State<QRScanner> {
   late StudentIdValidator studentIdValidator;
 
   void validateStudentId() async {
+    String tempSchoolId =schoolId;
     String url = 'https://school360.app/$schoolId/service_bridge/verifyQrCode';
     http.Response response = await http.post(Uri.parse(url),
         body: {"security_pin": '311556', "student_code": encryptedStudentId});
@@ -312,6 +357,7 @@ class _QRScannerState extends State<QRScanner> {
         setState(() {
           isLoading = false;
         });
+        if(rememberMe) saveUser(tempSchoolId, studentIdValidator.studentInfo!.studentCode.toString(), studentIdValidator.studentInfo!.name.toString());
         Navigator.pushNamedAndRemoveUntil(
           context,
           SchoolHub.routeName,
@@ -320,6 +366,19 @@ class _QRScannerState extends State<QRScanner> {
       }
     }
   }
+  void saveUser(
+      String schoolId,
+      String studentId,
+      String studentName,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    print(schoolId);
+    await prefs.setString('schoolId', schoolId);
+    await prefs.setString('studentId', studentId);
+    await prefs.setString('studentName', studentName);
+    return;
+  }
+
 
   void checkQRData(BuildContext context) async {
     QRCodeDataProvider qrCodeData =
@@ -369,7 +428,7 @@ class _QRScannerState extends State<QRScanner> {
     isLoading = false;
   }
 
-  Widget alertBoxLayout(BuildContext context) {
+  Widget AlertBoxLayout(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 1,
       child: AlertDialog(

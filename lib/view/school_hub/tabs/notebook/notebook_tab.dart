@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,47 +53,53 @@ class _NotebookTabState extends State<NotebookTab> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: GridPaper(
-              color: red.withOpacity(0.05),
-              divisions: 4,
-              interval: 500,
-              subdivisions: 8,
+      child: Consumer<NotebookProvider>(
+          builder: (context, notebook, childProperty) {
+        return Stack(
+          children: [
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: GridPaper(
+                color: red.withOpacity(0.05),
+                divisions: 4,
+                interval: 500,
+                subdivisions: 8,
+              ),
             ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Consumer<NotebookProvider>(
-              builder: (context, notebook, childProperty) {
-                return notebook.showAlertBox
-                    ? AlertBoxLayout(context)
-                    : Stack(
-                        children: [
-                          Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: notebook.showLoading
-                                  ? showLoading()
-                                  : Container()),
-                          Container(
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            alignment: Alignment.center,
-                            child: notebookDatePickerPage(context),
-                          )
-                        ],
-                      );
-              },
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child:
+                          notebook.showLoading ? showLoading() : Container()),
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    child: notebookDatePickerPage(context),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+            notebook.showAlertBox
+                ? SizedBox(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                      child: AlertBoxLayout(context),
+                    ),
+                  )
+                : Container(),
+          ],
+        );
+      }),
     );
   }
 

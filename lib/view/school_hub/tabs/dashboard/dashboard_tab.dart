@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -64,38 +66,45 @@ class _DashboardTabState extends State<DashboardTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: GridPaper(
-            color: red.withOpacity(0.05),
-            divisions: 4,
-            interval: 500,
-            subdivisions: 8,
+    return Consumer<DashboardProvider>(
+        builder: (context, provider, childProperty) {
+      return Stack(
+        children: [
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: GridPaper(
+              color: red.withOpacity(0.05),
+              divisions: 4,
+              interval: 500,
+              subdivisions: 8,
+            ),
           ),
-        ),
-        Consumer<DashboardProvider>(
-            builder: (context, provider, childProperty) {
-          return Container(
-              child: provider.showAlertBox
-                  ? showAlertBox(context)
-                  : showLoadingStatus
-                      ? showLoading()
-                      : showDashboard(context));
-        }),
-      ],
-    );
+          Container(
+            child: showLoadingStatus ? showLoading() : showDashboard(context),
+          ),
+          provider.showAlertBox
+              ? SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: AlertBoxLayout(context),
+                  ),
+                )
+              : Container(),
+        ],
+      );
+    });
   }
 
-  Widget showAlertBox(BuildContext context) {
+  Widget AlertBoxLayout(BuildContext context) {
     return Consumer<DashboardProvider>(
       builder: (context, provider, childProperty) {
         return AlertDialog(
           title: Text(
             provider.alertBoxTitle,
-            style: headerTextStyleBlack,
+            style: headerTSBlack,
           ),
           content: RichText(
             text: TextSpan(
@@ -103,7 +112,7 @@ class _DashboardTabState extends State<DashboardTab> {
               children: <TextSpan>[
                 TextSpan(
                   text: provider.alertBoxText,
-                  style: normalTextStyle,
+                  style: defaultTS,
                 ),
               ],
             ),
@@ -457,8 +466,7 @@ class _DashboardTabState extends State<DashboardTab> {
                 height: 7,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.only(right: 20.0, left:10),
+                padding: const EdgeInsets.only(right: 20.0, left: 10),
                 child: Consumer<DashboardProvider>(
                   builder: (context, provider, childProperty) {
                     return Column(
@@ -711,9 +719,9 @@ class _DashboardTabState extends State<DashboardTab> {
                                             children: [
                                               Text(
                                                 'Total: ',
-                                                style:  defaultTS.copyWith(
+                                                style: defaultTS.copyWith(
                                                     fontWeight:
-                                                    FontWeight.w400),
+                                                        FontWeight.w400),
                                               ),
                                               Text(
                                                 '${provider.dataModelForPastPayment.data![index].totalPaidAmount!.substring(0, provider.dataModelForPastPayment.data![index].totalPaidAmount!.length - 3)}Tk',
@@ -730,9 +738,8 @@ class _DashboardTabState extends State<DashboardTab> {
                                           // Text(
                                           //     'Amount: ${provider.dataModelForPastPayment.data![index].totalPaidAmount}'),
                                           Text(
-                                            'Payed on: ${provider.dataModelForPastPayment.data![index].date}',
-                                            style: subtitleTS
-                                          ),
+                                              'Payed on: ${provider.dataModelForPastPayment.data![index].date}',
+                                              style: subtitleTS),
                                         ],
                                       ),
                                     ),

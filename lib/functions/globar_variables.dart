@@ -23,7 +23,7 @@ TextStyle defaultTS = GoogleFonts.getFont(
 );
 TextStyle defaultTSWhite = GoogleFonts.getFont(
   'Open Sans',
-  textStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w400),
+  textStyle: TextStyle(color: white, fontSize: 14, fontWeight: FontWeight.w400),
 );
 
 TextStyle subtitleTS = GoogleFonts.getFont(

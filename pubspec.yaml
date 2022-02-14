@@ -54,6 +54,7 @@ dependencies:
   change_app_package_name: ^1.0.0
   syncfusion_flutter_calendar: ^19.4.48
   badges: any
+  shared_preferences: any
 
 dev_dependencies:
   flutter_test:

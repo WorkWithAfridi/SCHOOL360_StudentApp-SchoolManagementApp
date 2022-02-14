@@ -19,6 +19,7 @@ import 'package:school_360_app/view/school_hub/tabs/notebook/notebook_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/notice/Notice_screen.dart';
 import 'package:school_360_app/view/school_hub/tabs/payment/payment_tab.dart';
 import 'package:school_360_app/view/school_hub/tabs/result/result_tab.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/dashboard.dart';
 
@@ -227,8 +228,14 @@ class _SchoolHubState extends State<SchoolHub> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
+                            onTap: () async {
                               isMenuOpen = false;
+
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.remove('schoolId');
+                              await prefs.remove('studentId');
+                              await prefs.remove('studentName');
                               Navigator.pushNamedAndRemoveUntil(context,
                                   Homepage.routeName, (route) => false);
                             },
@@ -265,7 +272,7 @@ class _SchoolHubState extends State<SchoolHub> {
   }
 
   GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
-  int debugCounter=0;
+  int debugCounter = 0;
 
   DefaultTabController mainPage(BuildContext context) {
     qrCodeData = Provider.of<QRCodeDataProvider>(context, listen: false);
@@ -281,11 +288,9 @@ class _SchoolHubState extends State<SchoolHub> {
           backgroundColor: black,
           elevation: 6,
           title: GestureDetector(
-            onTap: (){
+            onTap: () {
               debugCounter++;
-              if(
-              debugCounter==23
-              ){
+              if (debugCounter == 23) {
                 appData = Provider.of<AppData>(context, listen: false);
                 appData.showAppData(context);
               }

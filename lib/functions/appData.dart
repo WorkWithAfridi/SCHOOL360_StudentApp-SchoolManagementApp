@@ -191,7 +191,7 @@ class _ShowAppDataState extends State<ShowAppData> {
                 height: 10,
               ),
               Text(
-                'Contact',
+                'Contact:',
                 style: normalHighLightTextStyle.copyWith(
                   color: Colors.black54,
                   decoration: TextDecoration.none,

@@ -115,7 +115,7 @@ class AttendanceProvider extends ChangeNotifier {
       if (data.isEmpty) {
         showLoading = false;
         alertBoxText =
-            'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+            'An Error occurred while trying to fetch the data! Please try again!';
         alertBoxTitle = 'Alert';
         alertBoxButtonTitle = "Close";
         alertBoxButtonAction = "Close-year";
@@ -286,7 +286,7 @@ class AttendanceProvider extends ChangeNotifier {
       if (data.isEmpty) {
         showLoading = false;
         alertBoxText =
-            'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+            'An Error occurred while trying to fetch the data! Please try again!';
         alertBoxTitle = 'Alert';
         alertBoxButtonTitle = "Close";
         alertBoxButtonAction = "Close";
@@ -388,7 +388,7 @@ class AttendanceProvider extends ChangeNotifier {
       if (data.isEmpty) {
         showLoading = false;
         alertBoxText =
-            'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+            'An Error occurred while trying to fetch the data! Please again!';
         alertBoxTitle = 'Alert';
         alertBoxButtonTitle = "Close";
         alertBoxButtonAction = "Close";
@@ -404,7 +404,7 @@ class AttendanceProvider extends ChangeNotifier {
         } else {
           showLoading = false;
           alertBoxText =
-              'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+              'An Error occurred while trying to fetch the data! Please try again!';
           alertBoxTitle = 'Alert';
           alertBoxButtonTitle = "Close";
           alertBoxButtonAction = "Close";
@@ -424,7 +424,7 @@ class AttendanceProvider extends ChangeNotifier {
     } catch (e) {
       showLoading = false;
       alertBoxText =
-          'An Error occurred while trying to fetch the data! Please try scanning the ID again!';
+          'An Error occurred while trying to fetch the data! Please try again!';
       alertBoxTitle = 'Alert';
       alertBoxButtonTitle = "Close";
       alertBoxButtonAction = "Close";

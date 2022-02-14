@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,9 +69,7 @@ class _ResultTabState extends State<ResultTab> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
-              child: result.showAlertBox
-                  ? showAlertBox(context)
-                  : resultProvider.showLoading
+              child: resultProvider.showLoading
                       ? showLoading()
                       : Stack(
                           children: [
@@ -85,6 +85,16 @@ class _ResultTabState extends State<ResultTab> {
                           ],
                         ),
             ),
+            result.showAlertBox
+                ? SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: AlertBoxLayout(context),
+              ),
+            )
+                : Container()
 
             // _showContent
             //     ? (_showResultReport
@@ -97,7 +107,7 @@ class _ResultTabState extends State<ResultTab> {
     );
   }
 
-  Widget showAlertBox(BuildContext context) {
+  Widget AlertBoxLayout(BuildContext context) {
     return Consumer<ResultProvider>(
       builder: (context, provider, childProperty) {
         return AlertDialog(

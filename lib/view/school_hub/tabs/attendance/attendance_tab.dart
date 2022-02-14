@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -64,23 +66,31 @@ class _AttendanceTabState extends State<AttendanceTab> {
               subdivisions: 8,
             ),
           ),
+          attendance.showLoading
+              ? showLoading()
+              : attendanceParameterInputPage(context),
           attendance.showAlertBox
-              ? showAlertBox(context)
-              : attendance.showLoading
-                  ? showLoading()
-                  : attendanceParameterInputPage(context)
+              ? SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: AlertBoxLayout(context),
+                  ),
+                )
+              : Container(),
         ],
       );
     });
   }
 
-  Widget showAlertBox(BuildContext context) {
+  Widget AlertBoxLayout(BuildContext context) {
     return Consumer<AttendanceProvider>(
       builder: (context, provider, childProperty) {
         return AlertDialog(
           title: Text(
             provider.alertBoxTitle,
-            style: headerTextStyleBlack,
+            style: headerTSBlack,
           ),
           content: RichText(
             text: TextSpan(
@@ -88,7 +98,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
               children: <TextSpan>[
                 TextSpan(
                   text: provider.alertBoxText,
-                  style: normalTextStyle,
+                  style: defaultTS,
                 ),
               ],
             ),
