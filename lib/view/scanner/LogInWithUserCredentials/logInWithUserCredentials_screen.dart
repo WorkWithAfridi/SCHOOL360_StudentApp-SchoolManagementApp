@@ -23,11 +23,11 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 6,
-        title: Text(
-          'Log In',
-          style: headerTSWhite,
-        ),
-        centerTitle: true,
+        // title: Text(
+        //   'Log In',
+        //   style: headerTSWhite,
+        // ),
+        // centerTitle: true,
       ),
       backgroundColor: white,
       body: Container(

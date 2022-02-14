@@ -113,7 +113,7 @@ class _QRScannerState extends State<QRScanner> {
         centerTitle: true,
         title: Text(
           'QR SCANNER',
-          style: GoogleFonts.getFont('Roboto', textStyle: headerTSWhite), 
+          style: GoogleFonts.getFont('Roboto', textStyle: headerTSWhite),
         ),
       ),
       backgroundColor: white,

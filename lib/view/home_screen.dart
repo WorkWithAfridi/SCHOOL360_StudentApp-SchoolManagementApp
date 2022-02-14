@@ -241,7 +241,7 @@ class Homepage extends StatelessWidget {
                               Scaffold.of(context).showBottomSheet(
                                 (context) => BackdropFilter(
                                   filter:
-                                      ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                                      ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                                   child: Container(
                                       height: 220,
                                       width: MediaQuery.of(context).size.width,
