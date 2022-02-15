@@ -121,7 +121,6 @@ class _QRScannerState extends State<QRScanner> {
         alignment: Alignment.center,
         children: <Widget>[
           _buildQrView(context),
-
           Positioned(
             bottom: 0,
             left: 0,
@@ -166,36 +165,38 @@ class _QRScannerState extends State<QRScanner> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        rememberMe = !rememberMe;
-                      });
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 30,
-                          child: Checkbox(
-                            checkColor: white,
-                            activeColor: red,
-                            value: rememberMe,
-                            onChanged: (value) {
-                              setState(() {
-                                rememberMe = value!;
-                              });
-                            },
+                  mode != 'Bill'
+                      ? GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              rememberMe = !rememberMe;
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 30,
+                                child: Checkbox(
+                                  checkColor: white,
+                                  activeColor: red,
+                                  value: rememberMe,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      rememberMe = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Text(
+                                'Remember me',
+                                style: defaultTS,
+                              )
+                            ],
                           ),
-                        ),
-                        Text(
-                          'Remember me',
-                          style: defaultTS,
                         )
-                      ],
-                    ),
-                  ),
+                      : Container(),
                 ],
               ),
             ),
@@ -243,14 +244,16 @@ class _QRScannerState extends State<QRScanner> {
                   )
                 : Container(),
           ),
-          _showAlertBox ? SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: AlertBoxLayout(context),
-            ),
-          ) : Container(),
+          _showAlertBox
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: AlertBoxLayout(context),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -327,7 +330,7 @@ class _QRScannerState extends State<QRScanner> {
   late StudentIdValidator studentIdValidator;
 
   void validateStudentId() async {
-    String tempSchoolId =schoolId;
+    String tempSchoolId = schoolId;
     String url = 'https://school360.app/$schoolId/service_bridge/verifyQrCode';
     http.Response response = await http.post(Uri.parse(url),
         body: {"security_pin": '311556', "student_code": encryptedStudentId});
@@ -357,7 +360,11 @@ class _QRScannerState extends State<QRScanner> {
         setState(() {
           isLoading = false;
         });
-        if(rememberMe) saveUser(tempSchoolId, studentIdValidator.studentInfo!.studentCode.toString(), studentIdValidator.studentInfo!.name.toString());
+        if (rememberMe)
+          saveUser(
+              tempSchoolId,
+              studentIdValidator.studentInfo!.studentCode.toString(),
+              studentIdValidator.studentInfo!.name.toString());
         Navigator.pushNamedAndRemoveUntil(
           context,
           SchoolHub.routeName,
@@ -366,11 +373,12 @@ class _QRScannerState extends State<QRScanner> {
       }
     }
   }
+
   void saveUser(
-      String schoolId,
-      String studentId,
-      String studentName,
-      ) async {
+    String schoolId,
+    String studentId,
+    String studentName,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     print(schoolId);
     await prefs.setString('schoolId', schoolId);
@@ -378,7 +386,6 @@ class _QRScannerState extends State<QRScanner> {
     await prefs.setString('studentName', studentName);
     return;
   }
-
 
   void checkQRData(BuildContext context) async {
     QRCodeDataProvider qrCodeData =
@@ -390,6 +397,10 @@ class _QRScannerState extends State<QRScanner> {
       if (mode == 'Bill') {
         String url =
             'https://school360.app/$schoolId/service_bridge/getPaySlipByReceiptNo';
+
+        print('hello');
+        print(url);
+        print(receiptNo);
         http.Response response = await http.post(Uri.parse(url),
             body: {"security_pin": '311556', "receipt_no": receiptNo});
         String data = response.body;

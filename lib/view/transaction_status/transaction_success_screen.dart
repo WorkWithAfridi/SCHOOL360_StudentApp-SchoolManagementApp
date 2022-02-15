@@ -134,7 +134,7 @@ class _TransactionSuccessState extends State<TransactionSuccess> {
                         width: 5,
                       ),
                       Icon(
-                        FontAwesomeIcons.home,
+                        FontAwesomeIcons.windowClose,
                         color: black,
                       ),
                     ],

@@ -279,7 +279,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                                                         .style,
                                                 children: <TextSpan>[
                                                   TextSpan(
-                                                      text: 'Already paid: ',
+                                                      text: 'Already Paid: ',
                                                       style: defaultTS),
                                                   TextSpan(
                                                       text:

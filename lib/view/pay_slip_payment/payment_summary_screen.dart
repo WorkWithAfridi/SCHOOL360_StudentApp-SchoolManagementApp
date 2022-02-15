@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:school_360_app/functions/globar_variables.dart';
 import 'package:school_360_app/functions/payment.dart';
 import 'package:school_360_app/provider/appData.dart';
 
@@ -58,19 +59,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           ),
         ),
         centerTitle: true,
-        title: Text(
-          'PAYMENT INFO.',
-          style: GoogleFonts.getFont(
-            'Ubuntu',
-            textStyle: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-              color: Theme.of(context).colorScheme.background,
-            ),
-          ),
-        ),
+        title: Text('PAYMENT INFO.', style: headerTSWhite),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: white,
       body: Stack(
         children: [
           _background(),
@@ -111,16 +102,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Proceed to Checkout',
-                style: GoogleFonts.getFont(
-                  'Ubuntu',
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Theme.of(context).colorScheme.background),
-                ),
-              ),
+              Text('Proceed to Checkout', style: headerTSWhite),
               const SizedBox(
                 width: 3,
               ),
@@ -141,7 +123,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
       height: double.infinity,
       width: double.infinity,
       child: GridPaper(
-        color: Colors.red.withOpacity(0.1),
+        color: red.withOpacity(0.05),
         divisions: 2,
         interval: 200,
         subdivisions: 8,
@@ -187,16 +169,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Bill Summary: ',
-            style: GoogleFonts.getFont(
-              'Ubuntu',
-              textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onBackground),
-            ),
-          ),
+          Text('Bill Summary: ', style: headerTSBlack),
           const SizedBox(
             height: 5,
           ),
@@ -209,31 +182,13 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 SizedBox(
                   width: 30,
                   child: Center(
-                    child: Text(
-                      '#',
-                      style: GoogleFonts.getFont(
-                        'Ubuntu',
-                        textStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Colors.white),
-                      ),
-                    ),
+                    child: Text('#', style: headerTSWhite),
                   ),
                 ),
                 Expanded(
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Summary',
-                      style: GoogleFonts.getFont(
-                        'Ubuntu',
-                        textStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Colors.white),
-                      ),
-                    ),
+                    child: Text('Summary', style: headerTSWhite),
                   ),
                 ),
               ],
@@ -259,15 +214,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                               Container(
                                 width: 30,
                                 alignment: Alignment.topCenter,
-                                child: Text(
-                                  '${(index + 1).toString()}.',
-                                  style: GoogleFonts.getFont(
-                                    'Ubuntu',
-                                    textStyle: const TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
+                                child: Text('${(index + 1).toString()}.',
+                                    style: defaultTS),
                               ),
                               Expanded(
                                 child: Column(
@@ -276,18 +224,26 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      _dataModel
-                                          .data!
-                                          .collectionSheetDetails![index]
-                                          .subCategory
-                                          .toString(),
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        textStyle: const TextStyle(
-                                            color: Color(0xff212121),
-                                            decoration: TextDecoration.none,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
+                                        _dataModel
+                                            .data!
+                                            .collectionSheetDetails![index]
+                                            .subCategory
+                                            .toString(),
+                                        style: defaultTS),
+                                    RichText(
+                                      text: TextSpan(
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Allocated Amount: ',
+                                            style: defaultTS,
+                                          ),
+                                          TextSpan(
+                                              text:
+                                                  '${_dataModel.data!.collectionSheetDetails![index].actualAmount.toString()}.',
+                                              style: defaultHighLightedTS),
+                                        ],
                                       ),
                                     ),
                                     RichText(
@@ -296,30 +252,29 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                                             DefaultTextStyle.of(context).style,
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: 'Issued on: ',
-                                              style: GoogleFonts.getFont(
-                                                'Ubuntu',
-                                                textStyle: const TextStyle(
-                                                    color: Color(0xff212121),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              )),
+                                            text: 'Already Paid: ',
+                                            style: defaultTS,
+                                          ),
                                           TextSpan(
                                               text:
-                                                  '${_dataModel.data!.collectionSheetDetails![index].entryDate.toString()}.',
-                                              style: GoogleFonts.getFont(
-                                                'Ubuntu',
-                                                textStyle: const TextStyle(
-                                                  fontSize: 15,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xffFF284C),
-                                                ),
-                                              )),
+                                                  '${_dataModel.data!.collectionSheetDetails![index].paidAmount.toString()}.',
+                                              style: defaultHighLightedTS),
+                                        ],
+                                      ),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Discounted: ',
+                                            style: defaultTS,
+                                          ),
+                                          TextSpan(
+                                              text:
+                                                  '${_dataModel.data!.collectionSheetDetails![index].discountAmount.toString()}.',
+                                              style: defaultHighLightedTS),
                                         ],
                                       ),
                                     ),
@@ -335,18 +290,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                                                 .style,
                                             children: <TextSpan>[
                                               TextSpan(
-                                                  text: 'Total: ',
-                                                  style: GoogleFonts.getFont(
-                                                    'Ubuntu',
-                                                    textStyle: const TextStyle(
-                                                        color:
-                                                            Color(0xff212121),
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  )),
+                                                text: 'Total: ',
+                                                style: defaultTS,
+                                              ),
                                               TextSpan(
                                                   text: _dataModel
                                                       .data!
@@ -354,27 +300,10 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                                                           index]
                                                       .actualAmount
                                                       .toString(),
-                                                  style: GoogleFonts.getFont(
-                                                    'Ubuntu',
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 15,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Color(0xffFF284C),
-                                                    ),
-                                                  )),
+                                                  style: defaultHighLightedTS),
                                               TextSpan(
-                                                text: 'TK.',
-                                                style: GoogleFonts.getFont(
-                                                  'Ubuntu',
-                                                  textStyle: const TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ),
+                                                  text: 'TK.',
+                                                  style: defaultTS),
                                             ],
                                           ),
                                         ),
@@ -405,9 +334,47 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   const SizedBox(
                     height: 10,
                   ),
+                  Container(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: silver.withOpacity(.25),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'Total: ',
+                          style: headerTSBlack.copyWith(fontSize: 25),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              _dataModel.data!.paymentInfo![0].totalPaidAmount
+                                  .toString(),
+                              style: defaultHighLightedTS.copyWith(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            Text(
+                              ' Tk.',
+                              style: defaultTS.copyWith(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
-                    height: 10,
-                  )
+                    height: 50,
+                  ),
                 ],
               ),
             ),
@@ -427,34 +394,22 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
-            child: Text('Payment Summary.', style: headerTextStyleBlack),
+            child: Text('Payment Summary.', style: headerTSBlack),
           ),
           RichText(
             text: TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                    text: 'Name: ',
-                    style: GoogleFonts.getFont(
-                      'Ubuntu',
-                      textStyle: const TextStyle(
-                          color: Color(0xff212121),
-                          decoration: TextDecoration.none,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    )),
+                  text: 'Name: ',
+                  style: defaultTS.copyWith(decoration: TextDecoration.none),
+                ),
                 TextSpan(
-                    text:
-                        '${_dataModel.data!.paymentInfo![0].studentName.toString()}.',
-                    style: GoogleFonts.getFont(
-                      'Ubuntu',
-                      textStyle: const TextStyle(
-                        fontSize: 15,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xffFF284C),
-                      ),
-                    )),
+                  text:
+                      '${_dataModel.data!.paymentInfo![0].studentName.toString()}.',
+                  style: defaultHighLightedTS.copyWith(
+                      decoration: TextDecoration.none),
+                ),
               ],
             ),
           ),
@@ -463,27 +418,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                    text: 'Receipt number: ',
-                    style: GoogleFonts.getFont(
-                      'Ubuntu',
-                      textStyle: const TextStyle(
-                          color: Color(0xff212121),
-                          decoration: TextDecoration.none,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    )),
+                  text: 'Receipt number: ',
+                  style: defaultTS.copyWith(decoration: TextDecoration.none),
+                ),
                 TextSpan(
                   text:
                       '${_dataModel.data!.paymentInfo![0].receiptNo.toString()}.',
-                  style: GoogleFonts.getFont(
-                    'Ubuntu',
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xffFF284C),
-                    ),
-                  ),
+                  style: defaultHighLightedTS.copyWith(
+                      decoration: TextDecoration.none),
                 ),
               ],
             ),
@@ -493,38 +435,18 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                    text: 'Due: ',
-                    style: GoogleFonts.getFont(
-                      'Ubuntu',
-                      textStyle: const TextStyle(
-                          color: Color(0xff212121),
-                          decoration: TextDecoration.none,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    )),
+                  text: 'Due: ',
+                  style: defaultTS.copyWith(decoration: TextDecoration.none),
+                ),
                 TextSpan(
                   text: _dataModel.data!.paymentInfo![0].totalPaidAmount
                       .toString(),
-                  style: GoogleFonts.getFont(
-                    'Ubuntu',
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xffFF284C),
-                    ),
-                  ),
+                  style: defaultHighLightedTS.copyWith(
+                      decoration: TextDecoration.none),
                 ),
                 TextSpan(
                   text: 'TK.',
-                  style: GoogleFonts.getFont(
-                    'Ubuntu',
-                    textStyle: TextStyle(
-                        fontSize: 13,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
+                  style: defaultTS.copyWith(decoration: TextDecoration.none),
                 ),
               ],
             ),
