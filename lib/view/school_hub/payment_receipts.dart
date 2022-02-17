@@ -93,6 +93,7 @@ class _PaymentReceiptPageState extends State<PaymentReceiptPage> {
                       : Container(),
                   Expanded(
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Column(
                         children: [
                           Consumer<DashboardProvider>(

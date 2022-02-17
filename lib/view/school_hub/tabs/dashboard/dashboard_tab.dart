@@ -247,6 +247,7 @@ class _DashboardTabState extends State<DashboardTab> {
                 width: double.infinity,
                 child: Container(
                   width: 60,
+                  color: black,
                   child: Text('Attendance Summary 👋', style: headerTSWhite),
                 ),
               ),
@@ -588,20 +589,21 @@ class _DashboardTabState extends State<DashboardTab> {
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'View more',
-                            style: defaultHighLightedTS,
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Icon(
-                            FontAwesomeIcons.angleDoubleRight,
-                            size: 15,
-                            color: red,
-                          )
+                          Icon(FontAwesomeIcons.ellipsisH)
+                          // Text(
+                          //   'View more',
+                          //   style: defaultHighLightedTS,
+                          // ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
+                          // Icon(
+                          //   FontAwesomeIcons.angleDoubleRight,
+                          //   size: 15,
+                          //   color: red,
+                          // )
                         ],
                       ),
                     );
@@ -765,19 +767,21 @@ class _DashboardTabState extends State<DashboardTab> {
                                       Radius.circular(8))),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'View more',
-                                    style: defaultHighLightedTS,
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  Icon(
-                                    FontAwesomeIcons.angleDoubleRight,
-                                    size: 15,
-                                    color: red,
-                                  )
+                                  Icon(FontAwesomeIcons.ellipsisH)
+                                  // Text(
+                                  //   'View more',
+                                  //   style: defaultHighLightedTS,
+                                  // ),
+                                  // const SizedBox(
+                                  //   width: 3,
+                                  // ),
+                                  // Icon(
+                                  //   FontAwesomeIcons.angleDoubleRight,
+                                  //   size: 15,
+                                  //   color: red,
+                                  // )
                                 ],
                               ),
                               // padding:

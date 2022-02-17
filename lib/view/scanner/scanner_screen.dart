@@ -130,74 +130,77 @@ class _QRScannerState extends State<QRScanner> {
               height: MediaQuery.of(context).size.height * .15,
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.topCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // color: Colors.red,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.flash_on,
-                            color: Colors.black,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      // color: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.flash_on,
+                              color: Colors.black,
+                            ),
+                            onPressed: () async {
+                              await controller?.toggleFlash();
+                              setState(() {});
+                            },
                           ),
-                          onPressed: () async {
-                            await controller?.toggleFlash();
-                            setState(() {});
-                          },
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.cameraswitch_outlined,
-                            color: Colors.black,
+                          const SizedBox(
+                            width: 30,
                           ),
-                          onPressed: () async {
-                            await controller?.flipCamera();
-                            setState(() {});
-                          },
-                        )
-                      ],
+                          IconButton(
+                            icon: const Icon(
+                              Icons.cameraswitch_outlined,
+                              color: Colors.black,
+                            ),
+                            onPressed: () async {
+                              await controller?.flipCamera();
+                              setState(() {});
+                            },
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  mode != 'Bill'
-                      ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rememberMe = !rememberMe;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 30,
-                                child: Checkbox(
-                                  checkColor: white,
-                                  activeColor: red,
-                                  value: rememberMe,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      rememberMe = value!;
-                                    });
-                                  },
+                    mode != 'Bill'
+                        ? GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                rememberMe = !rememberMe;
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  child: Checkbox(
+                                    checkColor: white,
+                                    activeColor: red,
+                                    value: rememberMe,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        rememberMe = value!;
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Remember me',
-                                style: defaultTS,
-                              )
-                            ],
-                          ),
-                        )
-                      : Container(),
-                ],
+                                Text(
+                                  'Remember me',
+                                  style: defaultTS,
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -316,6 +319,7 @@ class _QRScannerState extends State<QRScanner> {
 
   void extractData() {
     schoolId = result!.code.toString().substring(result!.code!.length - 6);
+    print(schoolId);
     if (mode == 'Bill') {
       receiptNo =
           result!.code.toString().substring(0, result!.code!.length - 6);
@@ -332,9 +336,12 @@ class _QRScannerState extends State<QRScanner> {
   void validateStudentId() async {
     String tempSchoolId = schoolId;
     String url = 'https://school360.app/$schoolId/service_bridge/verifyQrCode';
+    print(url);
+    print(encryptedStudentId);
     http.Response response = await http.post(Uri.parse(url),
         body: {"security_pin": '311556', "student_code": encryptedStudentId});
     String data = response.body;
+    print(data);
     if (data.isEmpty) {
       setState(() {
         _showAlertBox = true;

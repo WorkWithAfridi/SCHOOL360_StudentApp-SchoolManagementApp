@@ -234,11 +234,11 @@ class _PaymentTabState extends State<PaymentTab> {
                                                     style: defaultTS),
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          top: 0.0),
+                                                  const EdgeInsets.only(
+                                                      top: 0.0),
                                                   child: Text(
                                                     'Payment Summary',
-                                                    style: defaultHighLightedTS,
+                                                    style: headerTextStyleBlack.copyWith(color: black),
                                                   ),
                                                 ),
                                                 Text(
