@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:school_360_app/view/getBottomSheet.dart';
+import 'package:school_360_app/view/getCarouselSlider.dart';
 import 'package:school_360_app/view/scanner/LogInWithUserCredentials/logInWithUserCredentials_screen.dart';
 import 'package:school_360_app/view/scanner/scanner_screen.dart';
 
@@ -16,18 +18,8 @@ class Homepage extends StatelessWidget {
   static const routeName = '/homepage';
   Homepage({Key? key}) : super(key: key);
 
-  List<String> homePageBackgroundListForCarouselSlider = [
-    'lib/assets/homepage/background_one.png',
-    'lib/assets/homepage/background_two.png',
-    'lib/assets/homepage/background_three.png',
-    'lib/assets/homepage/background_four.png',
-    'lib/assets/homepage/background_five.png',
-    'lib/assets/homepage/background_six.png',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    homePageBackgroundListForCarouselSlider.shuffle();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
@@ -43,34 +35,7 @@ class Homepage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          CarouselSlider.builder(
-            itemCount: homePageBackgroundListForCarouselSlider.length,
-            itemBuilder: (context, index, pageViewIndex) {
-              return SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: Image.asset(
-                  homePageBackgroundListForCarouselSlider[index],
-                  fit: BoxFit.fitWidth,
-                  // alignment: Alignment.topLeft,
-                  alignment: Alignment.center,
-                ),
-              );
-            },
-            options: CarouselOptions(
-              aspectRatio: 9 / 16,
-              viewportFraction: .8,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              scrollDirection: Axis.horizontal,
-            ),
-          ),
+          GetCarouselSlider(),
           Container(
             height: double.infinity,
             width: double.infinity,
@@ -239,224 +204,7 @@ class Homepage extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               Scaffold.of(context).showBottomSheet(
-                                (context) => BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                                  child: Container(
-                                      height: 220,
-                                      width: MediaQuery.of(context).size.width,
-                                      // height: 500,
-                                      color: black,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            // height: 20,
-                                            padding: EdgeInsets.only(top: 10),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            alignment: Alignment.center,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.grey,
-                                              ),
-                                              height: 5,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  .1,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                // Container(
-                                                //   alignment: Alignment.center,
-                                                //   height: MediaQuery.of(context).size.height * .4,
-                                                //   width: MediaQuery.of(context).size.width,
-                                                //   child: Lottie.asset(
-                                                //       'lib/assets/lottieAnimation/lottie_animation_lock.json', repeat: false),
-                                                // ),
-                                                // SizedBox(
-                                                //   height: 20,
-                                                // ),
-                                                // Padding(
-                                                //   padding: EdgeInsets.symmetric(horizontal: 15),
-                                                //   child: Text(
-                                                //     'Please',
-                                                //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
-                                                //   ),
-                                                // ),
-                                                // Padding(
-                                                //   padding: EdgeInsets.symmetric(horizontal: 15),
-                                                //   child: Text(
-                                                //     'Choose',
-                                                //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
-                                                //   ),
-                                                // ),
-                                                // Padding(
-                                                //   padding: EdgeInsets.symmetric(horizontal: 15),
-                                                //   child: Text(
-                                                //     'a Log In method',
-                                                //     style: headerTSBlack.copyWith(fontSize: 30, height: .9),
-                                                //   ),
-                                                // ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'Log In by:',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: defaultTS.copyWith(
-                                                        color: Colors.white60,
-                                                        fontSize: 11,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 15),
-                                                  child: Card(
-                                                    // shape: const RoundedRectangleBorder(
-                                                    //     borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                    elevation: 10,
-                                                    // color: Colors.transparent,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        Navigator.of(context)
-                                                            .pushNamed(
-                                                          LogInWithUserCredentials
-                                                              .routeName,
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        // height: MediaQuery.of(context).size.height,
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        padding:
-                                                            EdgeInsets.all(15),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        color:
-                                                            Colors.transparent,
-                                                        child: Text(
-                                                          'Using User ID and Password',
-                                                          style: defaultTS
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 15),
-                                                  child: Card(
-                                                    // shape: const RoundedRectangleBorder(
-                                                    //     borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                    elevation: 10,
-                                                    color: Colors.white,
-                                                    // color: Colors.transparent,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        Navigator.of(context)
-                                                            .pushNamed(
-                                                                QRScanner
-                                                                    .routeName,
-                                                                arguments: {
-                                                              'Mode':
-                                                                  'StudentID'
-                                                            });
-                                                        // Navigator.of(context).pushNamed(QRScanner.routeName,
-                                                        //     arguments: {'Mode': 'StudentID'});
-                                                      },
-                                                      child: Container(
-                                                        color:
-                                                            Colors.transparent,
-                                                        // height: MediaQuery.of(context).size.height,
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        padding:
-                                                            EdgeInsets.all(15),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        // color: white,
-                                                        child: Text(
-                                                          'Scanning ID Card',
-                                                          style: defaultTS
-                                                              .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'Terms & conditions',
-                                                      style: defaultTS.copyWith(
-                                                          color: Colors.white60,
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      '|',
-                                                      style: defaultTS.copyWith(
-                                                          color: Colors.white60,
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      'Privacy policy',
-                                                      style: defaultTS.copyWith(
-                                                          color: Colors.white60,
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
+                                (context) => GetBottomSheet(),
                                 elevation: 6,
                                 enableDrag: true,
                               );

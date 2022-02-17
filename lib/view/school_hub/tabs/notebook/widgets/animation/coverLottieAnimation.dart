@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class CoverLottieAnimation extends StatelessWidget {
-  const CoverLottieAnimation({Key? key}) : super(key: key);
+class CoverLottieAnimationForNotebook extends StatelessWidget {
+  const CoverLottieAnimationForNotebook({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

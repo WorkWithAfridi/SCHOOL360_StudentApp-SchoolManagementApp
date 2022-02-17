@@ -167,7 +167,7 @@ class _NotebookTabState extends State<NotebookTab> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CoverLottieAnimation(),
+                CoverLottieAnimationForNotebook(),
                 const SizedBox(
                   height: 3,
                 ),

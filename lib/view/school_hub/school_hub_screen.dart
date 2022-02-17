@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/globar_variables.dart';
-import 'package:school_360_app/model/data_model_for_notice.dart';
 import 'package:school_360_app/model/student_id_validator.dart';
 import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/notice.dart';
@@ -206,27 +205,27 @@ class _SchoolHubState extends State<SchoolHub> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              height: 45,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    FontAwesomeIcons.slidersH,
-                                    color: black,
-                                    size: 22,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text('Settings', style: defaultTS)
-                                ],
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {},
+                          //   child: Container(
+                          //     padding:
+                          //         const EdgeInsets.symmetric(horizontal: 15),
+                          //     height: 45,
+                          //     child: Row(
+                          //       children: [
+                          //         Icon(
+                          //           FontAwesomeIcons.slidersH,
+                          //           color: black,
+                          //           size: 22,
+                          //         ),
+                          //         const SizedBox(
+                          //           width: 5,
+                          //         ),
+                          //         Text('Settings', style: defaultTS)
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                           InkWell(
                             onTap: () async {
                               isMenuOpen = false;
