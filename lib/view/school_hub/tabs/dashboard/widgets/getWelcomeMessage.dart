@@ -20,13 +20,20 @@ class GetWelcomeMessage extends StatelessWidget {
         ),
         Stack(
           children: [
-            Container(
-              // color: Colors.red,
-              alignment: Alignment.bottomRight,
-              height: MediaQuery.of(context).size.height * .25,
-              child: Lottie.asset(
-                  'lib/assets/lottieAnimation/hiLottieAnimation.json',
-                  fit: BoxFit.fill),
+            Column(
+              children: [
+                Container(
+                  // color: Colors.red,
+                  alignment: Alignment.bottomRight,
+                  height: MediaQuery.of(context).size.height * .25,
+                  child: Lottie.asset(
+                      'lib/assets/lottieAnimation/hiLottieAnimation.json',
+                      fit: BoxFit.fill),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
             ),
             Container(
               height: MediaQuery.of(context).size.height * .25,
@@ -41,7 +48,7 @@ class GetWelcomeMessage extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Text('SCHOOL360.', style: userNameTS),
+                    child: Text('SCHOOL360', style: userNameTS),
                   ),
                   const SizedBox(
                     height: 5,
@@ -66,7 +73,7 @@ class GetWelcomeMessage extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Text('${qrCodeData.studentName}.',
+                    child: Text('${qrCodeData.studentName}',
                         style: userNameTS),
                   ),
                 ],

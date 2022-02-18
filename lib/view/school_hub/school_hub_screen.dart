@@ -319,7 +319,13 @@ class _SchoolHubState extends State<SchoolHub> {
               color: white,
             ),
           ),
-          actions: [getBadgedBellButton(context)],
+          actions: [Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              getBadgedBellButton(context),
+              SizedBox(width: 5,)
+            ],
+          )],
         ),
         backgroundColor: white,
         body: SizedBox(

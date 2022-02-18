@@ -194,6 +194,9 @@ class _QRScannerState extends State<QRScanner> {
                                 Text(
                                   'Remember me',
                                   style: defaultTS,
+                                ),
+                                Container(
+                                  width: 5,
                                 )
                               ],
                             ),

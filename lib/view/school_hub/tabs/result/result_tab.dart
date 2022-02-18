@@ -70,30 +70,30 @@ class _ResultTabState extends State<ResultTab> {
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
               child: resultProvider.showLoading
-                      ? showLoading()
-                      : Stack(
-                          children: [
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: resultProvider.showLoadingForResultPage
-                                  ? showLoading()
-                                  : Container(),
-                            ),
-                            yearPickerForReportGeneration(context)
-                          ],
+                  ? showLoading()
+                  : Stack(
+                      children: [
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: resultProvider.showLoadingForResultPage
+                              ? showLoading()
+                              : Container(),
                         ),
+                        yearPickerForReportGeneration(context)
+                      ],
+                    ),
             ),
             result.showAlertBox
                 ? SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                child: AlertBoxLayout(context),
-              ),
-            )
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                      child: AlertBoxLayout(context),
+                    ),
+                  )
                 : Container()
 
             // _showContent
@@ -166,172 +166,225 @@ class _ResultTabState extends State<ResultTab> {
   Widget yearPickerForReportGeneration(BuildContext context) {
     return Consumer<ResultProvider>(
       builder: (context, resultProvider, childProperty) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        return Stack(
           children: [
             isLoading
                 ? LinearProgressIndicator(
                     color: Theme.of(context).colorScheme.secondary,
                   )
                 : Container(),
-            Flexible(flex: 1, child: Container()),
-            const CoverLottieAnimation(),
-            // SizedBox(height: 10,),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 15),
-            //   alignment: Alignment.center,
-            //   child: Text(
-            //     '🅰️ Result',
-            //     style: headerTextStyleBlack,
-            //   ),
-            // ),
-            const SizedBox(
-              height: 3,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              alignment: Alignment.center,
-              child: RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Please select a ',
-                      style: defaultTS,
-                    ),
-                    TextSpan(
-                      text: 'Year ',
-                      style: defaultHighLightedTS,
-                    ),
-                    TextSpan(
-                      text: 'to generate ',
-                      style: defaultTS,
-                    ),
-                    TextSpan(
-                      text: 'Report.',
-                      style: defaultHighLightedTS,
-                    ),
-                  ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Flexible(flex: 1, child: Container()),
+                const CoverLottieAnimation(),
+                // SizedBox(height: 10,),
+                // Container(
+                //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                //   alignment: Alignment.center,
+                //   child: Text(
+                //     '🅰️ Result',
+                //     style: headerTextStyleBlack,
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 3,
                 ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              width: double.infinity,
-              // color: Theme.of(context).colorScheme.background.withOpacity(.3),
-              child: Container(
-                // height: MediaQuery.of(context).size.height * .4,
-                width: double.infinity,
-                alignment: Alignment.center,
-                color: Colors.transparent,
-                child: Container(
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // const SizedBox(
-                      //   width: 10,
-                      // ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * .6,
-                        // color: Colors.red,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            dropdownColor: white,
-                            style: defaultTS,
-                            isExpanded: true,
-                            alignment: Alignment.center,
-                            elevation: 4,
-                            value: resultProvider.selectedYear,
-                            items: resultProvider.years
-                                .map(buildYearMenuItem)
-                                .toList(),
-                            onChanged: (value) => setState(
-                              () {
-                                resultProvider.selectedYear = value as String;
-                              },
-                            ),
-                          ),
+                  child: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Please select a ',
+                          style: defaultTS,
                         ),
-                      ),
-                    ],
+                        TextSpan(
+                          text: 'Year ',
+                          style: defaultHighLightedTS,
+                        ),
+                        TextSpan(
+                          text: 'to generate ',
+                          style: defaultTS,
+                        ),
+                        TextSpan(
+                          text: 'Report.',
+                          style: defaultHighLightedTS,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Flexible(
-              flex: 2,
-              child: Container(
-                // width: double.infinity,
-                // color: Colors.pink,
-                alignment: Alignment.centerRight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        if (resultProvider.selectedYear != 'Select year') {
-                          // resultProvider.showLoadingForResultPage = true;
-                          resultProvider.getResult(context);
-
-                          await Future.delayed(Duration(seconds: 1));
-                          setState(() {
-                            isLoading = false;
-                          });
-                        } else {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          var snackBar = SnackBar(
-                            backgroundColor: red,
-                            content: Text(
-                              'Please select a valid input to continue.',
-                              style: appData.normalTextStyle
-                                  .copyWith(color: Colors.white),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 30,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  width: double.infinity,
+                  // color: Theme.of(context).colorScheme.background.withOpacity(.3),
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height * .4,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    color: Colors.transparent,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // const SizedBox(
+                          //   width: 10,
+                          // ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * .6,
+                            // color: Colors.red,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                dropdownColor: white,
+                                style: defaultTS,
+                                isExpanded: true,
+                                alignment: Alignment.center,
+                                elevation: 4,
+                                value: resultProvider.selectedYear,
+                                items: resultProvider.years
+                                    .map(buildYearMenuItem)
+                                    .toList(),
+                                onChanged: (value) => setState(
+                                  () {
+                                    resultProvider.selectedYear =
+                                        value as String;
+                                  },
+                                ),
+                              ),
                             ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      },
-                      child: Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        color: red,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Next',
-                                style: GoogleFonts.getFont('Ubuntu',
-                                    textStyle: headerTSWhite),
-                              ),
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              Icon(
-                                FontAwesomeIcons.arrowRight,
-                                size: 16,
-                                color: white,
-                              ),
-                            ],
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            )
+                SizedBox(
+                  height: 3,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    if (resultProvider.selectedYear != 'Select year') {
+                      // resultProvider.showLoadingForResultPage = true;
+                      resultProvider.getResult(context);
+
+                      await Future.delayed(Duration(seconds: 1));
+                      setState(() {
+                        isLoading = false;
+                      });
+                    } else {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      var snackBar = SnackBar(
+                        backgroundColor: red,
+                        content: Text(
+                          'Please select a valid input to continue.',
+                          style: appData.normalTextStyle
+                              .copyWith(color: Colors.white),
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  child: Chip(
+                    elevation: 4,
+                    backgroundColor: black,
+                    label: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          alignment: Alignment.center,
+                          child: Text('Next',
+                              style: headerTSWhite.copyWith(fontSize: 15))),
+                    ),
+                  ),
+                ),
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                // Flexible(
+                //   flex: 2,
+                //   child: Container(
+                //     // width: double.infinity,
+                //     // color: Colors.pink,
+                //     alignment: Alignment.centerRight,
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.end,
+                //       children: [
+                //         GestureDetector(
+                //           onTap: () async {
+                //             setState(() {
+                //               isLoading = true;
+                //             });
+                //             if (resultProvider.selectedYear != 'Select year') {
+                //               // resultProvider.showLoadingForResultPage = true;
+                //               resultProvider.getResult(context);
+                //
+                //               await Future.delayed(Duration(seconds: 1));
+                //               setState(() {
+                //                 isLoading = false;
+                //               });
+                //             } else {
+                //               setState(() {
+                //                 isLoading = false;
+                //               });
+                //               var snackBar = SnackBar(
+                //                 backgroundColor: red,
+                //                 content: Text(
+                //                   'Please select a valid input to continue.',
+                //                   style: appData.normalTextStyle
+                //                       .copyWith(color: Colors.white),
+                //                 ),
+                //               );
+                //               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                //             }
+                //           },
+                //           child: Container(
+                //             height: 40,
+                //             width: MediaQuery.of(context).size.width,
+                //             color: red,
+                //             child: Padding(
+                //               padding: const EdgeInsets.symmetric(horizontal: 10),
+                //               child: Row(
+                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //                 children: [
+                //                   Text(
+                //                     'Next',
+                //                     style: GoogleFonts.getFont('Ubuntu',
+                //                         textStyle: headerTSWhite),
+                //                   ),
+                //                   const SizedBox(
+                //                     width: 3,
+                //                   ),
+                //                   Icon(
+                //                     FontAwesomeIcons.arrowRight,
+                //                     size: 16,
+                //                     color: white,
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // )
+              ],
+            ),
           ],
         );
       },

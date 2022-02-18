@@ -5,11 +5,13 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool isPass;
   final String hintText;
+  final String label;
   final TextInputType textInputType;
 
   const CustomTextField(
       {Key? key,
       required this.textEditingController,
+      required this.label,
       this.isPass = false,
       required this.hintText,
       required this.textInputType})
@@ -18,19 +20,25 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
-      borderSide: Divider.createBorderSide(context),
+      borderSide: BorderSide(color: black, width: 1),
     );
     return TextField(
       style: defaultTS,
       cursorColor: Colors.black12,
       controller: textEditingController,
       decoration: InputDecoration(
+        // label: Text(
+        //   label,
+        //   style: defaultTS.copyWith(fontSize: 16, color: black),
+        // ),
+        labelText: label,
+        labelStyle: defaultTS.copyWith(color: black.withOpacity(.9)),
         hintText: hintText,
         hintStyle: subtitleTS,
         border: inputBorder,
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
-        fillColor: black.withOpacity(.2),
+        fillColor: black.withOpacity(0.05),
         filled: true,
         contentPadding: EdgeInsets.all(8),
       ),

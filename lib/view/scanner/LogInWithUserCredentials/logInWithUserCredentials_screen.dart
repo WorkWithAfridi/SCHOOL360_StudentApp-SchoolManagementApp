@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:school_360_app/functions/globar_variables.dart';
+import 'package:school_360_app/provider/logIn.dart';
+import 'package:school_360_app/provider/qrcode_data.dart';
 import 'package:school_360_app/view/scanner/LogInWithUserCredentials/widgets/text_field_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../school_hub/school_hub_screen.dart';
 
 class LogInWithUserCredentials extends StatefulWidget {
   static const routeName = '/Scanner/LogInWithUserCredentials';
@@ -23,11 +29,15 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 6,
+        title: Text(
+          'Log In',
+          style: headerTSWhite,
+        ),
         // title: Text(
         //   'Log In',
         //   style: headerTSWhite,
         // ),
-        // centerTitle: true,
+        centerTitle: true,
       ),
       backgroundColor: white,
       body: Container(
@@ -73,12 +83,8 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Powered By   ',
-                                      style: headerTSBlack.copyWith(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: black.withOpacity(.8)),
+                                    SizedBox(
+                                      width: 15,
                                     ),
                                     Container(
                                       // color: Colors.red,
@@ -98,37 +104,41 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                 SizedBox(
                                   height: 25,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Log In',
-                                      style:
-                                          headerTSBlack.copyWith(fontSize: 30),
-                                    ),
-                                  ],
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.start,
+                                //   children: [
+                                //     Text(
+                                //       'Log In',
+                                //       style:
+                                //           headerTSBlack.copyWith(fontSize: 30),
+                                //     ),
+                                //   ],
+                                // ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                CustomTextField(
+                                  textEditingController: schoolTextController,
+                                  hintText: 'Please enter your Institute ID',
+                                  textInputType: TextInputType.number,
+                                  label: 'Institution ID',
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 CustomTextField(
-                                    textEditingController: schoolTextController,
-                                    hintText: 'Please enter your School ID.',
-                                    textInputType: TextInputType.number),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                CustomTextField(
                                     textEditingController:
                                         studentIDTextController,
-                                    hintText: 'Please enter your ID.',
+                                    hintText: 'Please enter your Student ID',
+                                    label: 'Student ID',
                                     textInputType: TextInputType.number),
                                 SizedBox(
-                                  height: 6,
+                                  height: 10,
                                 ),
                                 CustomTextField(
                                   textEditingController: passwordTextController,
                                   hintText: 'Please enter your password.',
+                                  label: 'Password',
                                   textInputType: TextInputType.text,
                                   isPass: true,
                                 ),
@@ -137,7 +147,12 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    LogInProvider logInProvider =
+                                        Provider.of<LogInProvider>(context,
+                                            listen: false);
+
                                     setState(() {
+                                      logInProvider.rememberMe = !rememberMe;
                                       rememberMe = !rememberMe;
                                     });
                                   },
@@ -153,8 +168,14 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                           activeColor: red,
                                           value: rememberMe,
                                           onChanged: (value) {
+                                            LogInProvider logInProvider =
+                                                Provider.of<LogInProvider>(
+                                                    context,
+                                                    listen: false);
+
                                             setState(() {
                                               rememberMe = value!;
+                                              logInProvider.rememberMe = value;
                                             });
                                           },
                                         ),
@@ -173,7 +194,7 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 25.0),
                                   child: Divider(
-                                    color: black.withOpacity(.5),
+                                    color: black.withOpacity(.1),
                                   ),
                                 ),
                                 SizedBox(
@@ -194,27 +215,134 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                       String password =
                                           passwordTextController.text;
 
-                                      if (studentId.isEmpty ||
-                                          schoolId.isEmpty ||
-                                          password.isEmpty) {
+                                      if (studentId.isNotEmpty &&
+                                          schoolId.isNotEmpty &&
+                                          password.isNotEmpty) {
+                                        setState(() {
+                                          _isLoadingLoggingIn = true;
+                                        });
+                                        LogInProvider logInProvider =
+                                            Provider.of<LogInProvider>(context,
+                                                listen: false);
+
+                                        String result = await logInProvider
+                                            .validateInstituteId(schoolId);
+
+                                        if (result == 'success') {
+                                          print('School id success');
+
+                                          result = await logInProvider
+                                              .validateStudentIdAndPassword(
+                                                  studentId,
+                                                  password,
+                                                  schoolId);
+
+                                          if (result == 'success') {
+                                            print(
+                                                'Student id and pass word success');
+
+                                            if (logInProvider.rememberMe ==
+                                                true) {
+                                              saveUser(
+                                                  schoolId,
+                                                  studentId,
+                                                  logInProvider
+                                                      .studentIdAndPasswordValidator
+                                                      .studentInfo!
+                                                      .name
+                                                      .toString());
+                                            }
+
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  result,
+                                                  style: defaultTSWhite,
+                                                ),
+                                                backgroundColor: red,
+                                              ),
+                                            );
+
+                                            QRCodeDataProvider qrCodeProvider =
+                                                Provider.of<QRCodeDataProvider>(
+                                                    context,
+                                                    listen: false);
+                                            qrCodeProvider.schoolId = schoolId;
+                                            qrCodeProvider.studentId =
+                                                studentId;
+                                            qrCodeProvider.studentName =
+                                                logInProvider
+                                                    .studentIdAndPasswordValidator
+                                                    .studentInfo!
+                                                    .name
+                                                    .toString();
+
+                                            print(logInProvider
+                                                .studentIdAndPasswordValidator
+                                                .studentInfo!
+                                                .photo
+                                                .toString());
+
+                                            Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              SchoolHub.routeName,
+                                              (route) => false,
+                                            );
+                                          } else {
+                                            print(
+                                                'Student id and pass word not success');
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  result,
+                                                  style: defaultTSWhite,
+                                                ),
+                                                backgroundColor: red,
+                                              ),
+                                            );
+                                          }
+
+                                          setState(() {
+                                            _isLoadingLoggingIn = false;
+                                          });
+                                        } else {
+                                          print('School id not success');
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                result,
+                                                style: defaultTSWhite,
+                                              ),
+                                              backgroundColor: red,
+                                            ),
+                                          );
+
+                                          await Future.delayed(
+                                              Duration(seconds: 1));
+                                          setState(() {
+                                            _isLoadingLoggingIn = false;
+                                          });
+                                        }
+                                      } else {
+                                        setState(() {
+                                          _isLoadingLoggingIn = false;
+                                        });
+
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              'User credentials cannot be empty! Please try again.',
+                                              'Input fields cannot be empty.',
                                               style: defaultTSWhite,
                                             ),
                                             backgroundColor: red,
                                           ),
                                         );
-                                        await Future.delayed(
-                                            Duration(seconds: 1));
-                                        setState(() {
-                                          _isLoadingLoggingIn = false;
-                                        });
                                       }
-                                      checkCredentials(
-                                          schoolId, studentId, password);
                                     },
                                     child: Text(
                                       'Log In',
@@ -238,7 +366,7 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                 ),
                                 Container(
                                   height:
-                                  MediaQuery.of(context).size.height * .1,
+                                      MediaQuery.of(context).size.height * .1,
                                 ),
                               ],
                             ),
@@ -256,8 +384,16 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
     );
   }
 
-  void checkCredentials(
-      String schoolId, String studentId, String password) async {
-    await Future.delayed(Duration(seconds: 1));
+  void saveUser(
+    String schoolId,
+    String studentId,
+    String studentName,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    print(schoolId);
+    await prefs.setString('schoolId', schoolId);
+    await prefs.setString('studentId', studentId);
+    await prefs.setString('studentName', studentName);
+    return;
   }
 }

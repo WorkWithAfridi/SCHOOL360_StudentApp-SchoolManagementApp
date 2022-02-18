@@ -168,8 +168,8 @@ class _NotebookTabState extends State<NotebookTab> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CoverLottieAnimationForNotebook(),
-                const SizedBox(
-                  height: 3,
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -187,30 +187,30 @@ class _NotebookTabState extends State<NotebookTab> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 2,
-                ),
-                Container(
-                  // color: Colors.red,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Consumer<NotebookProvider>(
-                        builder: (context, notebook, childProperty) {
-                          return Text('Date:  ', style: defaultTS);
-                        },
-                      ),
-                      Consumer<NotebookProvider>(
-                          builder: (context, notebook, childProperty) {
-                        return Text(notebook.pickedDate,
-                            style: defaultHighLightedTS);
-                      }),
-                    ],
-                  ),
-                ),
+                // SizedBox(
+                //   height: 2,
+                // ),
+                // Container(
+                //   // color: Colors.red,
+                //   alignment: Alignment.center,
+                //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Consumer<NotebookProvider>(
+                //         builder: (context, notebook, childProperty) {
+                //           return Text('Date:  ', style: defaultTS);
+                //         },
+                //       ),
+                //       Consumer<NotebookProvider>(
+                //           builder: (context, notebook, childProperty) {
+                //         return Text(notebook.pickedDate,
+                //             style: defaultHighLightedTS);
+                //       }),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -220,8 +220,16 @@ class _NotebookTabState extends State<NotebookTab> {
                   },
                   child: Chip(
                     elevation: 4,
-                    backgroundColor: red,
-                    label: Text('Select Date', style: headerTSWhite),
+                    backgroundColor: black,
+                    label: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        alignment: Alignment.center,
+                        child: Text('Select Date',
+                            style: headerTSWhite.copyWith(fontSize: 15)),
+                      ),
+                    ),
                   ),
                 ),
                 // Container(
@@ -258,53 +266,53 @@ class _NotebookTabState extends State<NotebookTab> {
         //     style: headerTextStyleBlack,
         //   ),
         // ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          child: Consumer<NotebookProvider>(
-              builder: (context, notebook, childProperty) {
-            return GestureDetector(
-              onTap: () async {
-                setState(() {
-                  isLoading = true;
-                });
-                // notebook.showLoading = true;
-                notebook.getNotebookData(context);
-                await Future.delayed(Duration(seconds: 1));
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: Container(
-                height: 40,
-                width: MediaQuery.of(context).size.width,
-                color: red,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Next',
-                        style: GoogleFonts.getFont(
-                          'Ubuntu',
-                          textStyle: headerTSWhite,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      Icon(
-                        FontAwesomeIcons.arrowRight,
-                        size: 16,
-                        color: white,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }),
-        ),
+        // Container(
+        //   alignment: Alignment.bottomCenter,
+        //   child: Consumer<NotebookProvider>(
+        //       builder: (context, notebook, childProperty) {
+        //     return GestureDetector(
+        //       onTap: () async {
+        //         setState(() {
+        //           isLoading = true;
+        //         });
+        //         // notebook.showLoading = true;
+        //         notebook.getNotebookData(context);
+        //         await Future.delayed(Duration(seconds: 1));
+        //         setState(() {
+        //           isLoading = false;
+        //         });
+        //       },
+        //       child: Container(
+        //         height: 40,
+        //         width: MediaQuery.of(context).size.width,
+        //         color: red,
+        //         child: Padding(
+        //           padding: const EdgeInsets.symmetric(horizontal: 10),
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               Text(
+        //                 'Next',
+        //                 style: GoogleFonts.getFont(
+        //                   'Ubuntu',
+        //                   textStyle: headerTSWhite,
+        //                 ),
+        //               ),
+        //               const SizedBox(
+        //                 width: 3,
+        //               ),
+        //               Icon(
+        //                 FontAwesomeIcons.arrowRight,
+        //                 size: 16,
+        //                 color: white,
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //   }),
+        // ),
       ],
     );
   }
@@ -318,9 +326,22 @@ class _NotebookTabState extends State<NotebookTab> {
             firstDate: DateTime(2000),
             lastDate: DateTime.now())) ??
         DateTime.now();
+    print(_selectedDateTime);
 
-    notebookProvider.pickedDate =
-        DateFormat('yyyy-MM-dd').format(_selectedDateTime).toString();
+    if (_selectedDateTime.toString().endsWith('00:00:00.000')) {
+      notebookProvider.pickedDate =
+          DateFormat('yyyy-MM-dd').format(_selectedDateTime).toString();
+
+      setState(() {
+        isLoading = true;
+      });
+      // notebook.showLoading = true;
+      notebookProvider.getNotebookData(context);
+      await Future.delayed(Duration(seconds: 1));
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   Widget showLoading() {

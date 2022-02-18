@@ -6,6 +6,7 @@ import 'package:school_360_app/provider/appData.dart';
 import 'package:school_360_app/provider/attendance.dart';
 import 'package:school_360_app/provider/dashboard.dart';
 import 'package:school_360_app/provider/invoice.dart';
+import 'package:school_360_app/provider/logIn.dart';
 import 'package:school_360_app/provider/notebook.dart';
 import 'package:school_360_app/provider/notice.dart';
 import 'package:school_360_app/provider/qrcode_data.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SchoolHubPaymentProvider()),
         ChangeNotifierProvider(create: (context) => DashboardProvider()),
         ChangeNotifierProvider(create: (context) => InvoiceProvider()),
+        ChangeNotifierProvider(create: (context) => LogInProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
