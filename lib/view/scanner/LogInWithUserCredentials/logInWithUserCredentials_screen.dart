@@ -23,6 +23,17 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
   TextEditingController passwordTextController = TextEditingController();
   bool _isLoadingLoggingIn = false;
   bool rememberMe = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    LogInProvider logInProvider =
+    Provider.of<LogInProvider>(context, listen: false);
+    logInProvider.resetStudentIdAndPassBool();
+    logInProvider.resetInstitutionBool();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,258 +51,303 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
         centerTitle: true,
       ),
       backgroundColor: white,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: GridPaper(
-                color: red.withOpacity(0.05),
-                divisions: 4,
-                interval: 500,
-                subdivisions: 8,
+      body:
+          Consumer<LogInProvider>(builder: (context, provider, childProperty) {
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: GridPaper(
+                  color: red.withOpacity(0.05),
+                  divisions: 4,
+                  interval: 500,
+                  subdivisions: 8,
+                ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.height,
-              child: Column(
-                children: [
-                  _isLoadingLoggingIn
-                      ? LinearProgressIndicator(
-                          color: red,
-                        )
-                      : Container(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * .1,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Container(
-                                      // color: Colors.red,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .1,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              .2,
-                                      child: Image.asset(
-                                        'lib/assets/logo.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 25,
-                                ),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.start,
-                                //   children: [
-                                //     Text(
-                                //       'Log In',
-                                //       style:
-                                //           headerTSBlack.copyWith(fontSize: 30),
-                                //     ),
-                                //   ],
-                                // ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                CustomTextField(
-                                  textEditingController: schoolTextController,
-                                  hintText: 'Please enter your Institute ID',
-                                  textInputType: TextInputType.number,
-                                  label: 'Institution ID',
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                CustomTextField(
-                                    textEditingController:
-                                        studentIDTextController,
-                                    hintText: 'Please enter your Student ID',
-                                    label: 'Student ID',
-                                    textInputType: TextInputType.number),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                CustomTextField(
-                                  textEditingController: passwordTextController,
-                                  hintText: 'Please enter your password.',
-                                  label: 'Password',
-                                  textInputType: TextInputType.text,
-                                  isPass: true,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    LogInProvider logInProvider =
-                                        Provider.of<LogInProvider>(context,
-                                            listen: false);
-
-                                    setState(() {
-                                      logInProvider.rememberMe = !rememberMe;
-                                      rememberMe = !rememberMe;
-                                    });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    _isLoadingLoggingIn
+                        ? LinearProgressIndicator(
+                            color: red,
+                          )
+                        : Container(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.height * .1,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      SizedBox(
+                                        width: 15,
+                                      ),
                                       Container(
-                                        width: 30,
-                                        child: Checkbox(
-                                          checkColor: white,
-                                          activeColor: red,
-                                          value: rememberMe,
-                                          onChanged: (value) {
-                                            LogInProvider logInProvider =
-                                                Provider.of<LogInProvider>(
-                                                    context,
-                                                    listen: false);
-
-                                            setState(() {
-                                              rememberMe = value!;
-                                              logInProvider.rememberMe = value;
-                                            });
-                                          },
+                                        // color: Colors.red,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .1,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                .2,
+                                        child: Image.asset(
+                                          'lib/assets/logo.png',
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Text(
-                                        'Remember me',
-                                        style: defaultTS,
-                                      )
                                     ],
                                   ),
-                                ),
-                                // SizedBox(
-                                //   height: 0
-                                // ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-                                  child: Divider(
-                                    color: black.withOpacity(.1),
+                                  SizedBox(
+                                    height: 25,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 40,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      setState(() {
-                                        _isLoadingLoggingIn = true;
-                                      });
-                                      String schoolId =
-                                          schoolTextController.text;
-                                      String studentId =
-                                          studentIDTextController.text;
-                                      String password =
-                                          passwordTextController.text;
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       'Log In',
+                                  //       style:
+                                  //           headerTSBlack.copyWith(fontSize: 30),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  CustomTextField(
+                                    textEditingController: schoolTextController,
+                                    hintText: 'Please enter your Institute ID',
+                                    textInputType: TextInputType.number,
+                                    label: 'Institution ID',
+                                    isSuccess:
+                                        provider.showInstitutionIdSuccess,
+                                    isError: provider.showInstitutionIdError,
+                                    errorString: 'Incorrect institution id.',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  CustomTextField(
+                                      isError: provider.showCredentialsError,
+                                      errorString:
+                                          'Incorrect user credentials.',
+                                      isSuccess:
+                                          provider.showCredentialsSuccess,
+                                      textEditingController:
+                                          studentIDTextController,
+                                      hintText: 'Please enter your Student ID',
+                                      label: 'Student ID',
+                                      textInputType: TextInputType.number),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  CustomTextField(
+                                    isError: provider.showCredentialsError,
+                                    isSuccess: provider.showCredentialsSuccess,
+                                    textEditingController:
+                                        passwordTextController,
+                                    errorString: 'Incorrect user credentials.',
+                                    hintText: 'Please enter your password.',
+                                    label: 'Password',
+                                    textInputType: TextInputType.text,
+                                    isPass: true,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      LogInProvider logInProvider =
+                                          Provider.of<LogInProvider>(context,
+                                              listen: false);
 
-                                      if (studentId.isNotEmpty &&
-                                          schoolId.isNotEmpty &&
-                                          password.isNotEmpty) {
+                                      setState(() {
+                                        logInProvider.rememberMe = !rememberMe;
+                                        rememberMe = !rememberMe;
+                                      });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 30,
+                                          child: Checkbox(
+                                            checkColor: white,
+                                            activeColor: red,
+                                            value: rememberMe,
+                                            onChanged: (value) {
+                                              LogInProvider logInProvider =
+                                                  Provider.of<LogInProvider>(
+                                                      context,
+                                                      listen: false);
+
+                                              setState(() {
+                                                rememberMe = value!;
+                                                logInProvider.rememberMe =
+                                                    value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Text(
+                                          'Remember me',
+                                          style: defaultTS,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 0
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25.0),
+                                    child: Divider(
+                                      color: black.withOpacity(.1),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
                                         setState(() {
                                           _isLoadingLoggingIn = true;
                                         });
-                                        LogInProvider logInProvider =
-                                            Provider.of<LogInProvider>(context,
-                                                listen: false);
+                                        String schoolId =
+                                            schoolTextController.text;
+                                        String studentId =
+                                            studentIDTextController.text;
+                                        String password =
+                                            passwordTextController.text;
 
-                                        String result = await logInProvider
-                                            .validateInstituteId(schoolId);
+                                        if (studentId.isNotEmpty &&
+                                            schoolId.isNotEmpty &&
+                                            password.isNotEmpty) {
+                                          setState(() {
+                                            _isLoadingLoggingIn = true;
+                                          });
+                                          LogInProvider logInProvider =
+                                              Provider.of<LogInProvider>(
+                                                  context,
+                                                  listen: false);
 
-                                        if (result == 'success') {
-                                          print('School id success');
-
-                                          result = await logInProvider
-                                              .validateStudentIdAndPassword(
-                                                  studentId,
-                                                  password,
-                                                  schoolId);
+                                          String result = await logInProvider
+                                              .validateInstituteId(schoolId);
 
                                           if (result == 'success') {
-                                            print(
-                                                'Student id and pass word success');
+                                            provider.showInstitutionIdSuccess =
+                                                true;
+                                            print('School id success');
 
-                                            if (logInProvider.rememberMe ==
-                                                true) {
-                                              saveUser(
-                                                  schoolId,
-                                                  studentId,
+                                            result = await logInProvider
+                                                .validateStudentIdAndPassword(
+                                                    studentId,
+                                                    password,
+                                                    schoolId);
+
+                                            if (result == 'success') {
+                                              provider.showInstitutionIdSuccess =
+                                                  true;
+                                              print(
+                                                  'Student id and pass word success');
+
+                                              if (logInProvider.rememberMe ==
+                                                  true) {
+                                                saveUser(
+                                                    schoolId,
+                                                    studentId,
+                                                    logInProvider
+                                                        .studentIdAndPasswordValidator
+                                                        .studentInfo!
+                                                        .name
+                                                        .toString());
+                                              }
+
+                                              // ScaffoldMessenger.of(context)
+                                              //     .showSnackBar(
+                                              //   SnackBar(
+                                              //     content: Text(
+                                              //       result,
+                                              //       style: defaultTSWhite,
+                                              //     ),
+                                              //     backgroundColor: red,
+                                              //   ),
+                                              // );
+
+                                              QRCodeDataProvider
+                                                  qrCodeProvider = Provider.of<
+                                                          QRCodeDataProvider>(
+                                                      context,
+                                                      listen: false);
+                                              qrCodeProvider.schoolId =
+                                                  schoolId;
+                                              qrCodeProvider.studentId =
+                                                  studentId;
+                                              qrCodeProvider.studentName =
                                                   logInProvider
                                                       .studentIdAndPasswordValidator
                                                       .studentInfo!
                                                       .name
-                                                      .toString());
+                                                      .toString();
+
+                                              // print(logInProvider
+                                              //     .studentIdAndPasswordValidator
+                                              //     .studentInfo!
+                                              //     .photo
+                                              //     .toString());
+
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                context,
+                                                SchoolHub.routeName,
+                                                (route) => false,
+                                              );
+                                            } else {
+                                              provider.showCredentialsError =
+                                                  true;
+                                              print(
+                                                  'Student id and pass word not success');
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    result,
+                                                    style: defaultTSWhite,
+                                                  ),
+                                                  backgroundColor: red,
+                                                ),
+                                              );
                                             }
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  result,
-                                                  style: defaultTSWhite,
-                                                ),
-                                                backgroundColor: red,
-                                              ),
-                                            );
-
-                                            QRCodeDataProvider qrCodeProvider =
-                                                Provider.of<QRCodeDataProvider>(
-                                                    context,
-                                                    listen: false);
-                                            qrCodeProvider.schoolId = schoolId;
-                                            qrCodeProvider.studentId =
-                                                studentId;
-                                            qrCodeProvider.studentName =
-                                                logInProvider
-                                                    .studentIdAndPasswordValidator
-                                                    .studentInfo!
-                                                    .name
-                                                    .toString();
-
-                                            print(logInProvider
-                                                .studentIdAndPasswordValidator
-                                                .studentInfo!
-                                                .photo
-                                                .toString());
-
-                                            Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              SchoolHub.routeName,
-                                              (route) => false,
-                                            );
+                                            setState(() {
+                                              _isLoadingLoggingIn = false;
+                                            });
                                           } else {
-                                            print(
-                                                'Student id and pass word not success');
+                                            provider.showInstitutionIdError =
+                                                true;
+                                            print('School id not success');
+
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -302,85 +358,68 @@ class _LogInWithUserCredentialsState extends State<LogInWithUserCredentials> {
                                                 backgroundColor: red,
                                               ),
                                             );
-                                          }
 
+                                            await Future.delayed(
+                                                Duration(seconds: 1));
+                                            setState(() {
+                                              _isLoadingLoggingIn = false;
+                                            });
+                                          }
+                                        } else {
                                           setState(() {
                                             _isLoadingLoggingIn = false;
                                           });
-                                        } else {
-                                          print('School id not success');
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                result,
+                                                'Input fields cannot be empty.',
                                                 style: defaultTSWhite,
                                               ),
                                               backgroundColor: red,
                                             ),
                                           );
-
-                                          await Future.delayed(
-                                              Duration(seconds: 1));
-                                          setState(() {
-                                            _isLoadingLoggingIn = false;
-                                          });
                                         }
-                                      } else {
-                                        setState(() {
-                                          _isLoadingLoggingIn = false;
-                                        });
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Input fields cannot be empty.',
-                                              style: defaultTSWhite,
-                                            ),
-                                            backgroundColor: red,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Text(
-                                      'Log In',
-                                      style: headerTSWhite,
+                                      },
+                                      child: Text(
+                                        'Log In',
+                                        style: headerTSWhite,
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                          primary: red, elevation: 6),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: red, elevation: 6),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('Forgotten your login details?',
-                                        style: defaultTS),
-                                    Text(' Get help with logging in.',
-                                        style: defaultHighLightedTS),
-                                  ],
-                                ),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * .1,
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Forgotten your login details?',
+                                          style: defaultTS),
+                                      Text(' Get help with logging in.',
+                                          style: defaultHighLightedTS),
+                                    ],
+                                  ),
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.height * .1,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 

@@ -54,13 +54,12 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  bool isLoggedIn = false;
 
   @override
   void initState() {
     // TODO: implement initState
-    triggerSplashScreen(context);
     super.initState();
+    triggerSplashScreen(context);
   }
 
   @override

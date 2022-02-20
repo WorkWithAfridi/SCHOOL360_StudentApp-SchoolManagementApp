@@ -76,6 +76,46 @@ class LogInProvider extends ChangeNotifier {
     return result;
   }
 
+  void resetInstitutionBool(){
+    showInstitutionIdSuccess=false;
+    showInstitutionIdError=false;
+  }
+  void resetStudentIdAndPassBool(){
+    showCredentialsError=false;
+    showCredentialsSuccess=false;
+  }
 
+  bool _showInstitutionIdError = false;
+  bool _showInstitutionIdSuccess = false;
 
+  bool _showCredentialsError = false;
+  bool _showCredentialsSuccess = false;
+
+  bool get showCredentialsError => _showCredentialsError;
+
+  set showCredentialsError(bool value) {
+    _showCredentialsError = value;
+    notifyListeners();
+  }
+
+  bool get showInstitutionIdError => _showInstitutionIdError;
+
+  set showInstitutionIdError(bool value) {
+    _showInstitutionIdError = value;
+    notifyListeners();
+  }
+
+  bool get showInstitutionIdSuccess => _showInstitutionIdSuccess;
+
+  set showInstitutionIdSuccess(bool value) {
+    _showInstitutionIdSuccess = value;
+    notifyListeners();
+  }
+
+  bool get showCredentialsSuccess => _showCredentialsSuccess;
+
+  set showCredentialsSuccess(bool value) {
+    _showCredentialsSuccess = value;
+    notifyListeners();
+  }
 }
