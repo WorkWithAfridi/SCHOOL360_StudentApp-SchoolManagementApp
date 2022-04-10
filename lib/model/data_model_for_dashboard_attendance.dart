@@ -47,9 +47,9 @@ class Data {
   Data({
       String? totalWorkingDays, 
       String? totalPresentDays, 
-      int? totalHolidays, 
+      String? totalHolidays,
       String? totalLeaveDays, 
-      int? totalAbsentDays,}){
+      String? totalAbsentDays,}){
     _totalWorkingDays = totalWorkingDays;
     _totalPresentDays = totalPresentDays;
     _totalHolidays = totalHolidays;
@@ -58,23 +58,23 @@ class Data {
 }
 
   Data.fromJson(dynamic json) {
-    _totalWorkingDays = json['total_working_days'];
-    _totalPresentDays = json['total_present_days'];
-    _totalHolidays = json['total_holidays'];
-    _totalLeaveDays = json['total_leave_days'];
-    _totalAbsentDays = json['total_absent_days'];
+    _totalWorkingDays = json['total_working_days'].toString();
+    _totalPresentDays = json['total_present_days'].toString();
+    _totalHolidays = json['total_holidays'].toString();
+    _totalLeaveDays = json['total_leave_days'].toString();
+    _totalAbsentDays = json['total_absent_days'].toString();
   }
   String? _totalWorkingDays;
   String? _totalPresentDays;
-  int? _totalHolidays;
+  String? _totalHolidays;
   String? _totalLeaveDays;
-  int? _totalAbsentDays;
+  String? _totalAbsentDays;
 
   String? get totalWorkingDays => _totalWorkingDays;
   String? get totalPresentDays => _totalPresentDays;
-  int? get totalHolidays => _totalHolidays;
+  String? get totalHolidays => _totalHolidays.toString();
   String? get totalLeaveDays => _totalLeaveDays;
-  int? get totalAbsentDays => _totalAbsentDays;
+  String? get totalAbsentDays => _totalAbsentDays.toString();
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

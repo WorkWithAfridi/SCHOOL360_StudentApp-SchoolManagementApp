@@ -26,6 +26,7 @@ class DashboardProvider extends ChangeNotifier {
   late DataModelForNotice dataModelForNotice;
 
   Future<void> getNotice(BuildContext context) async {
+    print("Running getting notice part 1");
     showAlertBox = false;
     try {
       QRCodeDataProvider qrCodeData =
@@ -38,6 +39,8 @@ class DashboardProvider extends ChangeNotifier {
         "segment": 0.toString()
       });
       String data = response.body;
+      print("Running getting notice part 2");
+      print(data);
       if (data.isEmpty) {
         alertBoxText = 'No data found';
         alertBoxTitle = 'ERROR';
@@ -53,6 +56,8 @@ class DashboardProvider extends ChangeNotifier {
           alertBoxButtonTitle = "Retry";
           alertBoxButtonAction = "Retry";
           _showAlertBox = true;
+          dataModelForNotice = DataModelForNotice.fromJson(data1);
+          dataModelForNotice.data.toString();
           notifyListeners();
           return;
         }
@@ -85,10 +90,11 @@ class DashboardProvider extends ChangeNotifier {
       alertBoxButtonAction = "Retry";
       _showAlertBox = true;
       notifyListeners();
+      print(e.toString());
     }
   }
 
-int _pageNoForPayment=0;
+  int _pageNoForPayment = 0;
 
   int get pageNoForPayment => _pageNoForPayment;
 
@@ -96,17 +102,17 @@ int _pageNoForPayment=0;
     _pageNoForPayment = value;
   }
 
-  void decrementPage(){
+  void decrementPage() {
     _pageNoForPayment--;
     notifyListeners();
   }
 
-  void incrementPage(){
+  void incrementPage() {
     _pageNoForPayment++;
     notifyListeners();
   }
 
-  bool _showLoading=true;
+  bool _showLoading = true;
 
   bool get showLoading => _showLoading;
 

@@ -51,58 +51,59 @@ class NoticeProvider extends ChangeNotifier {
   }
 
   Future<void> getNotice(BuildContext context) async {
-    _showLoading=true;
+    _showLoading = true;
     // showLoading=true;
-    try {
-      QRCodeDataProvider qrCodeData =
-          Provider.of<QRCodeDataProvider>(context, listen: false);
-      String url =
-          'https://school360.app/${qrCodeData.schoolId}/service_bridge/getAllNotice';
-      http.Response response = await http.post(Uri.parse(url), body: {
-        "security_pin": '311556',
-        "row_per_page": 15.toString(),
-        "segment": pageNo.toString()
-      });
-      String data = response.body;
-      if (data.isEmpty) {
-        showAlertBox = true;
-        notifyListeners();
-        return;
-      } else {
-        var data1 = jsonDecode(data);
-        if (data1["is_success"] == false) {
-          showLoading = false;
-          alertBoxText = 'You are all caught up! :)';
-          alertBoxTitle = 'End of List';
-          alertBoxButtonTitle = "Close";
-          pageNo = pageNo - 1;
-          alertBoxButtonAction = "Close-EndOfPage";
-          _showAlertBox = true;
-          notifyListeners();
-          return;
-        }
-        _dataModelForNotice = DataModelForNotice.fromJson(data1);
-        if (dataModelForNotice.isSuccess == true) {
-          showLoading = false;
-          notifyListeners();
-        } else {
-          showAlertBox = true;
-          notifyListeners();
-        }
-      }
-    } on SocketException {
-      showLoading = false;
-      alertBoxText =
-          'Sorry. No working internet connection detected. Please try again later. :)';
-      alertBoxTitle = 'Error: 404';
-      alertBoxButtonTitle = "Retry";
-      alertBoxButtonAction = "Retry-NoInternetConnection";
-      _showAlertBox = true;
-      notifyListeners();
-      return;
-    } catch (e) {
+    // try {
+    QRCodeDataProvider qrCodeData =
+        Provider.of<QRCodeDataProvider>(context, listen: false);
+    String url =
+        'https://school360.app/${qrCodeData.schoolId}/service_bridge/getAllNotice';
+    http.Response response = await http.post(Uri.parse(url), body: {
+      "security_pin": '311556',
+      "row_per_page": 15.toString(),
+      "segment": pageNo.toString()
+    });
+    String data = response.body;
+    if (data.isEmpty) {
       showAlertBox = true;
       notifyListeners();
+      return;
+    } else {
+      var data1 = jsonDecode(data);
+      if (data1["is_success"] == false) {
+        showLoading = false;
+        alertBoxText = 'You are all caught up! :)';
+        alertBoxTitle = 'End of List';
+        alertBoxButtonTitle = "Close";
+        pageNo = pageNo - 1;
+        alertBoxButtonAction = "Close-EndOfPage";
+        _showAlertBox = true;
+        notifyListeners();
+        return;
+      }
+      _dataModelForNotice = DataModelForNotice.fromJson(data1);
+      if (dataModelForNotice.isSuccess == true) {
+        showLoading = false;
+        notifyListeners();
+      } else {
+        showAlertBox = true;
+        notifyListeners();
+      }
     }
+    // } on SocketException {
+    //   showLoading = false;
+    //   alertBoxText =
+    //       'Sorry. No working internet connection detected. Please try again later. :)';
+    //   alertBoxTitle = 'Error: 404';
+    //   alertBoxButtonTitle = "Retry";
+    //   alertBoxButtonAction = "Retry-NoInternetConnection";
+    //   _showAlertBox = true;
+    //   notifyListeners();
+    //   return;
+    // } catch (e) {
+    //   showAlertBox = true;
+    //   notifyListeners();
+    //   print(e.toString());
+    // }
   }
 }
