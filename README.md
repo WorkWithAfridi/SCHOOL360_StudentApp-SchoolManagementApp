@@ -32,7 +32,7 @@ The official mobile port for SCHOOL360 made with Flutter, Provider and REST API.
 
 * [School360 Student App Demo Video](https://www.youtube.com/watch?v=TH5n0BQdj6g)
 
-![Demo Image](insertLinkHere?raw=true)
+![Demo Image](https://github.com/llKYOTOll/SPATEi_SCHOOL360_StudentApp-V2/blob/master/lib/assets/promotional_images/Screenshot%202022-06-20%20173338.png?raw=true)
 
 ## How to install the app on your physical device
 
@@ -40,4 +40,4 @@ Download the source code and compile the apk using Flutter CLI or Android Studio
 
 ## Known Issue
 
-* 20th June 2022 - Wont Compile with Flutter 3.0.0 due to one of the core packages not being migrated or fully supported by Flutter 3.0.0. Package in question -> QR Code Scanner. PENDING UPDATE!
+* 20th June 2022 - Wont Compile with Flutter 3.0.0 due to one of the core packages not being migrated or fully compatable with Flutter 3.0.0. Package in question -> QR Code Scanner. PENDING UPDATE!
